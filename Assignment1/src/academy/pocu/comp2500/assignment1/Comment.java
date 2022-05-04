@@ -9,12 +9,14 @@ public class Comment {
     private HashSet<User> downVoters;
     private ArrayList<Comment> subcomments;
     private User author;
+    private Post post;
 
-    public Comment(User author, String text) {
+    public Comment(Post post, User author, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
         this.text = text;
+        this.post = post;
         this.author = author;
     }
 

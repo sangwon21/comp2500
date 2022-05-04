@@ -58,14 +58,14 @@ public class Program {
 
         assert blog.getPosts().get(0).getTitle().equals("Test1");
 
-        Comment comment1 = new Comment(user1, "This is comment1");
+        Comment comment1 = new Comment(post1, user1, "This is comment1");
         post1.addComment(comment1);
 
         // 7. 블로그 글에 댓글 달기
         assert post1.getComments().size() == 1;
         assert post1.getComments().get(0).getText().equals("This is comment1");
 
-        comment1.addSubcomment(new Comment(user1, "This is subcomment1"));
+        comment1.addSubcomment(new Comment(post1, user1, "This is subcomment1"));
 
         // 8. 하위 댓글 달기
         assert comment1.getSubcomments().size() == 1;

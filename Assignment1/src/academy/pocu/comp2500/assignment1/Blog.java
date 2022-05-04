@@ -12,12 +12,12 @@ public class Blog {
     private User owner;
 
     // 1. registerBlogCreator()
-    public Blog(User owner) {
+    public Blog(User author) {
         posts = new ArrayList<>();
         tagFilters = new ArrayList<>();
         authorFilter = null;
         postSortingType = SortingType.CREATED_AT_ASCENDING;
-        this.owner = owner;
+        this.owner = author;
     }
 
     @Override

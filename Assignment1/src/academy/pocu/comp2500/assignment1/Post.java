@@ -14,11 +14,7 @@ public class Post {
     private HashMap<User, HashSet<Reaction>> reactions;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
-
-    public Post(User author, String title) {
-        this(author, title, "");
-    }
-
+    
     public Post(User author, String title, String body) {
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;

@@ -32,7 +32,7 @@ public class Post {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        int prime = 31;
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((body == null) ? 0 : body.hashCode());

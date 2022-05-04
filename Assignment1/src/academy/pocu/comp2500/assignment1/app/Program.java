@@ -1,6 +1,7 @@
 package academy.pocu.comp2500.assignment1.app;
 
 import academy.pocu.comp2500.assignment1.*;
+import academy.pocu.comp2500.assignment1.registry.Registry;
 
 import java.util.ArrayList;
 
@@ -93,5 +94,9 @@ public class Program {
         post2.addReaction(user1, Reaction.ANGRY);
 
         assert post2.getReactionCountFilteredByUser(user1) == 1;
+
+        Registry registry = new Registry();
+        App app = new App(registry);
+        registry.validate();
     }
 }

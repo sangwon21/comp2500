@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Blog {
-    ArrayList<Post> posts;
-    SortingType postSortingType;
+    private ArrayList<Post> posts;
+    private SortingType postSortingType;
     private ArrayList<String> tagFilters;
     private User authorFilter;
     private User owner;
@@ -18,16 +18,6 @@ public class Blog {
         authorFilter = null;
         postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.owner = author;
-    }
-
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int hashCode = 1;
-
-        hashCode = prime * hashCode + ((owner == null) ? 0 : owner.hashCode());
-
-        return hashCode;
     }
 
     // 6. registerPostAdder()

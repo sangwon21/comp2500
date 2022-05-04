@@ -4,26 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Comment {
-    private String body;
+    private String text;
     private HashSet<User> upVoters;
     private HashSet<User> downVoters;
     private ArrayList<Comment> subcomments;
+    private User author;
 
-    public Comment(String body) {
+    public Comment(User author, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
-        this.body = body;
-    }
-
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int hashCode = 1;
-
-        hashCode = prime * hashCode + ((body == null) ? 0 : body.hashCode());
-
-        return hashCode;
+        this.text = text;
+        this.author = author;
     }
 
     // 11. registerSubcommentAdder()
@@ -34,14 +26,14 @@ public class Comment {
         subcomments.add(subcomment);
     }
 
-    public String getBody() {
-        return this.body;
+    public String getText() {
+        return this.text;
     }
 
     // 12. registerCommentUpdater()
     // 13. registerSubcommentUpdater()
-    public void setBody(String body) {
-        this.body = body;
+    public void setText(String text) {
+        this.text = text;
     }
 
     // 16. registerCommentUpvoter():

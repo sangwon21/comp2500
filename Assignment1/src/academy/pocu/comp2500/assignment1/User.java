@@ -12,15 +12,5 @@ public class User {
     public String getFullName() {
         return this.firstName + this.lastName;
     }
-
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int hashCode = 1;
-
-        hashCode = prime * hashCode + ((firstName == null) ? 0 : firstName.hashCode());
-        hashCode = prime * hashCode + lastName.hashCode();
-
-        return hashCode;
-    }
+    
 }

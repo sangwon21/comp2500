@@ -14,7 +14,7 @@ public class Post {
     private HashMap<User, HashSet<Reaction>> reactions;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
-    
+
     public Post(User author, String title, String body) {
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;
@@ -24,16 +24,6 @@ public class Post {
         this.reactions = new HashMap<>();
         this.modifiedDateTime = null;
         this.author = author;
-    }
-
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int hashCode = 1;
-
-        hashCode = prime * hashCode + ((body == null) ? 0 : body.hashCode());
-
-        return hashCode;
     }
 
     public OffsetDateTime getCreatedDateTime() {

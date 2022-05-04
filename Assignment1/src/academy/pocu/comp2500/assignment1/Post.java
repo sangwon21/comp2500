@@ -23,7 +23,7 @@ public class Post {
         this.tags = new ArrayList<>();
         this.comments = new ArrayList<>();
         this.reactions = new HashMap<>();
-        this.modifiedDateTime = null;
+        this.modifiedDateTime = OffsetDateTime.now();
         this.author = author;
         this.blog = blog;
     }

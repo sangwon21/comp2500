@@ -1,5 +1,6 @@
 package academy.pocu.comp2500.assignment1;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -10,6 +11,7 @@ public class Comment {
     private ArrayList<Comment> subcomments;
     private User author;
     private Post post;
+    private OffsetDateTime createdDateTime;
 
     public Comment(Post post, User author, String text) {
         upVoters = new HashSet<>();
@@ -18,6 +20,7 @@ public class Comment {
         this.text = text;
         this.post = post;
         this.author = author;
+        this.createdDateTime = OffsetDateTime.now();
     }
 
     // 11. registerSubcommentAdder()

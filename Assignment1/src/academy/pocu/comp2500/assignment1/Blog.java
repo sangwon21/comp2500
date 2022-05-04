@@ -7,12 +7,27 @@ import java.util.stream.Collectors;
 public class Blog {
     ArrayList<Post> posts;
     SortingType postSortingType;
-    private String tagFilter;
+    private ArrayList<String> tagFilters;
     private User authorFilter;
+    private User owner;
 
     // 1. registerBlogCreator()
-    public Blog() {
+    public Blog(User owner) {
         posts = new ArrayList<>();
+        tagFilters = new ArrayList<>();
+        authorFilter = null;
+        postSortingType = SortingType.CREATED_AT_ASCENDING;
+        this.owner = owner;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((owner == null) ? 0 : owner.hashCode());
+
+        return hashCode;
     }
 
     // 6. registerPostAdder()
@@ -25,27 +40,30 @@ public class Blog {
 
     private List<Post> sortPosts(List<Post> posts) {
         switch (this.postSortingType) {
-            case WRITTEN_ASCENDING:
-                posts.sort((a, b) -> {
+            case CREATED_AT_ASCENDING:
+                posts.stream().sorted((a, b) -> {
                     return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
                 });
                 break;
-            case WRITTEN_DESCENDING:
+            case CREATED_AT_DESCENDING:
                 posts.sort((a, b) -> {
-                    return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
+                    return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
                 });
                 break;
-            case REVISION_ASCENDING:
+            case MODIFIED_AT_ASCENDING:
                 posts.sort((a, b) -> {
-                    return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
+                    return a.getModifiedDateTime().compareTo(b.getModifiedDateTime());
                 });
                 break;
-            case REVISION_DESCENDING:
+            case MODIFIED_AT_DESCENDING:
                 posts.sort((a, b) -> {
-                    return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
+                    return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
                 });
                 break;
             case TITLE_ORDER:
+                posts.sort((a, b) -> {
+                    return a.getTitle().compareTo(b.getTitle());
+                });
                 break;
         }
         return posts;
@@ -54,24 +72,34 @@ public class Blog {
     // 5. registerPostListGetter()
     public List<Post> getPosts() {
         List<Post> filteredPosts = posts.stream().filter((post) -> {
-            if (post.getTags().contains(this.tagFilter)) {
+            if (tagFilters.size() == 0) {
                 return true;
             }
+
+            for (String tag : tagFilters) {
+                if (post.getTags().contains(tag)) {
+                    return true;
+                }
+            }
+
             return false;
         }).filter((post) -> {
+            if (this.authorFilter == null) {
+                return true;
+            }
+
             if (post.getAuthor().equals(this.authorFilter)) {
                 return true;
             }
             return false;
         }).collect(Collectors.toList());
 
-
-        return posts;
+        return sortPosts(filteredPosts);
     }
 
     // 2. registerTagFilterSetter()
-    public void setTagFilter(String tag) {
-        this.tagFilter = tag;
+    public void setTagFilters(ArrayList<String> tags) {
+        this.tagFilters = tags;
     }
 
     // 3. registerAuthorFilterSetter()

@@ -2,17 +2,28 @@ package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.UUID;
 
 public class Comment {
-    private UUID commentId;
     private String body;
     private HashSet<User> upVoters;
     private HashSet<User> downVoters;
     private ArrayList<Comment> subcomments;
 
     public Comment(String body) {
+        upVoters = new HashSet<>();
+        downVoters = new HashSet<>();
+        subcomments = new ArrayList<>();
         this.body = body;
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((body == null) ? 0 : body.hashCode());
+
+        return hashCode;
     }
 
     // 11. registerSubcommentAdder()
@@ -21,6 +32,10 @@ public class Comment {
             return;
         }
         subcomments.add(subcomment);
+    }
+
+    public String getBody() {
+        return this.body;
     }
 
     // 12. registerCommentUpdater()
@@ -52,5 +67,13 @@ public class Comment {
     // 19. registerSubcommentListGetter()
     public ArrayList<Comment> getSubcomments() {
         return subcomments;
+    }
+
+    public int getUpvoter() {
+        return this.upVoters.size();
+    }
+
+    public int getDownvoter() {
+        return this.downVoters.size();
     }
 }

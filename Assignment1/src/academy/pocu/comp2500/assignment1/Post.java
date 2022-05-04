@@ -4,11 +4,9 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.UUID;
 
 public class Post {
     private User author;
-    private UUID postId;
     private ArrayList<String> tags;
     private String title;
     private String body;
@@ -17,12 +15,41 @@ public class Post {
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
 
-    public Post(User author) {
+    public Post(User author, String title) {
+        this(author, title, "");
+    }
+
+    public Post(User author, String title, String body) {
+        this.createdDateTime = OffsetDateTime.now();
+        this.title = title;
+        this.body = body;
+        this.tags = new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.reactions = new HashMap<>();
+        this.modifiedDateTime = null;
         this.author = author;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((body == null) ? 0 : body.hashCode());
+
+        return hashCode;
     }
 
     public OffsetDateTime getCreatedDateTime() {
         return this.createdDateTime;
+    }
+
+    public OffsetDateTime getModifiedDateTime() {
+        return this.modifiedDateTime;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     public ArrayList<String> getTags() {
@@ -36,11 +63,17 @@ public class Post {
     // 7. registerPostTitleUpdater()
     public void setTitle(String title) {
         this.title = title;
+        this.modifiedDateTime = OffsetDateTime.now();
     }
 
     // 8. registerPostBodyUpdater()
     public void setBody(String body) {
         this.body = body;
+        this.modifiedDateTime = OffsetDateTime.now();
+    }
+
+    public String getBody() {
+        return this.body;
     }
 
     // 9. registerPostTagAdder()
@@ -50,6 +83,7 @@ public class Post {
         }
         tags.add(tag);
     }
+
 
     // 10. registerCommentAdder()
     public void addComment(Comment comment) {
@@ -79,6 +113,10 @@ public class Post {
         }
 
         reactions.get(user).remove(reaction);
+    }
+
+    public int getReactionCountFilteredByUser(User user) {
+        return reactions.get(user).size();
     }
 
     // 18. registerCommentListGetter()

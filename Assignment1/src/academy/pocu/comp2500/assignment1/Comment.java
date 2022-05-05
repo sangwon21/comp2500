@@ -11,16 +11,16 @@ public class Comment {
     private Set<String> upVoters;
     private Set<String> downVoters;
     private List<Comment> subcomments;
-    private String userId;
+    private String authorId;
     private OffsetDateTime createdDateTime;
     private String id;
 
-    public Comment(String id, String userId, String text) {
+    public Comment(String id, String authorId, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
         this.text = text;
-        this.userId = userId;
+        this.authorId = authorId;
         this.createdDateTime = OffsetDateTime.now();
         this.id = id;
     }
@@ -37,8 +37,8 @@ public class Comment {
 
     // 12. registerCommentUpdater()
     // 13. registerSubcommentUpdater()
-    public void setText(String text, String userId) {
-        if (!this.userId.equals(userId)) {
+    public void setText(String text, String authorId) {
+        if (!this.authorId.equals(authorId)) {
             return;
         }
 

@@ -17,8 +17,7 @@ public class Post {
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
 
-    public Post(String blogId, String authorId, String title, String body) {
-        this.blogId = blogId;
+    public Post(String authorId, String title, String body) {
         this.title = title;
         this.body = body;
         this.tags = new HashSet<>();
@@ -111,29 +110,19 @@ public class Post {
     // 10. registerCommentAdder()
     public void addComment(Comment comment) {
         comments.add(comment);
-        this.modifiedAt = OffsetDateTime.now();
     }
 
     // 14. registerReactionAdder()
     public boolean addReaction(String authorId, Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
 
-        boolean result = reactionSet.add(authorId);
-        if (result) {
-            this.modifiedAt = OffsetDateTime.now();
-        }
-        return result;
+        return reactionSet.add(authorId);
     }
 
     // 15. registerReactionRemover()
     public boolean removeReaction(String authorId, Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
 
-        boolean result = reactionSet.remove(authorId);
-        if (result) {
-            this.modifiedAt = OffsetDateTime.now();
-        }
-
-        return result;
+        return reactionSet.remove(authorId);
     }
 }

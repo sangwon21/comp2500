@@ -14,11 +14,14 @@ public class Program {
 
         // 1. 블로그 생성하기
         Blog blog = new Blog(user1);
-        Post post1 = new Post(id, user1, "Test1", "This is test1");
+
+        assert blog.getPosts().size() == 0;
+
+        Post post1 = new Post(user1, "Test1", "This is test1");
 
         // 2. 블로그 글 추가하기
         // 3. 블로그 글 목록 가져오기
-        blog.addPost(post1);
+        blog.addPost(post1, "post1");
         assert blog.getPosts().size() == 1;
         assert blog.getPosts().get(0).getTitle().equals("Test1");
         assert blog.getPosts().get(0).getAuthorId().equals("Subin");
@@ -26,23 +29,25 @@ public class Program {
         post1.addTag("WSJN");
 
         String user2 = "Taeyeon";
-        Post post2 = new Post(id, user2, "Test2", "This is test2");
+        Post post2 = new Post(user2, "Test2", "This is test2");
         post2.addTag("SNSD");
-        blog.addPost(post2);
+        post2.addTag("WSJN");
+        blog.addPost(post2, "post2");
 
         // 4. 블로그 글 목록 필터링하기(태그 기준)
         ArrayList<String> tagFilters = new ArrayList<>();
         tagFilters.add("WSJN");
         blog.setTagFilters(tagFilters);
-        assert blog.getPosts().size() == 1;
-        assert blog.getPosts().get(0).getTitle().equals("Test1");
+        assert blog.getPosts().size() == 2;
+        blog.setPostSortingType(SortingType.CREATED_AT_DESCENDING);
+        assert blog.getPosts().get(0).getTitle().equals("Test2");
 
         tagFilters.remove("WSJN");
 
         assert blog.getPosts().size() == 2;
 
-        Post post3 = new Post(id, user1, "Test3", "This is test3");
-        blog.addPost(post3);
+        Post post3 = new Post(user1, "Test3", "This is test3");
+        blog.addPost(post3, "post3");
 
         // 5. 블로그 글 목록 필터링하기(작성자 기준)
         blog.setAuthorFilter(user1);

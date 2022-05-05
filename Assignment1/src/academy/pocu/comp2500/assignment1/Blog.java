@@ -2,7 +2,9 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Blog {
@@ -12,7 +14,7 @@ public class Blog {
     private String authorFilterOrNull;
     private String userId;
     private OffsetDateTime createdAt;
-    private OffsetDateTime modifiedAt;
+    private Set<String> postIdSet;
 
     // 1. registerBlogCreator()
     public Blog(String userId) {
@@ -22,17 +24,16 @@ public class Blog {
         postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.userId = userId;
         this.createdAt = OffsetDateTime.now();
-        this.modifiedAt = OffsetDateTime.now();
+        this.postIdSet = new HashSet<>();
     }
 
     // 6. registerPostAdder()
-    public void addPost(Post post) {
-        this.modifiedAt = OffsetDateTime.now();
+    public void addPost(Post post, String postId) {
+        if (postIdSet.contains(postId)) {
+            return;
+        }
+        postIdSet.add(postId);
         posts.add(post);
-    }
-
-    public OffsetDateTime getModifiedAt() {
-        return this.modifiedAt;
     }
 
     public OffsetDateTime getCreatedAt() {
@@ -111,19 +112,16 @@ public class Blog {
 
     // 2. registerTagFilterSetter()
     public void setTagFilters(ArrayList<String> tags) {
-        this.modifiedAt = OffsetDateTime.now();
         this.tagFilters = tags;
     }
 
     // 3. registerAuthorFilterSetter()
     public void setAuthorFilter(String authorId) {
-        this.modifiedAt = OffsetDateTime.now();
         this.authorFilterOrNull = authorId;
     }
 
     // 4. registerPostOrderSetter()
     public void setPostSortingType(SortingType sortingType) {
-        this.modifiedAt = OffsetDateTime.now();
         this.postSortingType = sortingType;
     }
 }

@@ -25,24 +25,8 @@ public class Blog {
         this.createdAt = OffsetDateTime.now();
     }
 
-    public OffsetDateTime getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public List<String> getTagFilters() {
-        return this.tagFilters;
-    }
-
-    public String getAuthorFilter() {
-        return this.authorFilterOrNull;
-    }
-
-    public String getUserId() {
+    public String getAuthorId() {
         return this.authorId;
-    }
-
-    public SortingType getSortingType() {
-        return this.sortingType;
     }
 
     // 2. registerTagFilterSetter()

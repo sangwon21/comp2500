@@ -36,14 +36,6 @@ public class Comment {
         return this.text;
     }
 
-    public OffsetDateTime getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public OffsetDateTime getModifiedAt() {
-        return this.modifiedAt;
-    }
-
     // 12. registerCommentUpdater()
     // 13. registerSubcommentUpdater()
     public boolean setText(String text, String authorId) {

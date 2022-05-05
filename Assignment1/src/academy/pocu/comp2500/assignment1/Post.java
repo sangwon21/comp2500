@@ -76,8 +76,8 @@ public class Post {
     }
 
     // 7. registerPostTitleUpdater()
-    public boolean setTitle(String title, String authorId) {
-        if (!this.authorId.equals(authorId)) {
+    public boolean setTitle(String title, String userId) {
+        if (!this.authorId.equals(userId)) {
             return false;
         }
 
@@ -87,8 +87,8 @@ public class Post {
     }
 
     // 8. registerPostBodyUpdater()
-    public boolean setBody(String body, String authorId) {
-        if (!this.authorId.equals(authorId)) {
+    public boolean setBody(String body, String userId) {
+        if (!this.authorId.equals(userId)) {
             return false;
         }
 
@@ -98,7 +98,11 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public boolean addTag(String tag) {
+    public boolean addTag(String tag, String userId) {
+        if (!this.authorId.equals(userId)) {
+            return false;
+        }
+
         return this.tags.add(tag);
     }
 

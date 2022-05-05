@@ -26,13 +26,17 @@ public class Comment {
     }
 
     // 11. registerSubcommentAdder()
-    public void addSubcomment(Comment subcomment, String commentId) {
+    public void addSubcomment(Comment subcomment, String commentId, String postId, String blogId, String text) {
         subcomment.id = commentId;
         subcomments.add(subcomment);
     }
 
     public String getText() {
         return this.text;
+    }
+
+    public OffsetDateTime getCreatedDateTime() {
+        return this.createdDateTime;
     }
 
     // 12. registerCommentUpdater()

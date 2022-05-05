@@ -13,27 +13,21 @@ public class Blog {
     private List<String> tagFilters;
     private String authorFilterOrNull;
     private String userId;
-    private OffsetDateTime createdAt;
 
     // 1. registerBlogCreator()
     public Blog(String userId) {
-        posts = new ArrayList<>();
-        tagFilters = new ArrayList<>();
-        authorFilterOrNull = null;
-        postSortingType = SortingType.CREATED_AT_ASCENDING;
+        this.posts = new ArrayList<>();
+        this.tagFilters = new ArrayList<>();
+        this.authorFilterOrNull = null;
+        this.postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.userId = userId;
-        this.createdAt = OffsetDateTime.now();
     }
 
     // 6. registerPostAdder()
     public boolean addPost(Post post) {
         return posts.add(post);
     }
-
-    public OffsetDateTime getCreatedAt() {
-        return this.createdAt;
-    }
-
+    
     public List<String> getTagFilters() {
         return this.tagFilters;
     }

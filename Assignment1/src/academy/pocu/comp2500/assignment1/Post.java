@@ -5,12 +5,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Post {
-    private String blogId;
     private String authorId;
     private Set<String> tags;
     private String title;
     private String body;
-    private Set<Comment> comments;
+    private List<Comment> comments;
     private HashMap<Reaction, Set<String>> reactions;
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
@@ -19,7 +18,7 @@ public class Post {
         this.title = title;
         this.body = body;
         this.tags = new HashSet<>();
-        this.comments = new HashSet<>();
+        this.comments = new ArrayList<>();
         this.reactions = new HashMap<>();
         this.modifiedAt = OffsetDateTime.now();
         this.createdAt = OffsetDateTime.now();
@@ -50,10 +49,6 @@ public class Post {
 
     public String getAuthorId() {
         return this.authorId;
-    }
-
-    public String getBlogId() {
-        return this.blogId;
     }
 
     public String getBody() {

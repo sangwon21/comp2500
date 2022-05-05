@@ -78,7 +78,7 @@ public class Blog {
                 return true;
             }
 
-            if (post.getAuthor().equals(this.authorFilter)) {
+            if (post.getAuthorId().equals(this.authorFilter)) {
                 return true;
             }
             return false;

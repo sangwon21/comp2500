@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Post {
     private String blogId;
-    private String userId;
+    private String authorId;
     private Set<String> tags;
     private String title;
     private String body;
@@ -17,7 +17,7 @@ public class Post {
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
 
-    public Post(String blogId, String userId, String title, String body) {
+    public Post(String blogId, String authorId, String title, String body) {
         this.blogId = blogId;
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;
@@ -26,7 +26,7 @@ public class Post {
         this.comments = new ArrayList<>();
         this.reactions = new HashMap<>();
         this.modifiedDateTime = OffsetDateTime.now();
-        this.userId = userId;
+        this.authorId = authorId;
 
         reactions.put(Reaction.ANGRY, new HashSet<>());
         reactions.put(Reaction.FUN, new HashSet<>());
@@ -51,8 +51,12 @@ public class Post {
         return this.tags;
     }
 
-    public String getAuthor() {
-        return this.userId;
+    public String getAuthorId() {
+        return this.authorId;
+    }
+
+    public String getBlogId() {
+        return this.blogId;
     }
 
     public String getBody() {
@@ -72,8 +76,8 @@ public class Post {
     }
 
     // 7. registerPostTitleUpdater()
-    public void setTitle(String title, String userId) {
-        if (!this.userId.equals(userId)) {
+    public void setTitle(String title, String authorId) {
+        if (!this.authorId.equals(authorId)) {
             return;
         }
 
@@ -82,8 +86,8 @@ public class Post {
     }
 
     // 8. registerPostBodyUpdater()
-    public void setBody(String body, String userId) {
-        if (!this.userId.equals(userId)) {
+    public void setBody(String body, String authorId) {
+        if (!this.authorId.equals(authorId)) {
             return;
         }
 
@@ -103,16 +107,16 @@ public class Post {
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(String userId, Reaction reactionType) {
+    public boolean addReaction(String authorId, Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
 
-        return reactionSet.add(userId);
+        return reactionSet.add(authorId);
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(String userId, Reaction reactionType) {
+    public boolean removeReaction(String authorId, Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
 
-        return reactionSet.remove(userId);
+        return reactionSet.remove(authorId);
     }
 }

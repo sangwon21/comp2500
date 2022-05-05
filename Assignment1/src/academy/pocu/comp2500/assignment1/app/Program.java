@@ -21,7 +21,7 @@ public class Program {
         blog.addPost(post1);
         assert blog.getPosts().size() == 1;
         assert blog.getPosts().get(0).getTitle().equals("Test1");
-        assert blog.getPosts().get(0).getAuthor().equals("Subin");
+        assert blog.getPosts().get(0).getAuthorId().equals("Subin");
 
         post1.addTag("WSJN");
 

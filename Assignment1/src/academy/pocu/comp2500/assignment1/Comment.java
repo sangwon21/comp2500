@@ -74,7 +74,7 @@ public class Comment {
     // 19. registerSubcommentListGetter()
     public ArrayList<Comment> getSubcomments() {
         subcomments.sort((a, b) -> {
-            return (a.upVoters.size() - a.downVoters.size()) - (b.upVoters.size() - b.downVoters.size());
+            return (b.upVoters.size() - b.downVoters.size()) - (a.upVoters.size() - a.downVoters.size());
         });
         return subcomments;
     }

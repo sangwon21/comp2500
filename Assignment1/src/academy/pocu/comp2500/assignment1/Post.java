@@ -52,6 +52,9 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public ArrayList<Comment> getComments() {
+        comments.sort((a, b) -> {
+            return (b.getUpvoter() - b.getDownvoter()) - (a.getUpvoter() - a.getDownvoter());
+        });
         return comments;
     }
 

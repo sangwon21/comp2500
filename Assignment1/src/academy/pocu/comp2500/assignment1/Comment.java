@@ -16,7 +16,7 @@ public class Comment {
     private OffsetDateTime modifiedAt;
     private String id;
 
-    public Comment(String id, String authorId, String text) {
+    public Comment(String authorId, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
@@ -24,12 +24,10 @@ public class Comment {
         this.authorId = authorId;
         this.createdAt = OffsetDateTime.now();
         this.modifiedAt = OffsetDateTime.now();
-        this.id = id;
     }
 
     // 11. registerSubcommentAdder()
-    public void addSubcomment(Comment subcomment, String commentId, String postId, String blogId) {
-        subcomment.id = commentId;
+    public void addSubcomment(Comment subcomment, String text) {
         subcomments.add(subcomment);
     }
 
@@ -47,13 +45,14 @@ public class Comment {
 
     // 12. registerCommentUpdater()
     // 13. registerSubcommentUpdater()
-    public void setText(String text, String authorId) {
+    public boolean setText(String text, String authorId) {
         if (!this.authorId.equals(authorId)) {
-            return;
+            return false;
         }
 
         this.text = text;
         this.modifiedAt = OffsetDateTime.now();
+        return true;
     }
 
     // 16. registerCommentUpvoter():
@@ -75,7 +74,7 @@ public class Comment {
     // 19. registerSubcommentListGetter()
     public List<Comment> getSubcomments() {
         subcomments.sort((a, b) -> {
-            return (b.upVoters.size() - b.downVoters.size()) - (a.upVoters.size() - a.downVoters.size());
+            return (b.getUpvoter() - b.getDownvoter()) - (a.getUpvoter() - a.getDownvoter());
         });
         return subcomments;
     }

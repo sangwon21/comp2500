@@ -9,7 +9,7 @@ public class Blog {
     private List<Post> posts;
     private SortingType postSortingType;
     private List<String> tagFilters;
-    private String authorFilter;
+    private String authorFilterOrNull;
     private String userId;
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
@@ -18,7 +18,7 @@ public class Blog {
     public Blog(String userId) {
         posts = new ArrayList<>();
         tagFilters = new ArrayList<>();
-        authorFilter = null;
+        authorFilterOrNull = null;
         postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.userId = userId;
         this.createdAt = OffsetDateTime.now();
@@ -44,7 +44,7 @@ public class Blog {
     }
 
     public String getAuthorFilter() {
-        return this.authorFilter;
+        return this.authorFilterOrNull;
     }
 
     public String getUserId() {
@@ -96,11 +96,11 @@ public class Blog {
 
             return false;
         }).filter((post) -> {
-            if (this.authorFilter == null) {
+            if (this.authorFilterOrNull == null) {
                 return true;
             }
 
-            if (post.getAuthorId().equals(this.authorFilter)) {
+            if (post.getAuthorId().equals(this.authorFilterOrNull)) {
                 return true;
             }
             return false;
@@ -116,9 +116,9 @@ public class Blog {
     }
 
     // 3. registerAuthorFilterSetter()
-    public void setAuthorFilter(String author) {
+    public void setAuthorFilter(String authorId) {
         this.modifiedAt = OffsetDateTime.now();
-        this.authorFilter = author;
+        this.authorFilterOrNull = authorId;
     }
 
     // 4. registerPostOrderSetter()

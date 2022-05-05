@@ -72,13 +72,21 @@ public class Post {
     }
 
     // 7. registerPostTitleUpdater()
-    public void setTitle(String title) {
+    public void setTitle(String title, String userId) {
+        if (!this.userId.equals(userId)) {
+            return;
+        }
+
         this.title = title;
         this.modifiedDateTime = OffsetDateTime.now();
     }
 
     // 8. registerPostBodyUpdater()
-    public void setBody(String body) {
+    public void setBody(String body, String userId) {
+        if (!this.userId.equals(userId)) {
+            return;
+        }
+
         this.body = body;
         this.modifiedDateTime = OffsetDateTime.now();
     }

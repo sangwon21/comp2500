@@ -84,10 +84,10 @@ public class Program {
         assert comment1.getUpvoter() == 0;
 
         // 10. 블로그 글 업데이트하기
-        post1.setBody("This has changed");
+        post1.setBody("This has changed", user1);
         assert post1.getBody().equals("This has changed");
 
-        post1.setTitle("Title");
+        post1.setTitle("Title", user1);
         assert post1.getTitle().equals("Title");
 
         // 11. 블로그 글에 리액션 달기

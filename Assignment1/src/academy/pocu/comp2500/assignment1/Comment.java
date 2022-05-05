@@ -37,7 +37,11 @@ public class Comment {
 
     // 12. registerCommentUpdater()
     // 13. registerSubcommentUpdater()
-    public void setText(String text) {
+    public void setText(String text, String userId) {
+        if (!this.userId.equals(userId)) {
+            return;
+        }
+
         this.text = text;
     }
 

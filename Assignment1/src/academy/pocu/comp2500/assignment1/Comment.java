@@ -46,6 +46,9 @@ public class Comment {
     public boolean addUpVoter(User user) {
         if (downVoters.contains(user)) {
             downVoters.remove(user);
+        }
+
+        if (upVoters.contains(user)) {
             return false;
         }
 
@@ -58,6 +61,9 @@ public class Comment {
     public boolean addDownVoter(User user) {
         if (upVoters.contains(user)) {
             upVoters.remove(user);
+        }
+
+        if (downVoters.contains(user)) {
             return false;
         }
 
@@ -67,6 +73,9 @@ public class Comment {
 
     // 19. registerSubcommentListGetter()
     public ArrayList<Comment> getSubcomments() {
+        subcomments.sort((a, b) -> {
+            return (a.upVoters.size() - a.downVoters.size()) - (b.upVoters.size() - b.downVoters.size());
+        });
         return subcomments;
     }
 

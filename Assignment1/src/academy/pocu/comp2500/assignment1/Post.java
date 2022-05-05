@@ -76,23 +76,25 @@ public class Post {
     }
 
     // 7. registerPostTitleUpdater()
-    public void setTitle(String title, String authorId) {
+    public boolean setTitle(String title, String authorId) {
         if (!this.authorId.equals(authorId)) {
-            return;
+            return false;
         }
 
         this.title = title;
         this.modifiedDateTime = OffsetDateTime.now();
+        return true;
     }
 
     // 8. registerPostBodyUpdater()
-    public void setBody(String body, String authorId) {
+    public boolean setBody(String body, String authorId) {
         if (!this.authorId.equals(authorId)) {
-            return;
+            return false;
         }
 
         this.body = body;
         this.modifiedDateTime = OffsetDateTime.now();
+        return true;
     }
 
     // 9. registerPostTagAdder()

@@ -1,5 +1,6 @@
 package academy.pocu.comp2500.assignment1;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,8 @@ public class Blog {
     private List<String> tagFilters;
     private String authorFilter;
     private String userId;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime modifiedAt;
 
     // 1. registerBlogCreator()
     public Blog(String userId) {
@@ -18,14 +21,22 @@ public class Blog {
         authorFilter = null;
         postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.userId = userId;
+        this.createdAt = OffsetDateTime.now();
+        this.modifiedAt = OffsetDateTime.now();
     }
 
     // 6. registerPostAdder()
     public void addPost(Post post) {
-        if (posts.contains(post)) {
-            return;
-        }
+        this.modifiedAt = OffsetDateTime.now();
         posts.add(post);
+    }
+
+    public OffsetDateTime getModifiedAt() {
+        return this.modifiedAt;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
     }
 
     public List<String> getTagFilters() {
@@ -48,19 +59,19 @@ public class Blog {
         switch (this.postSortingType) {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
+                    return a.getCreatedAt().compareTo(b.getCreatedAt());
                 }).collect(Collectors.toList());
             case CREATED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
+                    return b.getCreatedAt().compareTo(a.getCreatedAt());
                 }).collect(Collectors.toList());
             case MODIFIED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return a.getModifiedDateTime().compareTo(b.getModifiedDateTime());
+                    return a.getModifiedAt().compareTo(b.getModifiedAt());
                 }).collect(Collectors.toList());
             case MODIFIED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
+                    return b.getCreatedAt().compareTo(a.getCreatedAt());
                 }).collect(Collectors.toList());
             case TITLE_ORDER:
                 return posts.stream().sorted((a, b) -> {
@@ -100,16 +111,19 @@ public class Blog {
 
     // 2. registerTagFilterSetter()
     public void setTagFilters(ArrayList<String> tags) {
+        this.modifiedAt = OffsetDateTime.now();
         this.tagFilters = tags;
     }
 
     // 3. registerAuthorFilterSetter()
     public void setAuthorFilter(String author) {
+        this.modifiedAt = OffsetDateTime.now();
         this.authorFilter = author;
     }
 
     // 4. registerPostOrderSetter()
     public void setPostSortingType(SortingType sortingType) {
+        this.modifiedAt = OffsetDateTime.now();
         this.postSortingType = sortingType;
     }
 }

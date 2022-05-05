@@ -23,11 +23,11 @@ public class Program {
         assert blog.getPosts().get(0).getTitle().equals("Test1");
         assert blog.getPosts().get(0).getAuthorId().equals("Subin");
 
-        post1.addTag("WSJN", user1);
+        post1.addTag("WSJN");
 
         String user2 = "Taeyeon";
         Post post2 = new Post(id, user2, "Test2", "This is test2");
-        post2.addTag("SNSD", user2);
+        post2.addTag("SNSD");
         blog.addPost(post2);
 
         // 4. 블로그 글 목록 필터링하기(태그 기준)
@@ -66,7 +66,7 @@ public class Program {
         assert post1.getComments().size() == 1;
         assert post1.getComments().get(0).getText().equals("This is comment1");
 
-        comment1.addSubcomment(new Comment(id, user1, "This is subcomment1"), id, id, id, id);
+        comment1.addSubcomment(new Comment(id, user1, "This is subcomment1"), id, id, id);
 
         // 8. 하위 댓글 달기
         assert comment1.getSubcomments().size() == 1;

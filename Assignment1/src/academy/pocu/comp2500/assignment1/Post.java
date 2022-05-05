@@ -1,7 +1,12 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Post {
@@ -10,7 +15,7 @@ public class Post {
     private String title;
     private String body;
     private List<Comment> comments;
-    private HashMap<Reaction, Set<String>> reactions;
+    private Map<Reaction, Set<String>> reactions;
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
 

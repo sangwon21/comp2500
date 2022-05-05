@@ -28,10 +28,26 @@ public class Blog {
         posts.add(post);
     }
 
+    public List<String> getTagFilters() {
+        return this.tagFilters;
+    }
+
+    public String getAuthorFilter() {
+        return this.authorFilter;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public SortingType getPostSortingType() {
+        return this.postSortingType;
+    }
+
     private List<Post> sortPosts(List<Post> posts) {
         switch (this.postSortingType) {
             case CREATED_AT_ASCENDING:
-                posts.stream().sorted((a, b) -> {
+                posts.sort((a, b) -> {
                     return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
                 });
                 break;

@@ -7,24 +7,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Post {
-    private User author;
-    private ArrayList<String> tags;
+    private String userId;
+    private Set<String> tags;
     private String title;
     private String body;
     private ArrayList<Comment> comments;
-    private HashMap<Reaction, Set<User>> reactions;
+    private HashMap<Reaction, Set<String>> reactions;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
 
-    public Post(User author, String title, String body) {
+    public Post(String userId, String title, String body) {
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;
         this.body = body;
-        this.tags = new ArrayList<>();
+        this.tags = new HashSet<>();
         this.comments = new ArrayList<>();
         this.reactions = new HashMap<>();
         this.modifiedDateTime = OffsetDateTime.now();
-        this.author = author;
+        this.userId = userId;
 
         reactions.put(Reaction.ANGRY, new HashSet<>());
         reactions.put(Reaction.FUN, new HashSet<>());
@@ -45,12 +45,12 @@ public class Post {
         return this.title;
     }
 
-    public ArrayList<String> getTags() {
+    public Set<String> getTags() {
         return this.tags;
     }
 
-    public User getAuthor() {
-        return this.author;
+    public String getAuthor() {
+        return this.userId;
     }
 
     public String getBody() {
@@ -65,7 +65,7 @@ public class Post {
         return comments;
     }
 
-    public HashMap<Reaction, Set<User>> getReactions() {
+    public HashMap<Reaction, Set<String>> getReactions() {
         return reactions;
     }
 
@@ -83,11 +83,7 @@ public class Post {
 
     // 9. registerPostTagAdder()
     public boolean addTag(String tag) {
-        if (tags.contains(tag)) {
-            return false;
-        }
-        tags.add(tag);
-        return true;
+        return this.tags.add(tag);
     }
 
 
@@ -100,16 +96,16 @@ public class Post {
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(User user, Reaction reaction) {
-        Set<User> reactionSet = this.reactions.get(reaction);
+    public boolean addReaction(String userId, Reaction reaction) {
+        Set<String> reactionSet = this.reactions.get(reaction);
 
-        return reactionSet.add(user);
+        return reactionSet.add(userId);
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(User user, Reaction reaction) {
-        Set<User> reactionSet = this.reactions.get(reaction);
+    public boolean removeReaction(String userId, Reaction reaction) {
+        Set<String> reactionSet = this.reactions.get(reaction);
 
-        return reactionSet.remove(user);
+        return reactionSet.remove(userId);
     }
 }

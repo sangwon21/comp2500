@@ -9,7 +9,7 @@ public class Program {
 
     public static void main(String[] args) {
         // write your code here
-        User user1 = new User("Subin", "Park");
+        String user1 = "Subin";
 
         // 1. 블로그 생성하기
         Blog blog = new Blog(user1);
@@ -20,11 +20,11 @@ public class Program {
         blog.addPost(post1);
         assert blog.getPosts().size() == 1;
         assert blog.getPosts().get(0).getTitle().equals("Test1");
-        assert blog.getPosts().get(0).getAuthor().getFullName().equals("SubinPark");
+        assert blog.getPosts().get(0).getAuthor().equals("Subin");
 
         post1.addTag("WSJN");
 
-        User user2 = new User("Taeyeon", "Kim");
+        String user2 = "Taeyeon";
         Post post2 = new Post(user2, "Test2", "This is test2");
         post2.addTag("SNSD");
         blog.addPost(post2);

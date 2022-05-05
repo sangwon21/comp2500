@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Blog {
-    private ArrayList<Post> posts;
+    private List<Post> posts;
     private SortingType postSortingType;
-    private ArrayList<String> tagFilters;
-    private User authorFilter;
-    private User owner;
+    private List<String> tagFilters;
+    private String authorFilter;
+    private String userId;
 
     // 1. registerBlogCreator()
-    public Blog(User author) {
+    public Blog(String userId) {
         posts = new ArrayList<>();
         tagFilters = new ArrayList<>();
         authorFilter = null;
         postSortingType = SortingType.CREATED_AT_ASCENDING;
-        this.owner = author;
+        this.userId = userId;
     }
 
     // 6. registerPostAdder()
@@ -93,7 +93,7 @@ public class Blog {
     }
 
     // 3. registerAuthorFilterSetter()
-    public void setAuthorFilter(User author) {
+    public void setAuthorFilter(String author) {
         this.authorFilter = author;
     }
 

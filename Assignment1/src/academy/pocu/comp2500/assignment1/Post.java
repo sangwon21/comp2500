@@ -89,22 +89,19 @@ public class Post {
 
     // 10. registerCommentAdder()
     public void addComment(Comment comment) {
-        if (comments.contains(comment)) {
-            return;
-        }
         comments.add(comment);
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(String userId, Reaction reaction) {
-        Set<String> reactionSet = this.reactions.get(reaction);
+    public boolean addReaction(String userId, Reaction reactionType) {
+        Set<String> reactionSet = this.reactions.get(reactionType);
 
         return reactionSet.add(userId);
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(String userId, Reaction reaction) {
-        Set<String> reactionSet = this.reactions.get(reaction);
+    public boolean removeReaction(String userId, Reaction reactionType) {
+        Set<String> reactionSet = this.reactions.get(reactionType);
 
         return reactionSet.remove(userId);
     }

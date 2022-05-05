@@ -12,24 +12,19 @@ public class Comment {
     private Set<String> downVoters;
     private List<Comment> subcomments;
     private String userId;
-    private Post post;
     private OffsetDateTime createdDateTime;
 
-    public Comment(Post post, String userId, String text) {
+    public Comment(String userId, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
         this.text = text;
-        this.post = post;
         this.userId = userId;
         this.createdDateTime = OffsetDateTime.now();
     }
 
     // 11. registerSubcommentAdder()
     public void addSubcomment(Comment subcomment) {
-        if (this.subcomments.contains(subcomment)) {
-            return;
-        }
         subcomments.add(subcomment);
     }
 

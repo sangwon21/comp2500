@@ -21,7 +21,7 @@ public class Program {
 
         // 2. 블로그 글 추가하기
         // 3. 블로그 글 목록 가져오기
-        blog.addPost(post1, "post1");
+        blog.addPost(user1, "Test1", "This is test1");
         assert blog.getPosts().size() == 1;
         assert blog.getPosts().get(0).getTitle().equals("Test1");
         assert blog.getPosts().get(0).getAuthorId().equals("Subin");
@@ -32,22 +32,24 @@ public class Program {
         Post post2 = new Post(user2, "Test2", "This is test2");
         post2.addTag("SNSD");
         post2.addTag("WSJN");
-        blog.addPost(post2, "post2");
+        blog.addPost(user2, "Test2", "This is test2");
 
         // 4. 블로그 글 목록 필터링하기(태그 기준)
         ArrayList<String> tagFilters = new ArrayList<>();
         tagFilters.add("WSJN");
         blog.setTagFilters(tagFilters);
+        System.out.println(blog.getPosts().size());
         assert blog.getPosts().size() == 2;
         blog.setPostSortingType(SortingType.CREATED_AT_DESCENDING);
         assert blog.getPosts().get(0).getTitle().equals("Test2");
 
         tagFilters.remove("WSJN");
-
+        System.out.println("main thread tagFilteer");
+        System.out.println(tagFilters);
         assert blog.getPosts().size() == 2;
 
         Post post3 = new Post(user1, "Test3", "This is test3");
-        blog.addPost(post3, "post3");
+        blog.addPost(user1, "Test3", "This is test3");
 
         // 5. 블로그 글 목록 필터링하기(작성자 기준)
         blog.setAuthorFilter(user1);
@@ -71,7 +73,7 @@ public class Program {
         assert post1.getComments().size() == 1;
         assert post1.getComments().get(0).getText().equals("This is comment1");
 
-        comment1.addSubcomment(new Comment(user1, "This is subcomment1"), id);
+        comment1.addSubcomment(user1, "This is subcomment1");
 
         // 8. 하위 댓글 달기
         assert comment1.getSubcomments().size() == 1;

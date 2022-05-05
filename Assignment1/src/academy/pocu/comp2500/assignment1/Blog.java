@@ -14,7 +14,6 @@ public class Blog {
     private String authorFilterOrNull;
     private String userId;
     private OffsetDateTime createdAt;
-    private Set<String> postIdSet;
 
     // 1. registerBlogCreator()
     public Blog(String userId) {
@@ -24,16 +23,11 @@ public class Blog {
         postSortingType = SortingType.CREATED_AT_ASCENDING;
         this.userId = userId;
         this.createdAt = OffsetDateTime.now();
-        this.postIdSet = new HashSet<>();
     }
 
     // 6. registerPostAdder()
-    public void addPost(Post post, String postId) {
-        if (postIdSet.contains(postId)) {
-            return;
-        }
-        postIdSet.add(postId);
-        posts.add(post);
+    public boolean addPost(String authorId, String title, String body) {
+        return posts.add(new Post(authorId, title, body));
     }
 
     public OffsetDateTime getCreatedAt() {
@@ -60,23 +54,23 @@ public class Blog {
         switch (this.postSortingType) {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return a.getCreatedAt().compareTo(b.getCreatedAt());
+                    return a.compareCreatedAt(b);
                 }).collect(Collectors.toList());
             case CREATED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return b.getCreatedAt().compareTo(a.getCreatedAt());
+                    return b.compareCreatedAt(a);
                 }).collect(Collectors.toList());
             case MODIFIED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return a.getModifiedAt().compareTo(b.getModifiedAt());
+                    return a.compareModifiedAt(b);
                 }).collect(Collectors.toList());
             case MODIFIED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
-                    return b.getCreatedAt().compareTo(a.getCreatedAt());
+                    return b.compareModifiedAt(a);
                 }).collect(Collectors.toList());
             case TITLE_ORDER:
                 return posts.stream().sorted((a, b) -> {
-                    return a.getTitle().compareTo(b.getTitle());
+                    return a.compareTitle(b);
                 }).collect(Collectors.toList());
         }
         return posts;
@@ -84,12 +78,18 @@ public class Blog {
 
     // 5. registerPostListGetter()
     public List<Post> getPosts() {
+        System.out.println("getPosts");
+        System.out.println(this.posts);
+        System.out.println("tagFilter");
+        System.out.println(this.tagFilters);
         List<Post> filteredPosts = posts.stream().filter((post) -> {
             if (tagFilters.size() == 0) {
                 return true;
             }
 
             for (String tag : tagFilters) {
+                System.out.println("post.getTags");
+                System.out.println(post.getTags());
                 if (post.getTags().contains(tag)) {
                     return true;
                 }
@@ -106,7 +106,7 @@ public class Blog {
             }
             return false;
         }).collect(Collectors.toList());
-
+        System.out.println(filteredPosts);
         return sortPosts(filteredPosts);
     }
 

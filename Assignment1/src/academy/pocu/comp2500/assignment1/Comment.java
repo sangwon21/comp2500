@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Comment {
     private String text;
@@ -14,7 +15,6 @@ public class Comment {
     private String authorId;
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
-    private String id;
 
     public Comment(String authorId, String text) {
         upVoters = new HashSet<>();
@@ -27,8 +27,9 @@ public class Comment {
     }
 
     // 11. registerSubcommentAdder()
-    public void addSubcomment(Comment subcomment, String text) {
-        subcomments.add(subcomment);
+    public void addSubcomment(String authorId, String text) {
+
+        subcomments.add(new Comment(authorId, text));
     }
 
     public String getText() {
@@ -73,10 +74,9 @@ public class Comment {
 
     // 19. registerSubcommentListGetter()
     public List<Comment> getSubcomments() {
-        subcomments.sort((a, b) -> {
-            return (b.getUpvoter() - b.getDownvoter()) - (a.getUpvoter() - a.getDownvoter());
-        });
-        return subcomments;
+        return subcomments.stream().sorted((a, b) -> {
+            return (b.compareVoter(a));
+        }).collect(Collectors.toList());
     }
 
     public int getUpvoter() {
@@ -85,5 +85,9 @@ public class Comment {
 
     public int getDownvoter() {
         return this.downVoters.size();
+    }
+
+    public int compareVoter(Comment comment) {
+        return (this.getUpvoter() - this.getDownvoter()) - (comment.getUpvoter() - comment.getDownvoter());
     }
 }

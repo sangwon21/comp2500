@@ -1,10 +1,8 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Post {
     private String blogId;
@@ -12,7 +10,7 @@ public class Post {
     private Set<String> tags;
     private String title;
     private String body;
-    private ArrayList<Comment> comments;
+    private Set<Comment> comments;
     private HashMap<Reaction, Set<String>> reactions;
     private OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
@@ -21,7 +19,7 @@ public class Post {
         this.title = title;
         this.body = body;
         this.tags = new HashSet<>();
-        this.comments = new ArrayList<>();
+        this.comments = new HashSet<>();
         this.reactions = new HashMap<>();
         this.modifiedAt = OffsetDateTime.now();
         this.createdAt = OffsetDateTime.now();
@@ -63,11 +61,10 @@ public class Post {
     }
 
     // 18. registerCommentListGetter()
-    public ArrayList<Comment> getComments() {
-        comments.sort((a, b) -> {
-            return (b.getUpvoter() - b.getDownvoter()) - (a.getUpvoter() - a.getDownvoter());
-        });
-        return comments;
+    public List<Comment> getComments() {
+        return comments.stream().sorted((a, b) -> {
+            return b.compareVoter(a);
+        }).collect(Collectors.toList());
     }
 
     public int getReactions(Reaction reactionType) {
@@ -98,12 +95,7 @@ public class Post {
 
     // 9. registerPostTagAdder()
     public boolean addTag(String tag) {
-        boolean result = this.tags.add(tag);
-        if (result) {
-            this.modifiedAt = OffsetDateTime.now();
-        }
-
-        return result;
+        return this.tags.add(tag);
     }
 
 
@@ -124,5 +116,17 @@ public class Post {
         Set<String> reactionSet = this.reactions.get(reactionType);
 
         return reactionSet.remove(authorId);
+    }
+
+    public int compareCreatedAt(Post post) {
+        return this.createdAt.compareTo(post.createdAt);
+    }
+
+    public int compareModifiedAt(Post post) {
+        return this.modifiedAt.compareTo(post.modifiedAt);
+    }
+
+    public int compareTitle(Post post) {
+        return this.title.compareTo(post.title);
     }
 }

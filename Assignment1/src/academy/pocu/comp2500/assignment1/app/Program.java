@@ -70,7 +70,7 @@ public class Program {
         assert post1.getComments().size() == 1;
         assert post1.getComments().get(0).getText().equals("This is comment1");
 
-        comment1.addSubcomment(user1, "This is subcomment1");
+        comment1.addSubcomment(new Comment(user1, "This is subcomment1"));
 
         // 8. 하위 댓글 달기
         assert comment1.getSubcomments().size() == 1;

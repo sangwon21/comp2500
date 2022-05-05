@@ -26,8 +26,8 @@ public class Blog {
     }
 
     // 6. registerPostAdder()
-    public boolean addPost(String authorId, String title, String body) {
-        return posts.add(new Post(authorId, title, body));
+    public boolean addPost(Post post) {
+        return posts.add(post);
     }
 
     public OffsetDateTime getCreatedAt() {
@@ -78,18 +78,12 @@ public class Blog {
 
     // 5. registerPostListGetter()
     public List<Post> getPosts() {
-        System.out.println("getPosts");
-        System.out.println(this.posts);
-        System.out.println("tagFilter");
-        System.out.println(this.tagFilters);
         List<Post> filteredPosts = posts.stream().filter((post) -> {
             if (tagFilters.size() == 0) {
                 return true;
             }
 
             for (String tag : tagFilters) {
-                System.out.println("post.getTags");
-                System.out.println(post.getTags());
                 if (post.getTags().contains(tag)) {
                     return true;
                 }
@@ -106,7 +100,6 @@ public class Blog {
             }
             return false;
         }).collect(Collectors.toList());
-        System.out.println(filteredPosts);
         return sortPosts(filteredPosts);
     }
 

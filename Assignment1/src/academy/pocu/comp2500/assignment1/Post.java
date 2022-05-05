@@ -100,8 +100,8 @@ public class Post {
 
 
     // 10. registerCommentAdder()
-    public void addComment(Comment comment) {
-        comments.add(comment);
+    public boolean addComment(Comment comment) {
+        return comments.add(comment);
     }
 
     // 14. registerReactionAdder()

@@ -9,25 +9,26 @@ import java.util.stream.Collectors;
 
 public class Blog {
     private List<Post> posts;
-    private SortingType postSortingType;
+    private SortingType psrtingType;
     private List<String> tagFilters;
     private String authorFilterOrNull;
-    private String userId;
+    private String authorId;
+    private OffsetDateTime createdAt;
 
     // 1. registerBlogCreator()
-    public Blog(String userId) {
+    public Blog(String authorId) {
         this.posts = new ArrayList<>();
         this.tagFilters = new ArrayList<>();
         this.authorFilterOrNull = null;
-        this.postSortingType = SortingType.CREATED_AT_ASCENDING;
-        this.userId = userId;
+        this.psrtingType = SortingType.CREATED_AT_ASCENDING;
+        this.authorId = authorId;
+        this.createdAt = OffsetDateTime.now();
     }
 
-    // 6. registerPostAdder()
-    public boolean addPost(Post post) {
-        return posts.add(post);
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
     }
-    
+
     public List<String> getTagFilters() {
         return this.tagFilters;
     }
@@ -37,15 +38,30 @@ public class Blog {
     }
 
     public String getUserId() {
-        return this.userId;
+        return this.authorId;
     }
 
-    public SortingType getPostSortingType() {
-        return this.postSortingType;
+    public SortingType getSortingType() {
+        return this.psrtingType;
+    }
+
+    // 2. registerTagFilterSetter()
+    public void setTagFilters(ArrayList<String> tags) {
+        this.tagFilters = tags;
+    }
+
+    // 3. registerAuthorFilterSetter()
+    public void setAuthorFilter(String authorId) {
+        this.authorFilterOrNull = authorId;
+    }
+
+    // 4. registerPostOrderSetter()
+    public void setPostSortingType(SortingType sortingType) {
+        this.psrtingType = sortingType;
     }
 
     private List<Post> sortPosts(List<Post> posts) {
-        switch (this.postSortingType) {
+        switch (this.psrtingType) {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareCreatedAt(b);
@@ -92,23 +108,19 @@ public class Blog {
             if (post.getAuthorId().equals(this.authorFilterOrNull)) {
                 return true;
             }
+
             return false;
         }).collect(Collectors.toList());
+
         return sortPosts(filteredPosts);
     }
 
-    // 2. registerTagFilterSetter()
-    public void setTagFilters(ArrayList<String> tags) {
-        this.tagFilters = tags;
-    }
-
-    // 3. registerAuthorFilterSetter()
-    public void setAuthorFilter(String authorId) {
-        this.authorFilterOrNull = authorId;
-    }
-
-    // 4. registerPostOrderSetter()
-    public void setPostSortingType(SortingType sortingType) {
-        this.postSortingType = sortingType;
+    // 6. registerPostAdder()
+    public boolean addPost(Post postOrNull) {
+        if (postOrNull == null) {
+            return false;
+        }
+        
+        return posts.add(postOrNull);
     }
 }

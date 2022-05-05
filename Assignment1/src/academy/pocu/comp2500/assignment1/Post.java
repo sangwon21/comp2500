@@ -36,6 +36,14 @@ public class Post {
         reactions.put(Reaction.SAD, new HashSet<>());
     }
 
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public OffsetDateTime getModifiedAt() {
+        return this.modifiedAt;
+    }
+
     public String getTitle() {
         return this.title;
     }
@@ -86,11 +94,8 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public boolean addTag(String tag, String userId) {
-        if (!this.authorId.equals(userId)) {
-            return false;
-        }
-
+    public boolean addTag(String tag) {
+        this.modifiedAt = OffsetDateTime.now();
         return this.tags.add(tag);
     }
 

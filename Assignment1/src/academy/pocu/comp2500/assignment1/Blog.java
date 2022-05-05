@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Blog {
     private List<Post> posts;
-    private SortingType psrtingType;
+    private SortingType sortingType;
     private List<String> tagFilters;
     private String authorFilterOrNull;
     private String authorId;
@@ -20,7 +20,7 @@ public class Blog {
         this.posts = new ArrayList<>();
         this.tagFilters = new ArrayList<>();
         this.authorFilterOrNull = null;
-        this.psrtingType = SortingType.CREATED_AT_ASCENDING;
+        this.sortingType = SortingType.CREATED_AT_DESCENDING;
         this.authorId = authorId;
         this.createdAt = OffsetDateTime.now();
     }
@@ -42,7 +42,7 @@ public class Blog {
     }
 
     public SortingType getSortingType() {
-        return this.psrtingType;
+        return this.sortingType;
     }
 
     // 2. registerTagFilterSetter()
@@ -57,11 +57,11 @@ public class Blog {
 
     // 4. registerPostOrderSetter()
     public void setPostSortingType(SortingType sortingType) {
-        this.psrtingType = sortingType;
+        this.sortingType = sortingType;
     }
 
     private List<Post> sortPosts(List<Post> posts) {
-        switch (this.psrtingType) {
+        switch (this.sortingType) {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareCreatedAt(b);
@@ -116,11 +116,7 @@ public class Blog {
     }
 
     // 6. registerPostAdder()
-    public boolean addPost(Post postOrNull) {
-        if (postOrNull == null) {
-            return false;
-        }
-        
-        return posts.add(postOrNull);
+    public boolean addPost(Post post) {
+        return posts.add(post);
     }
 }

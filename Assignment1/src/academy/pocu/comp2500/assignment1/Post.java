@@ -67,8 +67,8 @@ public class Post {
         return comments;
     }
 
-    public HashMap<Reaction, Set<String>> getReactions() {
-        return reactions;
+    public int getReactions(Reaction reactionType) {
+        return this.reactions.get(reactionType).size();
     }
 
     // 7. registerPostTitleUpdater()

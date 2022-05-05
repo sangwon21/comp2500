@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Post {
     private User author;
@@ -11,7 +12,7 @@ public class Post {
     private String title;
     private String body;
     private ArrayList<Comment> comments;
-    private HashMap<User, HashSet<Reaction>> reactions;
+    private HashMap<Reaction, Set<User>> reactions;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
 
@@ -24,6 +25,12 @@ public class Post {
         this.reactions = new HashMap<>();
         this.modifiedDateTime = OffsetDateTime.now();
         this.author = author;
+
+        reactions.put(Reaction.ANGRY, new HashSet<>());
+        reactions.put(Reaction.FUN, new HashSet<>());
+        reactions.put(Reaction.GREAT, new HashSet<>());
+        reactions.put(Reaction.LOVE, new HashSet<>());
+        reactions.put(Reaction.SAD, new HashSet<>());
     }
 
     public OffsetDateTime getCreatedDateTime() {
@@ -58,7 +65,7 @@ public class Post {
         return comments;
     }
 
-    public HashMap<User, HashSet<Reaction>> getReactions() {
+    public HashMap<Reaction, Set<User>> getReactions() {
         return reactions;
     }
 
@@ -94,35 +101,15 @@ public class Post {
 
     // 14. registerReactionAdder()
     public boolean addReaction(User user, Reaction reaction) {
-        if (reactions.containsKey(user)) {
-            if (reactions.get(user).contains(reaction)) {
-                return false;
-            }
-            reactions.get(user).add(reaction);
-            return true;
-        }
+        Set<User> reactionSet = this.reactions.get(reaction);
 
-        HashSet<Reaction> reactionSet = new HashSet<>();
-        reactionSet.add(reaction);
-
-        reactions.put(user, reactionSet);
-        return true;
+        return reactionSet.add(user);
     }
 
     // 15. registerReactionRemover()
     public boolean removeReaction(User user, Reaction reaction) {
-        if (!reactions.containsKey(user)) {
-            return false;
-        }
+        Set<User> reactionSet = this.reactions.get(reaction);
 
-        if (reactions.get(user).contains(reaction)) {
-            reactions.get(user).remove(reaction);
-            return true;
-        }
-        return false;
-    }
-
-    public int getReactionCountFilteredByUser(User user) {
-        return reactions.get(user).size();
+        return reactionSet.remove(user);
     }
 }

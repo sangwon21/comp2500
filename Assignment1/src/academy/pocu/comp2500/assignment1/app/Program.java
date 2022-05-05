@@ -93,8 +93,6 @@ public class Program {
         post2.addReaction(user1, Reaction.ANGRY);
         post2.addReaction(user1, Reaction.ANGRY);
 
-        assert post2.getReactionCountFilteredByUser(user1) == 1;
-
         Registry registry = new Registry();
         App app = new App(registry);
         registry.validate();

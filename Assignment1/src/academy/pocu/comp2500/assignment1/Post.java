@@ -98,11 +98,7 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public boolean addTag(String tag, String userId) {
-        if (!this.authorId.equals(userId)) {
-            return false;
-        }
-
+    public boolean addTag(String tag) {
         return this.tags.add(tag);
     }
 

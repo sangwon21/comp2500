@@ -47,30 +47,25 @@ public class Blog {
     private List<Post> sortPosts(List<Post> posts) {
         switch (this.postSortingType) {
             case CREATED_AT_ASCENDING:
-                posts.sort((a, b) -> {
+                return posts.stream().sorted((a, b) -> {
                     return a.getCreatedDateTime().compareTo(b.getCreatedDateTime());
-                });
-                break;
+                }).collect(Collectors.toList());
             case CREATED_AT_DESCENDING:
-                posts.sort((a, b) -> {
+                return posts.stream().sorted((a, b) -> {
                     return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
-                });
-                break;
+                }).collect(Collectors.toList());
             case MODIFIED_AT_ASCENDING:
-                posts.sort((a, b) -> {
+                return posts.stream().sorted((a, b) -> {
                     return a.getModifiedDateTime().compareTo(b.getModifiedDateTime());
-                });
-                break;
+                }).collect(Collectors.toList());
             case MODIFIED_AT_DESCENDING:
-                posts.sort((a, b) -> {
+                return posts.stream().sorted((a, b) -> {
                     return b.getCreatedDateTime().compareTo(a.getCreatedDateTime());
-                });
-                break;
+                }).collect(Collectors.toList());
             case TITLE_ORDER:
-                posts.sort((a, b) -> {
+                return posts.stream().sorted((a, b) -> {
                     return a.getTitle().compareTo(b.getTitle());
-                });
-                break;
+                }).collect(Collectors.toList());
         }
         return posts;
     }

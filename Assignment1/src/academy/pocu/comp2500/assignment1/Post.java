@@ -46,6 +46,19 @@ public class Post {
         return this.author;
     }
 
+    public String getBody() {
+        return this.body;
+    }
+
+    // 18. registerCommentListGetter()
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public HashMap<User, HashSet<Reaction>> getReactions() {
+        return reactions;
+    }
+
     // 7. registerPostTitleUpdater()
     public void setTitle(String title) {
         this.title = title;
@@ -56,10 +69,6 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
         this.modifiedDateTime = OffsetDateTime.now();
-    }
-
-    public String getBody() {
-        return this.body;
     }
 
     // 9. registerPostTagAdder()
@@ -112,10 +121,5 @@ public class Post {
 
     public int getReactionCountFilteredByUser(User user) {
         return reactions.get(user).size();
-    }
-
-    // 18. registerCommentListGetter()
-    public ArrayList<Comment> getComments() {
-        return comments;
     }
 }

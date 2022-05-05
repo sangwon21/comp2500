@@ -10,10 +10,11 @@ public class Program {
     public static void main(String[] args) {
         // write your code here
         String user1 = "Subin";
+        String id = "id";
 
         // 1. 블로그 생성하기
         Blog blog = new Blog(user1);
-        Post post1 = new Post(user1, "Test1", "This is test1");
+        Post post1 = new Post(id, user1, "Test1", "This is test1");
 
         // 2. 블로그 글 추가하기
         // 3. 블로그 글 목록 가져오기
@@ -25,7 +26,7 @@ public class Program {
         post1.addTag("WSJN");
 
         String user2 = "Taeyeon";
-        Post post2 = new Post(user2, "Test2", "This is test2");
+        Post post2 = new Post(id, user2, "Test2", "This is test2");
         post2.addTag("SNSD");
         blog.addPost(post2);
 
@@ -40,7 +41,7 @@ public class Program {
 
         assert blog.getPosts().size() == 2;
 
-        Post post3 = new Post(user1, "Test3", "This is test3");
+        Post post3 = new Post(id, user1, "Test3", "This is test3");
         blog.addPost(post3);
 
         // 5. 블로그 글 목록 필터링하기(작성자 기준)
@@ -58,14 +59,14 @@ public class Program {
 
         assert blog.getPosts().get(0).getTitle().equals("Test1");
 
-        Comment comment1 = new Comment(user1, "This is comment1");
+        Comment comment1 = new Comment(id, user1, "This is comment1");
         post1.addComment(comment1);
 
         // 7. 블로그 글에 댓글 달기
         assert post1.getComments().size() == 1;
         assert post1.getComments().get(0).getText().equals("This is comment1");
 
-        comment1.addSubcomment(new Comment(user1, "This is subcomment1"));
+        comment1.addSubcomment(new Comment(id, user1, "This is subcomment1"), id);
 
         // 8. 하위 댓글 달기
         assert comment1.getSubcomments().size() == 1;

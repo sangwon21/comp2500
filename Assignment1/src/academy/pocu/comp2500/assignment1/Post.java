@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Post {
+    private String blogId;
     private String userId;
     private Set<String> tags;
     private String title;
@@ -16,7 +17,8 @@ public class Post {
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
 
-    public Post(String userId, String title, String body) {
+    public Post(String blogId, String userId, String title, String body) {
+        this.blogId = blogId;
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;
         this.body = body;

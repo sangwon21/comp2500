@@ -13,18 +13,21 @@ public class Comment {
     private List<Comment> subcomments;
     private String userId;
     private OffsetDateTime createdDateTime;
+    private String id;
 
-    public Comment(String userId, String text) {
+    public Comment(String id, String userId, String text) {
         upVoters = new HashSet<>();
         downVoters = new HashSet<>();
         subcomments = new ArrayList<>();
         this.text = text;
         this.userId = userId;
         this.createdDateTime = OffsetDateTime.now();
+        this.id = id;
     }
 
     // 11. registerSubcommentAdder()
-    public void addSubcomment(Comment subcomment) {
+    public void addSubcomment(Comment subcomment, String commentId) {
+        subcomment.id = commentId;
         subcomments.add(subcomment);
     }
 

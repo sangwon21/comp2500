@@ -43,22 +43,26 @@ public class Comment {
 
     // 16. registerCommentUpvoter():
     // 20. registerSubcommentUpvoter()
-    public void addUpVoter(User user) {
+    public boolean addUpVoter(User user) {
         if (downVoters.contains(user)) {
             downVoters.remove(user);
+            return false;
         }
 
         upVoters.add(user);
+        return true;
     }
 
     // 17. registerCommentDownvoter()
     // 21. registerSubcommentDownvoter()
-    public void addDownVoter(User user) {
+    public boolean addDownVoter(User user) {
         if (upVoters.contains(user)) {
             upVoters.remove(user);
+            return false;
         }
 
         downVoters.add(user);
+        return true;
     }
 
     // 19. registerSubcommentListGetter()

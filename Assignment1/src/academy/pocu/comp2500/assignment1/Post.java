@@ -14,9 +14,8 @@ public class Post {
     private HashMap<User, HashSet<Reaction>> reactions;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
-    private Blog blog;
 
-    public Post(Blog blog, User author, String title, String body) {
+    public Post(User author, String title, String body) {
         this.createdDateTime = OffsetDateTime.now();
         this.title = title;
         this.body = body;
@@ -25,7 +24,6 @@ public class Post {
         this.reactions = new HashMap<>();
         this.modifiedDateTime = OffsetDateTime.now();
         this.author = author;
-        this.blog = blog;
     }
 
     public OffsetDateTime getCreatedDateTime() {
@@ -65,11 +63,12 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public void addTag(String tag) {
+    public boolean addTag(String tag) {
         if (tags.contains(tag)) {
-            return;
+            return false;
         }
         tags.add(tag);
+        return true;
     }
 
 
@@ -82,25 +81,33 @@ public class Post {
     }
 
     // 14. registerReactionAdder()
-    public void addReaction(User user, Reaction reaction) {
+    public boolean addReaction(User user, Reaction reaction) {
         if (reactions.containsKey(user)) {
+            if (reactions.get(user).contains(reaction)) {
+                return false;
+            }
             reactions.get(user).add(reaction);
-            return;
+            return true;
         }
 
         HashSet<Reaction> reactionSet = new HashSet<>();
         reactionSet.add(reaction);
 
         reactions.put(user, reactionSet);
+        return true;
     }
 
     // 15. registerReactionRemover()
-    public void removeReaction(User user, Reaction reaction) {
+    public boolean removeReaction(User user, Reaction reaction) {
         if (!reactions.containsKey(user)) {
-            return;
+            return false;
         }
 
-        reactions.get(user).remove(reaction);
+        if (reactions.get(user).contains(reaction)) {
+            reactions.get(user).remove(reaction);
+            return true;
+        }
+        return false;
     }
 
     public int getReactionCountFilteredByUser(User user) {

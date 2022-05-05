@@ -13,7 +13,7 @@ public class Program {
 
         // 1. 블로그 생성하기
         Blog blog = new Blog(user1);
-        Post post1 = new Post(blog, user1, "Test1", "This is test1");
+        Post post1 = new Post(user1, "Test1", "This is test1");
 
         // 2. 블로그 글 추가하기
         // 3. 블로그 글 목록 가져오기
@@ -25,7 +25,7 @@ public class Program {
         post1.addTag("WSJN");
 
         User user2 = new User("Taeyeon", "Kim");
-        Post post2 = new Post(blog, user2, "Test2", "This is test2");
+        Post post2 = new Post(user2, "Test2", "This is test2");
         post2.addTag("SNSD");
         blog.addPost(post2);
 
@@ -40,7 +40,7 @@ public class Program {
 
         assert blog.getPosts().size() == 2;
 
-        Post post3 = new Post(blog, user1, "Test3", "This is test3");
+        Post post3 = new Post(user1, "Test3", "This is test3");
         blog.addPost(post3);
 
         // 5. 블로그 글 목록 필터링하기(작성자 기준)

@@ -27,9 +27,9 @@ public class Comment {
     }
 
     // 11. registerSubcommentAdder()
-    public boolean addSubcomment(Comment subcomment) {
+    public boolean addSubcomment(Comment comment) {
 
-        return subcomments.add(subcomment);
+        return subcomments.add(comment);
     }
 
     public String getText() {

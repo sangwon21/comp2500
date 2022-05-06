@@ -94,9 +94,9 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public boolean addTag(String tag) {
+    public void addTags(Set<String> tags) {
         this.modifiedAt = OffsetDateTime.now();
-        return this.tags.add(tag);
+        this.tags = tags;
     }
 
 

@@ -35,8 +35,8 @@ public class Blog {
     }
 
     // 3. registerAuthorFilterSetter()
-    public void setAuthorFilter(String authorId) {
-        this.authorFilterOrNull = authorId;
+    public void setAuthorFilter(String author) {
+        this.authorFilterOrNull = author;
     }
 
     // 4. registerPostOrderSetter()

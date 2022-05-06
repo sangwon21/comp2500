@@ -1,12 +1,7 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Post {
@@ -62,9 +57,10 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public List<Comment> getComments() {
-        return comments.stream().sorted((a, b) -> {
+        Collections.sort(this.comments, (a, b) -> {
             return b.compareVoter(a);
-        }).collect(Collectors.toList());
+        });
+        return this.comments;
     }
 
     public int getReactions(Reaction reactionType) {

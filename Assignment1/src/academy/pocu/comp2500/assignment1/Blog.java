@@ -85,7 +85,7 @@ public class Blog {
 
             return false;
         }).filter((post) -> {
-            if (this.authorFilterOrNull == null) {
+            if (this.authorFilterOrNull == null || this.authorFilterOrNull.equals("")) {
                 return true;
             }
 

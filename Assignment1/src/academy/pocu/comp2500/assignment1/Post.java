@@ -101,26 +101,19 @@ public class Post {
 
     // 10. registerCommentAdder()
     public boolean addComment(Comment comment) {
+        this.modifiedAt = OffsetDateTime.now();
         return comments.add(comment);
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(String authorId, Reaction reactionType) {
-        if (this.authorId.equals(authorId)) {
-            return false;
-        }
-
+    public boolean addReaction(Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
         return reactionSet.add(authorId);
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(String authorId, Reaction reactionType) {
-        if (this.authorId.equals(authorId)) {
-            return false;
-        }
-
+    public boolean removeReaction(Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
         return reactionSet.remove(authorId);

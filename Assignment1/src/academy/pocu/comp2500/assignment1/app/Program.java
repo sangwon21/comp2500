@@ -95,8 +95,8 @@ public class Program {
         assert post1.getTitle().equals("Title");
 
         // 11. 블로그 글에 리액션 달기
-        post2.addReaction(user1, Reaction.ANGRY);
-        post2.addReaction(user1, Reaction.ANGRY);
+        post2.addReaction(Reaction.ANGRY);
+        post2.addReaction(Reaction.ANGRY);
 
         Registry registry = new Registry();
         App app = new App(registry);

@@ -94,11 +94,10 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public void addTags(Set<String> tags) {
+    public boolean addTag(String tag) {
         this.modifiedAt = OffsetDateTime.now();
-        this.tags = tags;
+        return this.tags.add(tag);
     }
-
 
     // 10. registerCommentAdder()
     public boolean addComment(Comment comment) {
@@ -107,6 +106,10 @@ public class Post {
 
     // 14. registerReactionAdder()
     public boolean addReaction(String authorId, Reaction reactionType) {
+        if (this.authorId.equals(authorId)) {
+            return false;
+        }
+
         Set<String> reactionSet = this.reactions.get(reactionType);
 
         return reactionSet.add(authorId);
@@ -114,6 +117,10 @@ public class Post {
 
     // 15. registerReactionRemover()
     public boolean removeReaction(String authorId, Reaction reactionType) {
+        if (this.authorId.equals(authorId)) {
+            return false;
+        }
+        
         Set<String> reactionSet = this.reactions.get(reactionType);
 
         return reactionSet.remove(authorId);

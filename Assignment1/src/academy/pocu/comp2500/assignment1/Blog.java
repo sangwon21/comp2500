@@ -40,7 +40,7 @@ public class Blog {
     }
 
     // 4. registerPostOrderSetter()
-    public void setPostSortingType(SortingType sortingType) {
+    public void setSortingType(SortingType sortingType) {
         this.sortingType = sortingType;
     }
 
@@ -49,10 +49,6 @@ public class Blog {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareCreatedAt(b);
-                }).collect(Collectors.toList());
-            case CREATED_AT_DESCENDING:
-                return posts.stream().sorted((a, b) -> {
-                    return b.compareCreatedAt(a);
                 }).collect(Collectors.toList());
             case MODIFIED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
@@ -66,8 +62,12 @@ public class Blog {
                 return posts.stream().sorted((a, b) -> {
                     return a.compareTitle(b);
                 }).collect(Collectors.toList());
+            case CREATED_AT_DESCENDING:
+            default:
+                return posts.stream().sorted((a, b) -> {
+                    return b.compareCreatedAt(a);
+                }).collect(Collectors.toList());
         }
-        return posts;
     }
 
     // 5. registerPostListGetter()

@@ -39,7 +39,7 @@ public class Program {
         tagFilters.add("WSJN");
         blog.setTagFilters(tagFilters);
         assert blog.getPosts().size() == 2;
-        blog.setPostSortingType(SortingType.CREATED_AT_DESCENDING);
+        blog.setSortingType(SortingType.CREATED_AT_DESCENDING);
         assert blog.getPosts().get(0).getTitle().equals("Test2");
 
         tagFilters.remove("WSJN");
@@ -54,12 +54,12 @@ public class Program {
 
         blog.setAuthorFilter(null);
         tagFilters.remove("WJSN");
-        blog.setPostSortingType(SortingType.CREATED_AT_DESCENDING);
+        blog.setSortingType(SortingType.CREATED_AT_DESCENDING);
 
         // 6. 블로그 글 목록 정렬하기
         assert blog.getPosts().get(0).getTitle().equals("Test3");
 
-        blog.setPostSortingType(SortingType.CREATED_AT_ASCENDING);
+        blog.setSortingType(SortingType.CREATED_AT_ASCENDING);
 
         assert blog.getPosts().get(0).getTitle().equals("Test1");
 

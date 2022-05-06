@@ -111,7 +111,7 @@ public class Post {
         }
 
         Set<String> reactionSet = this.reactions.get(reactionType);
-
+        this.modifiedAt = OffsetDateTime.now();
         return reactionSet.add(authorId);
     }
 
@@ -120,9 +120,9 @@ public class Post {
         if (this.authorId.equals(authorId)) {
             return false;
         }
-        
-        Set<String> reactionSet = this.reactions.get(reactionType);
 
+        Set<String> reactionSet = this.reactions.get(reactionType);
+        this.modifiedAt = OffsetDateTime.now();
         return reactionSet.remove(authorId);
     }
 

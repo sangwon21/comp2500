@@ -67,8 +67,8 @@ public class Post {
         }).collect(Collectors.toList());
     }
 
-    public Set<String> getReactions(Reaction reactionType) {
-        return this.reactions.get(reactionType);
+    public Map<Reaction, Set<String>> getReactions(Reaction reactionType) {
+        return this.reactions;
     }
 
     // 7. registerPostTitleUpdater()

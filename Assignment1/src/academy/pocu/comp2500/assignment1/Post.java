@@ -49,7 +49,13 @@ public class Post {
     }
 
     public Set<String> getTags() {
-        return this.tags;
+        Set<String> returnSet = new HashSet<>();
+
+        for (String tag : this.tags) {
+            returnSet.add(tag);
+        }
+
+        return returnSet;
     }
 
     public String getAuthorId() {

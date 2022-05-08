@@ -114,17 +114,17 @@ public class Post {
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(Reaction reactionType) {
+    public boolean addReaction(Reaction reactionType, String userId) {
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
-        return reactionSet.add(authorId);
+        return reactionSet.add(userId);
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(Reaction reactionType) {
+    public boolean removeReaction(Reaction reactionType, String userId) {
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
-        return reactionSet.remove(authorId);
+        return reactionSet.remove(userId);
     }
 
     public int compareCreatedAt(Post post) {

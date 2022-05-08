@@ -8,12 +8,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Blog {
-    private List<Post> posts;
+    private final List<Post> posts;
     private SortingType sortingType;
     private List<String> tagFilters;
     private String authorFilterOrNull;
-    private String authorId;
-    private OffsetDateTime createdAt;
+    private final String authorId;
+    private final OffsetDateTime createdAt;
 
     // 1. registerBlogCreator()
     public Blog(String authorId) {
@@ -49,58 +49,51 @@ public class Blog {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareCreatedAt(b);
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toUnmodifiableList());
             case MODIFIED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareModifiedAt(b);
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toUnmodifiableList());
             case MODIFIED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return b.compareModifiedAt(a);
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toUnmodifiableList());
             case TITLE_ORDER:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareTitle(b);
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toUnmodifiableList());
             case CREATED_AT_DESCENDING:
             default:
                 return posts.stream().sorted((a, b) -> {
                     return b.compareCreatedAt(a);
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toUnmodifiableList());
         }
     }
 
     // 5. registerPostListGetter()
     public List<Post> getPosts() {
-        List<Post> filteredPosts = new ArrayList<>();
+        List<Post> filteredPosts = posts.stream().filter((post) -> {
+            if (tagFilters.size() == 0) {
+                return true;
+            }
 
-        if (tagFilters.size() != 0 && authorFilterOrNull != null) {
             for (String tag : tagFilters) {
-                for (Post post : posts) {
-                    if (post.getTags().contains(tag) && post.getAuthorId().equals(authorFilterOrNull)) {
-                        filteredPosts.add(post);
-                    }
+                if (post.getTags().contains(tag)) {
+                    return true;
                 }
             }
-        } else if (tagFilters.size() != 0) {
-            for (String tag : tagFilters) {
-                for (Post post : posts) {
-                    if (post.getTags().contains(tag)) {
-                        filteredPosts.add(post);
-                    }
-                }
+
+            return false;
+        }).filter((post) -> {
+            if (this.authorFilterOrNull == null) {
+                return true;
             }
-        } else if (authorFilterOrNull != null) {
-            for (Post post : posts) {
-                if (post.getAuthorId().equals(authorFilterOrNull)) {
-                    filteredPosts.add(post);
-                }
+
+            if (post.getAuthorId().equals(this.authorFilterOrNull)) {
+                return true;
             }
-        } else {
-            for (Post post : posts) {
-                filteredPosts.add(post);
-            }
-        }
+            return false;
+        }).collect(Collectors.toList());
 
         return sortPosts(filteredPosts);
     }

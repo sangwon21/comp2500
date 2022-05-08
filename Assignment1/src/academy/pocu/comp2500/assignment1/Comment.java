@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 public class Comment {
     private String text;
-    private Set<String> upVoters;
-    private Set<String> downVoters;
-    private List<Comment> subcomments;
-    private String authorId;
-    private OffsetDateTime createdAt;
+    private final Set<String> upVoters;
+    private final Set<String> downVoters;
+    private final List<Comment> subcomments;
+    private final String authorId;
+    private final OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
 
     public Comment(String authorId, String text) {
@@ -28,7 +28,6 @@ public class Comment {
 
     // 11. registerSubcommentAdder()
     public boolean addSubcomment(Comment comment) {
-
         return subcomments.add(comment);
     }
 
@@ -68,7 +67,7 @@ public class Comment {
     public List<Comment> getSubcomments() {
         return subcomments.stream().sorted((a, b) -> {
             return (b.compareVoter(a));
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toUnmodifiableList());
     }
 
     public int getUpvoter() {

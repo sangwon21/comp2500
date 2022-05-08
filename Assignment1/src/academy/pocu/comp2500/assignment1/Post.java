@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class Post {
@@ -24,6 +25,7 @@ public class Post {
         this.body = body;
         this.tags = new HashSet<>();
         this.comments = new ArrayList<>();
+        ;
         this.reactions = new HashMap<>();
         this.modifiedAt = OffsetDateTime.now();
         this.createdAt = OffsetDateTime.now();
@@ -37,7 +39,8 @@ public class Post {
     }
 
     public OffsetDateTime getCreatedAt() {
-        return this.createdAt;
+        OffsetDateTime returnCreatedAt = OffsetDateTime.from(this.createdAt);
+        return returnCreatedAt;
     }
 
     public OffsetDateTime getModifiedAtOrNull() {
@@ -70,7 +73,7 @@ public class Post {
     public List<Comment> getComments() {
         return comments.stream().sorted((a, b) -> {
             return b.compareVoter(a);
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toUnmodifiableList());
     }
 
     public int getReactions(Reaction reactionType) {

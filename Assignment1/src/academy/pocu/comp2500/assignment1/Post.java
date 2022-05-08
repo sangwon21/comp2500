@@ -17,7 +17,7 @@ public class Post {
     private List<Comment> comments;
     private Map<Reaction, Set<String>> reactions;
     private OffsetDateTime createdAt;
-    private OffsetDateTime modifiedAt;
+    private OffsetDateTime modifiedAtOrNull;
 
     public Post(String authorId, String title, String body) {
         this.title = title;
@@ -25,7 +25,7 @@ public class Post {
         this.tags = new HashSet<>();
         this.comments = new ArrayList<>();
         this.reactions = new HashMap<>();
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = null;
         this.createdAt = OffsetDateTime.now();
         this.authorId = authorId;
 
@@ -41,7 +41,7 @@ public class Post {
     }
 
     public OffsetDateTime getModifiedAt() {
-        return this.modifiedAt;
+        return this.modifiedAtOrNull;
     }
 
     public String getTitle() {
@@ -84,7 +84,7 @@ public class Post {
         }
 
         this.title = title;
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return true;
     }
 
@@ -95,33 +95,33 @@ public class Post {
         }
 
         this.body = body;
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return true;
     }
 
     // 9. registerPostTagAdder()
     public boolean addTag(String tag) {
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return this.tags.add(tag);
     }
 
     // 10. registerCommentAdder()
     public boolean addComment(Comment comment) {
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return comments.add(comment);
     }
 
     // 14. registerReactionAdder()
     public boolean addReaction(Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return reactionSet.add(authorId);
     }
 
     // 15. registerReactionRemover()
     public boolean removeReaction(Reaction reactionType) {
         Set<String> reactionSet = this.reactions.get(reactionType);
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAtOrNull = OffsetDateTime.now();
         return reactionSet.remove(authorId);
     }
 
@@ -130,7 +130,7 @@ public class Post {
     }
 
     public int compareModifiedAt(Post post) {
-        return this.modifiedAt.compareTo(post.modifiedAt);
+        return this.modifiedAtOrNull.compareTo(post.modifiedAtOrNull);
     }
 
     public int compareTitle(Post post) {

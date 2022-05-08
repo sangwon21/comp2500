@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Post {
-    private String authorId;
+    private final String authorId;
     private Set<String> tags;
     private String title;
     private String body;
-    private List<Comment> comments;
-    private Map<Reaction, Set<String>> reactions;
+    private final List<Comment> comments;
+    private final Map<Reaction, Set<String>> reactions;
     private final OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
 

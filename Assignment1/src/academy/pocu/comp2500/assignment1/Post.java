@@ -115,6 +115,10 @@ public class Post {
 
     // 14. registerReactionAdder()
     public boolean addReaction(Reaction reactionType, String userId) {
+        if (this.authorId.equals(userId)) {
+            return false;
+        }
+
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
         return reactionSet.add(userId);
@@ -122,6 +126,10 @@ public class Post {
 
     // 15. registerReactionRemover()
     public boolean removeReaction(Reaction reactionType, String userId) {
+        if (this.authorId.equals(userId)) {
+            return false;
+        }
+        
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
         return reactionSet.remove(userId);

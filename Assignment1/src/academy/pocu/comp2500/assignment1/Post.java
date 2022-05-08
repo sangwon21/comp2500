@@ -51,7 +51,13 @@ public class Post {
     }
 
     public Set<String> getTags() {
-        return Collections.unmodifiableSet(this.tags);
+        Set<String> returnSet = new HashSet<>();
+
+        for (String tag : this.tags) {
+            returnSet.add(tag);
+        }
+
+        return returnSet;
     }
 
     public String getAuthorId() {
@@ -64,9 +70,12 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public List<Comment> getComments() {
-        return comments.stream().sorted((a, b) -> {
+        List<Comment> returnComments = new ArrayList<>(this.comments);
+        returnComments.sort((a, b) -> {
             return b.compareVoter(a);
-        }).collect(Collectors.toUnmodifiableList());
+        });
+
+        return returnComments;
     }
 
     public int getReactions(Reaction reactionType) {

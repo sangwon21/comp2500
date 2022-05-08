@@ -22,7 +22,6 @@ public class Program {
         // 2. 블로그 글 추가하기
         // 3. 블로그 글 목록 가져오기
         blog.addPost(post1);
-        blog.addPost(post1);
         assert blog.getPosts().size() == 1;
         assert blog.getPosts().get(0).getTitle().equals("Test1");
         assert blog.getPosts().get(0).getAuthorId().equals("Subin");

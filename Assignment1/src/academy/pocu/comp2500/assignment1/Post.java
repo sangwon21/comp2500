@@ -39,8 +39,7 @@ public class Post {
     }
 
     public OffsetDateTime getCreatedAt() {
-        OffsetDateTime returnCreatedAt = OffsetDateTime.from(this.createdAt);
-        return returnCreatedAt;
+        return this.createdAt;
     }
 
     public OffsetDateTime getModifiedAtOrNull() {

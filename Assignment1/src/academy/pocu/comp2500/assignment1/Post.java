@@ -40,7 +40,7 @@ public class Post {
         return this.createdAt;
     }
 
-    public OffsetDateTime getModifiedAt() {
+    public OffsetDateTime getModifiedAtOrNull() {
         return this.modifiedAtOrNull;
     }
 

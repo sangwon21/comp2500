@@ -51,13 +51,7 @@ public class Post {
     }
 
     public Set<String> getTags() {
-        Set<String> returnSet = new HashSet<>();
-
-        for (String tag : this.tags) {
-            returnSet.add(tag);
-        }
-
-        return returnSet;
+        return Collections.unmodifiableSet(this.tags);
     }
 
     public String getAuthorId() {
@@ -129,7 +123,7 @@ public class Post {
         if (this.authorId.equals(userId)) {
             return false;
         }
-        
+
         Set<String> reactionSet = this.reactions.get(reactionType);
         this.modifiedAt = OffsetDateTime.now();
         return reactionSet.remove(userId);

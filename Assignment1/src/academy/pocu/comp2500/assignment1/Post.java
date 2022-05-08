@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Post {
     private final String authorId;
-    private Set<String> tags;
+    private final Set<String> tags;
     private String title;
     private String body;
     private final List<Comment> comments;

@@ -20,14 +20,14 @@ public class Post {
     private final OffsetDateTime createdAt;
     private OffsetDateTime modifiedAt;
 
-    public Post(String authorId, String title, String body) {
+    public Post(final String authorId, final String title, final String body) {
         this.title = title;
         this.body = body;
         this.tags = new HashSet<>();
         this.comments = new ArrayList<>();
         ;
         this.reactions = new HashMap<>();
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAt = null;
         this.createdAt = OffsetDateTime.now();
         this.authorId = authorId;
 
@@ -78,12 +78,12 @@ public class Post {
         return returnComments;
     }
 
-    public int getReactions(Reaction reactionType) {
+    public int getReactions(final Reaction reactionType) {
         return this.reactions.get(reactionType).size();
     }
 
     // 7. registerPostTitleUpdater()
-    public boolean setTitle(String title, String userId) {
+    public boolean setTitle(final String title, final String userId) {
         if (!this.authorId.equals(userId)) {
             return false;
         }
@@ -94,7 +94,7 @@ public class Post {
     }
 
     // 8. registerPostBodyUpdater()
-    public boolean setBody(String body, String userId) {
+    public boolean setBody(final String body, final String userId) {
         if (!this.authorId.equals(userId)) {
             return false;
         }
@@ -105,19 +105,19 @@ public class Post {
     }
 
     // 9. registerPostTagAdder()
-    public boolean addTag(String tag) {
+    public boolean addTag(final String tag) {
         this.modifiedAt = OffsetDateTime.now();
         return this.tags.add(tag);
     }
 
     // 10. registerCommentAdder()
-    public boolean addComment(Comment comment) {
+    public boolean addComment(final Comment comment) {
         this.modifiedAt = OffsetDateTime.now();
         return comments.add(comment);
     }
 
     // 14. registerReactionAdder()
-    public boolean addReaction(Reaction reactionType, String userId) {
+    public boolean addReaction(final Reaction reactionType, final String userId) {
         if (this.authorId.equals(userId)) {
             return false;
         }
@@ -128,7 +128,7 @@ public class Post {
     }
 
     // 15. registerReactionRemover()
-    public boolean removeReaction(Reaction reactionType, String userId) {
+    public boolean removeReaction(final Reaction reactionType, final String userId) {
         if (this.authorId.equals(userId)) {
             return false;
         }
@@ -138,15 +138,27 @@ public class Post {
         return reactionSet.remove(userId);
     }
 
-    public int compareCreatedAt(Post post) {
+    public int compareCreatedAt(final Post post) {
         return this.createdAt.compareTo(post.createdAt);
     }
 
-    public int compareModifiedAt(Post post) {
+    public int compareModifiedAt(final Post post) {
+        if (this.modifiedAt == null && post.modifiedAt == null) {
+            return compareCreatedAt(post);
+        }
+
+        if (this.modifiedAt == null) {
+            return -1;
+        }
+
+        if (post.modifiedAt == null) {
+            return 1;
+        }
+
         return this.modifiedAt.compareTo(post.modifiedAt);
     }
 
-    public int compareTitle(Post post) {
+    public int compareTitle(final Post post) {
         return this.title.compareTo(post.title);
     }
 }

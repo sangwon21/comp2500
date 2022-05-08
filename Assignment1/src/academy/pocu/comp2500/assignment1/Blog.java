@@ -16,7 +16,7 @@ public class Blog {
     private final OffsetDateTime createdAt;
 
     // 1. registerBlogCreator()
-    public Blog(String authorId) {
+    public Blog(final String authorId) {
         this.posts = new ArrayList<>();
         this.tagFilters = new ArrayList<>();
         this.authorFilterOrNull = null;
@@ -30,21 +30,21 @@ public class Blog {
     }
 
     // 2. registerTagFilterSetter()
-    public void setTagFilters(ArrayList<String> tags) {
+    public void setTagFilters(final ArrayList<String> tags) {
         this.tagFilters = tags;
     }
 
     // 3. registerAuthorFilterSetter()
-    public void setAuthorFilter(String user) {
+    public void setAuthorFilter(final String user) {
         this.authorFilterOrNull = user;
     }
 
     // 4. registerPostOrderSetter()
-    public void setSortingType(SortingType sortingType) {
+    public void setSortingType(final SortingType sortingType) {
         this.sortingType = sortingType;
     }
 
-    private List<Post> sortPosts(List<Post> posts) {
+    private List<Post> sortPosts(final List<Post> posts) {
         switch (this.sortingType) {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
@@ -106,7 +106,7 @@ public class Blog {
     }
 
     // 6. registerPostAdder()
-    public boolean addPost(Post post) {
+    public boolean addPost(final Post post) {
         return posts.add(post);
     }
 }

@@ -46,7 +46,7 @@ public class ComplexNumber {
     }
 
     public ComplexNumber multiply(ComplexNumber num) {
-        double real = this.real * num.real  - this.imaginary * num.imaginary;
+        double real = this.real * num.real - this.imaginary * num.imaginary;
         double imaginary = this.real * num.imaginary + this.imaginary * num.real;
 
         return new ComplexNumber(real, imaginary);

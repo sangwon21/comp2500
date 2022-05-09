@@ -63,7 +63,7 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public List<Comment> getComments() {
-        return Collections.unmodifiableList(this.comments);
+        return this.comments;
     }
 
     public int getReactions(final Reaction reactionType) {

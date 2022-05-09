@@ -67,7 +67,7 @@ public class Comment {
     public List<Comment> getSubcomments() {
         return subcomments.stream().sorted((a, b) -> {
             return (b.compareVoter(a));
-        }).collect(Collectors.toUnmodifiableList());
+        }).collect(Collectors.toList());
     }
 
     public int getUpvoter() {

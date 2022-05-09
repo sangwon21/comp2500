@@ -23,7 +23,7 @@ public class Comment {
         this.text = text;
         this.authorId = authorId;
         this.createdAt = OffsetDateTime.now();
-        this.modifiedAt = OffsetDateTime.now();
+        this.modifiedAt = this.createdAt;
     }
 
     // 11. registerSubcommentAdder()

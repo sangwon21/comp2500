@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class Post {
     private final String authorId;
@@ -63,12 +64,9 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public List<Comment> getComments() {
-        List<Comment> returnComments = new ArrayList<>(this.comments);
-        returnComments.sort((a, b) -> {
+        return this.comments.stream().sorted((a, b) -> {
             return b.compareVoter(a);
-        });
-
-        return returnComments;
+        }).collect(Collectors.toUnmodifiableList());
     }
 
     public int getReactions(final Reaction reactionType) {

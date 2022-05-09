@@ -2,9 +2,8 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class Blog {
@@ -44,29 +43,27 @@ public class Blog {
         this.sortingType = sortingType;
     }
 
+    private List<Post> sortList(final List<Post> posts, Comparator<Post> comparator) {
+        return posts.stream().sorted(comparator).collect(Collectors.toUnmodifiableList());
+    }
+
     private List<Post> sortPosts(final List<Post> posts) {
+        Comparator<Post> createdAtComparator = (a, b) -> a.compareCreatedAt(b);
+        Comparator<Post> modifiedAtComparator = (a, b) -> a.compareModifiedAt(b);
+        Comparator<Post> titleComparator = (a, b) -> a.compareTitle(b);
+
         switch (this.sortingType) {
             case CREATED_AT_ASCENDING:
-                return posts.stream().sorted((a, b) -> {
-                    return a.compareCreatedAt(b);
-                }).collect(Collectors.toList());
+                return this.sortList(posts, createdAtComparator);
             case MODIFIED_AT_ASCENDING:
-                return posts.stream().sorted((a, b) -> {
-                    return a.compareModifiedAt(b);
-                }).collect(Collectors.toList());
+                return this.sortList(posts, modifiedAtComparator);
             case MODIFIED_AT_DESCENDING:
-                return posts.stream().sorted((a, b) -> {
-                    return b.compareModifiedAt(a);
-                }).collect(Collectors.toList());
+                return this.sortList(posts, modifiedAtComparator.reversed());
             case TITLE_ORDER:
-                return posts.stream().sorted((a, b) -> {
-                    return a.compareTitle(b);
-                }).collect(Collectors.toList());
+                return this.sortList(posts, titleComparator);
             case CREATED_AT_DESCENDING:
             default:
-                return posts.stream().sorted((a, b) -> {
-                    return b.compareCreatedAt(a);
-                }).collect(Collectors.toList());
+                return this.sortList(posts, createdAtComparator.reversed());
         }
     }
 

@@ -63,7 +63,12 @@ public class Post {
 
     // 18. registerCommentListGetter()
     public List<Comment> getComments() {
-        return this.comments;
+        List<Comment> returnComments = new ArrayList<>(this.comments);
+        returnComments.sort((a, b) -> {
+            return b.compareVoter(a);
+        });
+
+        return returnComments;
     }
 
     public int getReactions(final Reaction reactionType) {

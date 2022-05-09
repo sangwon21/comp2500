@@ -49,24 +49,24 @@ public class Blog {
             case CREATED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareCreatedAt(b);
-                }).collect(Collectors.toUnmodifiableList());
+                }).collect(Collectors.toList());
             case MODIFIED_AT_ASCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareModifiedAt(b);
-                }).collect(Collectors.toUnmodifiableList());
+                }).collect(Collectors.toList());
             case MODIFIED_AT_DESCENDING:
                 return posts.stream().sorted((a, b) -> {
                     return b.compareModifiedAt(a);
-                }).collect(Collectors.toUnmodifiableList());
+                }).collect(Collectors.toList());
             case TITLE_ORDER:
                 return posts.stream().sorted((a, b) -> {
                     return a.compareTitle(b);
-                }).collect(Collectors.toUnmodifiableList());
+                }).collect(Collectors.toList());
             case CREATED_AT_DESCENDING:
             default:
                 return posts.stream().sorted((a, b) -> {
                     return b.compareCreatedAt(a);
-                }).collect(Collectors.toUnmodifiableList());
+                }).collect(Collectors.toList());
         }
     }
 

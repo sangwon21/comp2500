@@ -72,35 +72,28 @@ public class Blog {
 
     // 5. registerPostListGetter()
     public List<Post> getPosts() {
-        List<Post> filteredPosts = new ArrayList<>();
+        List<Post> filteredPosts = posts.stream().filter((post) -> {
+            if (tagFilters.size() == 0) {
+                return true;
+            }
 
-        if (tagFilters.size() != 0 && authorFilterOrNull != null) {
             for (String tag : tagFilters) {
-                for (Post post : posts) {
-                    if (post.getTags().contains(tag) && post.getAuthorId().equals(authorFilterOrNull)) {
-                        filteredPosts.add(post);
-                    }
+                if (post.getTags().contains(tag)) {
+                    return true;
                 }
             }
-        } else if (tagFilters.size() != 0) {
-            for (String tag : tagFilters) {
-                for (Post post : posts) {
-                    if (post.getTags().contains(tag)) {
-                        filteredPosts.add(post);
-                    }
-                }
+
+            return false;
+        }).filter((post) -> {
+            if (this.authorFilterOrNull == null) {
+                return true;
             }
-        } else if (authorFilterOrNull != null) {
-            for (Post post : posts) {
-                if (post.getAuthorId().equals(authorFilterOrNull)) {
-                    filteredPosts.add(post);
-                }
+
+            if (post.getAuthorId().equals(this.authorFilterOrNull)) {
+                return true;
             }
-        } else {
-            for (Post post : posts) {
-                filteredPosts.add(post);
-            }
-        }
+            return false;
+        }).collect(Collectors.toList());
 
         return sortPosts(filteredPosts);
     }

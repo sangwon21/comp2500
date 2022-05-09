@@ -27,8 +27,8 @@ public class Post {
         this.comments = new ArrayList<>();
         ;
         this.reactions = new HashMap<>();
-        this.modifiedAt = null;
         this.createdAt = OffsetDateTime.now();
+        this.modifiedAt = this.createdAt;
         this.authorId = authorId;
 
         reactions.put(Reaction.ANGRY, new HashSet<>());
@@ -143,18 +143,6 @@ public class Post {
     }
 
     public int compareModifiedAt(final Post post) {
-        if (this.modifiedAt == null && post.modifiedAt == null) {
-            return compareCreatedAt(post);
-        }
-
-        if (this.modifiedAt == null) {
-            return -1;
-        }
-
-        if (post.modifiedAt == null) {
-            return 1;
-        }
-
         return this.modifiedAt.compareTo(post.modifiedAt);
     }
 

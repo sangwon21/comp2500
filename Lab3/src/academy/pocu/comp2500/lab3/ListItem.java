@@ -42,7 +42,7 @@ public class ListItem {
         this.listItems.add(listItem);
     }
 
-    private String makeInitialBlank(final int depth) {
+    private String makeIndent(final int depth) {
         StringBuilder initialBlank = new StringBuilder();
         final int limit = depth * 4;
         for (int i = 0; i < limit; i++) {
@@ -55,33 +55,25 @@ public class ListItem {
     private String makeBulletStyle(final int depth, final char bulletStyle) {
         StringBuilder bulletStyleString = new StringBuilder();
 
-        bulletStyleString.append(makeInitialBlank(depth)).append(bulletStyle).append(" ");
+        bulletStyleString.append(makeIndent(depth)).append(bulletStyle).append(" ");
 
         return bulletStyleString.toString();
     }
 
-    private String helper(ListItem list, int startIndex, int depth) {
+    private String helper(int depth) {
         StringBuilder tmp = new StringBuilder();
 
-        tmp.append(makeBulletStyle(depth, list.bulletStyle)).append(list.text).append(System.lineSeparator());
+        tmp.append(makeBulletStyle(depth, this.bulletStyle)).append(this.text).append(System.lineSeparator());
 
-        for (int i = startIndex; i < list.listItems.size(); i++) {
-            ListItem target = list.listItems.get(i);
-            tmp.append(helper(target, i + 1, depth + 1));
+        for (ListItem listItem: this.listItems) {
+            tmp.append(listItem.helper(depth + 1));
         }
 
         return tmp.toString();
     }
 
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append(makeBulletStyle(0, this.bulletStyle)).append(this.text).append(System.lineSeparator());
-
-        for (int i = 0; i < listItems.size(); i++) {
-            result.append(helper(this.listItems.get(i), i, 1));
-        }
-
-        return result.toString();
+        return this.helper(0);
     }
 
     public void removeSublistItem(int index) {

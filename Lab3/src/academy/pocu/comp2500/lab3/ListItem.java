@@ -65,7 +65,7 @@ public class ListItem {
 
         tmp.append(makeBulletStyle(depth, this.bulletStyle)).append(this.text).append(System.lineSeparator());
 
-        for (ListItem listItem: this.listItems) {
+        for (ListItem listItem : this.listItems) {
             tmp.append(listItem.helper(depth + 1));
         }
 

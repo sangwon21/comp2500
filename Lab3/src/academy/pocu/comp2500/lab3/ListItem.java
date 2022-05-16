@@ -60,20 +60,28 @@ public class ListItem {
         return bulletStyleString.toString();
     }
 
-    private String helper(int depth) {
+    private String helper(ListItem list, int depth) {
         StringBuilder tmp = new StringBuilder();
 
-        tmp.append(makeBulletStyle(depth, this.bulletStyle)).append(this.text).append(System.lineSeparator());
+        tmp.append(makeBulletStyle(depth, list.bulletStyle)).append(list.text).append(System.lineSeparator());
 
-        for (ListItem listItem : this.listItems) {
-            tmp.append(listItem.helper(depth + 1));
+        for (int i = 0; i < list.listItems.size(); i++) {
+            ListItem target = list.listItems.get(i);
+            tmp.append(helper(target,  depth + 1));
         }
 
         return tmp.toString();
     }
 
     public String toString() {
-        return this.helper(0);
+        StringBuilder result = new StringBuilder();
+        result.append(makeBulletStyle(0, this.bulletStyle)).append(this.text).append(System.lineSeparator());
+
+        for (int i = 0; i < listItems.size(); i++) {
+            result.append(helper(this.listItems.get(i), 1));
+        }
+
+        return result.toString();
     }
 
     public void removeSublistItem(int index) {

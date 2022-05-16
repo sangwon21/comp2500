@@ -63,7 +63,7 @@ public class ListItem {
     private String helper(ListItem list, int startIndex, int depth) {
         StringBuilder tmp = new StringBuilder();
 
-        tmp.append(makeBulletStyle(depth, list.bulletStyle)).append(list.text).append('\n');
+        tmp.append(makeBulletStyle(depth, list.bulletStyle)).append(list.text).append(System.lineSeparator());
 
         for (int i = startIndex; i < list.listItems.size(); i++) {
             ListItem target = list.listItems.get(i);
@@ -75,7 +75,7 @@ public class ListItem {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(makeBulletStyle(0, this.bulletStyle)).append(this.text).append('\n');
+        result.append(makeBulletStyle(0, this.bulletStyle)).append(this.text).append(System.lineSeparator());
 
         for (int i = 0; i < listItems.size(); i++) {
             result.append(helper(this.listItems.get(i), i, 1));

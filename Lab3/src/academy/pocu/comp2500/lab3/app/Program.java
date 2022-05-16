@@ -47,6 +47,20 @@ public class Program {
 
         assert expected.equals(actual);
 
+        ArrayList<ListItem> newList = new ArrayList<>();
+        ListItem listItem4 = new ListItem("My first item");
+
+//        ListItem sublistItem1 = new ListItem("This is sublist item1", '>');
+        newList.add(listItem4);
+
+        String actual2 = toString(newList);
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append(String.format("* My first item%s", System.lineSeparator()));
+
+
+        String expected2 = sb2.toString();
+        System.out.println(actual2);
+        assert expected2.equals(actual2);
     }
 
     private static String toString(ArrayList<ListItem> list) {

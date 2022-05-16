@@ -43,7 +43,7 @@ public class ListItem {
     }
 
     private String makeInitialBlank(final int depth) {
-        StringBuilder initialBlank = new StringBuilder();;
+        StringBuilder initialBlank = new StringBuilder();
         final int limit = depth * 4;
         for (int i = 0; i < limit; i++) {
             initialBlank.append(" ");
@@ -74,7 +74,7 @@ public class ListItem {
     }
 
     public String toString() {
-        StringBuilder result = new StringBuilder();;
+        StringBuilder result = new StringBuilder();
         result.append(makeBulletStyle(0, this.bulletStyle)).append(this.text).append('\n');
 
         for (int i = 0; i < listItems.size(); i++) {

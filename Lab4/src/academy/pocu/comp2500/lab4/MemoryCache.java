@@ -25,14 +25,17 @@ public class MemoryCache {
         String candidateKey = "";
         OffsetDateTime candidateDate = OffsetDateTime.MAX;
 
-        for (Map.Entry<String, MemoryCache> entry : MemoryCache.instanceMap.entrySet()) {
-            if (entry.getValue().modifiedAt.compareTo(candidateDate) < 0) {
-                candidateDate = entry.getValue().modifiedAt;
-                candidateKey = entry.getKey();
+        while(MemoryCache.instanceMap.size() > MemoryCache.maxInstanceCount) {
+            for (Map.Entry<String, MemoryCache> entry : MemoryCache.instanceMap.entrySet()) {
+                if (entry.getValue().modifiedAt.compareTo(candidateDate) < 0) {
+                    candidateDate = entry.getValue().modifiedAt;
+                    candidateKey = entry.getKey();
+                }
             }
+            MemoryCache.instanceMap.remove(candidateKey);
+            candidateDate = OffsetDateTime.MAX;
+            candidateKey = "";
         }
-
-        MemoryCache.instanceMap.remove(candidateKey);
     }
 
     public static MemoryCache getInstance(String instanceKey) {
@@ -43,10 +46,9 @@ public class MemoryCache {
         }
 
         MemoryCache memoryCache = new MemoryCache();
-        if (MemoryCache.instanceMap.size() >= maxInstanceCount) {
-            MemoryCache.removeMemoryCacheInstance();
-        }
         MemoryCache.instanceMap.put(instanceKey, memoryCache);
+
+        MemoryCache.removeMemoryCacheInstance();
         return memoryCache;
     }
 
@@ -55,14 +57,8 @@ public class MemoryCache {
     }
 
     public static void setMaxInstanceCount(int maxInstanceCount) {
-        int countDifference = MemoryCache.instanceMap.size() - maxInstanceCount;
-
-        while (countDifference > 0) {
-            MemoryCache.removeMemoryCacheInstance();
-            countDifference--;
-        }
-
         MemoryCache.maxInstanceCount = maxInstanceCount;
+        MemoryCache.removeMemoryCacheInstance();
     }
 
     public void setEvictionPolicy(EvictionPolicy evictionPolicy) {

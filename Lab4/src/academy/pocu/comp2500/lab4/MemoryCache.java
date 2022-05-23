@@ -22,10 +22,10 @@ public class MemoryCache {
     }
 
     static private void removeMemoryCacheInstance() {
-        String candidateKey = "";
-        OffsetDateTime candidateDate = OffsetDateTime.MAX;
+        while (MemoryCache.instanceMap.size() > MemoryCache.maxInstanceCount) {
+            String candidateKey = "";
+            OffsetDateTime candidateDate = OffsetDateTime.MAX;
 
-        while(MemoryCache.instanceMap.size() > MemoryCache.maxInstanceCount) {
             for (Map.Entry<String, MemoryCache> entry : MemoryCache.instanceMap.entrySet()) {
                 if (entry.getValue().modifiedAt.compareTo(candidateDate) < 0) {
                     candidateDate = entry.getValue().modifiedAt;
@@ -33,8 +33,6 @@ public class MemoryCache {
                 }
             }
             MemoryCache.instanceMap.remove(candidateKey);
-            candidateDate = OffsetDateTime.MAX;
-            candidateKey = "";
         }
     }
 
@@ -129,7 +127,7 @@ public class MemoryCache {
             return;
         }
 
-        if (this.entries.size() >= this.maxEntryCount) {
+        while (this.entries.size() > this.maxEntryCount) {
             removeNode();
         }
 
@@ -142,14 +140,11 @@ public class MemoryCache {
     }
 
     public void setMaxEntryCount(int maxEntryCount) {
-        int countDifference = this.entries.size() - maxEntryCount;
-
-        while (countDifference > 0) {
-            removeNode();
-            countDifference--;
-        }
-
         this.maxEntryCount = maxEntryCount;
+
+        while (this.entries.size() > this.maxEntryCount) {
+            removeNode();
+        }
     }
 }
 

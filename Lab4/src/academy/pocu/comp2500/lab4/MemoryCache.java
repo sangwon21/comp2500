@@ -21,7 +21,7 @@ public class MemoryCache {
         this.evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
     }
 
-    static void removeMemoryCacheInstance() {
+    static private void removeMemoryCacheInstance() {
         String candidateKey = "";
         OffsetDateTime candidateDate = OffsetDateTime.MAX;
 

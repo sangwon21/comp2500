@@ -131,12 +131,15 @@ public class MemoryCache {
             removeNode();
         }
 
-
         this.entries.put(key, new Node(value));
     }
 
     public String getEntryOrNull(String key) {
-        return this.entries.containsKey(key) ? this.entries.get(key).getValue() : null;
+        if (this.entries.containsKey(key)) {
+            return this.entries.get(key).getValue();
+        }
+
+        return null;
     }
 
     public void setMaxEntryCount(int maxEntryCount) {

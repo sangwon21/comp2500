@@ -18,6 +18,7 @@ public class Program {
 
             MemoryCache.setMaxInstanceCount(3);
 
+            // A삭제
             MemoryCache memCacheD = MemoryCache.getInstance("D");
 
             assert memCacheA != MemoryCache.getInstance("A");
@@ -75,6 +76,7 @@ public class Program {
             assert memCache.getEntryOrNull("key9") == null;
             assert memCache.getEntryOrNull("key10").equals("value10");
 
+            // key10
             memCache.setMaxEntryCount(5);
             memCache.setEvictionPolicy(EvictionPolicy.LAST_IN_FIRST_OUT);
 
@@ -83,6 +85,7 @@ public class Program {
             memCache.addEntry("key13", "value13");
             memCache.addEntry("key14", "value14");
 
+            // 10, 11, 12, 13, 14
             assert memCache.getEntryOrNull("key10") != null;
             assert memCache.getEntryOrNull("key11") != null;
             assert memCache.getEntryOrNull("key12") != null;
@@ -159,5 +162,14 @@ public class Program {
 
             MemoryCache.clear();
         }
+        {
+            MemoryCache.getInstance("A");
+            MemoryCache memCacheB = MemoryCache.getInstance("B");
+            MemoryCache memCacheC = MemoryCache.getInstance("C");
+            MemoryCache.setMaxInstanceCount(3);
+            MemoryCache memCacheD = MemoryCache.getInstance("D"); // memCacheA가 제거됨
+        }
+
+
     }
 }

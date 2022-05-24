@@ -1,153 +1,134 @@
 package academy.pocu.comp2500.lab4;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MemoryCache {
     private static Map<String, MemoryCache> instanceMap = new HashMap<>();
+    private static List<String> instanceList = new ArrayList<>();
     private static int maxInstanceCount = Integer.MAX_VALUE;
     private EvictionPolicy evictionPolicy;
-    private Map<String, Node> entries;
     private int maxEntryCount;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime modifiedAt;
+    private List<String> entryListInTimeOrder;
+    private List<String> entryListInUsedOrder;
+    private Map<String, String> entryMap;
 
     private MemoryCache() {
-        this.createdAt = OffsetDateTime.now();
-        this.modifiedAt = this.createdAt;
-        this.entries = new HashMap<>();
         this.maxEntryCount = Integer.MAX_VALUE;
         this.evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
+        this.entryListInTimeOrder = new ArrayList<>();
+        this.entryListInUsedOrder = new ArrayList<>();
+        this.entryMap = new HashMap<>();
     }
 
-    static private void removeMemoryCacheInstance() {
+    static private void moveToRecent(final String key) {
+        instanceList.remove(key);
+        instanceList.add(0, key);
+    }
+
+    static private void addInstance(final String key, final MemoryCache memoryCache) {
+        instanceMap.put(key, memoryCache);
+        instanceList.add(0, key);
+        MemoryCache.removeInstanceTillValidCount();
+    }
+
+    static private void removeInstance() {
+        final int lastIndex = instanceList.size() - 1;
+
+        String key = instanceList.get(lastIndex);
+        instanceList.remove(lastIndex);
+        instanceMap.remove(key);
+    }
+
+    static private void removeInstanceTillValidCount() {
         while (MemoryCache.instanceMap.size() > MemoryCache.maxInstanceCount) {
-            String candidateKey = "";
-            OffsetDateTime candidateDate = OffsetDateTime.MAX;
-
-            for (Map.Entry<String, MemoryCache> entry : MemoryCache.instanceMap.entrySet()) {
-                if (entry.getValue().modifiedAt.compareTo(candidateDate) < 0) {
-                    candidateDate = entry.getValue().modifiedAt;
-                    candidateKey = entry.getKey();
-                }
-            }
-            MemoryCache.instanceMap.remove(candidateKey);
+            MemoryCache.removeInstance();
         }
     }
 
-    public static MemoryCache getInstance(String instanceKey) {
-        if (instanceMap.containsKey(instanceKey)) {
-            MemoryCache memoryCache = MemoryCache.instanceMap.get(instanceKey);
-            memoryCache.modifiedAt = OffsetDateTime.now();
-            return memoryCache;
+    static public MemoryCache getInstance(final String key) {
+        if (instanceMap.containsKey(key)) {
+            moveToRecent(key);
+            return MemoryCache.instanceMap.get(key);
         }
 
-        MemoryCache memoryCache = new MemoryCache();
-        MemoryCache.instanceMap.put(instanceKey, memoryCache);
+        final MemoryCache memoryCache = new MemoryCache();
+        MemoryCache.addInstance(key, memoryCache);
 
-        MemoryCache.removeMemoryCacheInstance();
         return memoryCache;
     }
 
-    public static void clear() {
+    static public void clear() {
+        MemoryCache.instanceList.clear();
         MemoryCache.instanceMap.clear();
     }
 
-    public static void setMaxInstanceCount(int maxInstanceCount) {
+    static public void setMaxInstanceCount(final int maxInstanceCount) {
         MemoryCache.maxInstanceCount = maxInstanceCount;
-        MemoryCache.removeMemoryCacheInstance();
+        removeInstanceTillValidCount();
     }
 
-    public void setEvictionPolicy(EvictionPolicy evictionPolicy) {
+    public void setEvictionPolicy(final EvictionPolicy evictionPolicy) {
         this.evictionPolicy = evictionPolicy;
     }
 
-    private void removeNodeLIFO() {
-        String candidateKey = "";
-        OffsetDateTime candidateDate = OffsetDateTime.MIN;
-
-        for (Map.Entry<String, Node> entry : this.entries.entrySet()) {
-            if (entry.getValue().getCreatedAt().compareTo(candidateDate) > 0) {
-                candidateDate = entry.getValue().getCreatedAt();
-                candidateKey = entry.getKey();
-            }
-        }
-
-        this.entries.remove(candidateKey);
-    }
-
-    private void removeNodeFIFO() {
-        String candidateKey = "";
-        OffsetDateTime candidateDate = OffsetDateTime.MAX;
-
-        for (Map.Entry<String, Node> entry : this.entries.entrySet()) {
-            if (entry.getValue().getCreatedAt().compareTo(candidateDate) < 0) {
-                candidateDate = entry.getValue().getCreatedAt();
-                candidateKey = entry.getKey();
-            }
-        }
-
-        this.entries.remove(candidateKey);
-    }
-
-    private void removeNodeLRU() {
-        String candidateKey = "";
-        OffsetDateTime candidateDate = OffsetDateTime.MAX;
-
-        for (Map.Entry<String, Node> entry : this.entries.entrySet()) {
-            if (entry.getValue().getModifiedAt().compareTo(candidateDate) < 0) {
-                candidateDate = entry.getValue().getModifiedAt();
-                candidateKey = entry.getKey();
-            }
-        }
-
-        this.entries.remove(candidateKey);
-    }
-
-    private void removeNode() {
+    private void removeEntry() {
+        String target;
         switch (this.evictionPolicy) {
-            case LAST_IN_FIRST_OUT:
-                removeNodeLIFO();
-                return;
             case FIRST_IN_FIRST_OUT:
-                removeNodeFIFO();
-                return;
+                target = this.entryListInTimeOrder.get(0);
+                break;
+            case LAST_IN_FIRST_OUT:
+                target = this.entryListInTimeOrder.get(this.entryListInTimeOrder.size() - 1);
+                break;
             case LEAST_RECENTLY_USED:
             default:
-                removeNodeLRU();
-                return;
+                target = this.entryListInUsedOrder.get(this.entryListInUsedOrder.size() - 1);
+                break;
+        }
+        this.entryListInUsedOrder.remove(target);
+        this.entryListInTimeOrder.remove(target);
+        this.entryMap.remove(target);
+    }
+
+    private void removeEntryTillValidCount() {
+        while (this.entryMap.size() > this.maxEntryCount) {
+            removeEntry();
         }
     }
 
-    public void addEntry(String key, String value) {
-        if (this.entries.containsKey(key)) {
-            Node node = this.entries.get(key);
-            node.setValue(value);
+    private void moveEntryToRecent(final String key) {
+        this.entryListInUsedOrder.remove(key);
+        this.entryListInUsedOrder.add(0, key);
+    }
+
+    public void addEntry(final String key, final String value) {
+        if (this.entryMap.containsKey(key)) {
+            moveEntryToRecent(key);
+            this.entryMap.put(key, value);
             return;
         }
 
-        while (this.entries.size() > this.maxEntryCount) {
-            removeNode();
-        }
-
-        this.entries.put(key, new Node(value));
+        this.entryMap.put(key, value);
+        this.removeEntryTillValidCount();
+        this.entryListInUsedOrder.add(0, key);
+        this.entryListInTimeOrder.add(key);
     }
 
-    public String getEntryOrNull(String key) {
-        if (this.entries.containsKey(key)) {
-            return this.entries.get(key).getValue();
+    public String getEntryOrNull(final String key) {
+        if (this.entryMap.containsKey(key)) {
+            this.moveEntryToRecent(key);
         }
 
-        return null;
+        return this.entryMap.get(key);
     }
 
-    public void setMaxEntryCount(int maxEntryCount) {
+    public void setMaxEntryCount(final int maxEntryCount) {
         this.maxEntryCount = maxEntryCount;
-
-        while (this.entries.size() > this.maxEntryCount) {
-            removeNode();
-        }
+        removeEntryTillValidCount();
     }
 }
 

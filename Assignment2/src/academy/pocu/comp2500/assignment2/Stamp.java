@@ -15,14 +15,17 @@ public class Stamp extends Product {
             case W40H30:
                 this.setHeight(30);
                 this.setWidth(40);
+                this.setPrice(2300);
                 break;
             case W50H20:
                 this.setHeight(20);
                 this.setWidth(50);
+                this.setPrice(2300);
                 break;
             case W70H40:
                 this.setHeight(40);
                 this.setWidth(70);
+                this.setPrice(2600);
                 break;
         }
     }

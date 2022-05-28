@@ -15,7 +15,7 @@ public class BusinessCard extends ProductWithAperture {
     // registerSmoothBusinessCardCreator
     // registerSingleSidedBusinessCardCreator
     // registerDoubleSidedBusinessCardCreator
-    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSide, BusinessCardColor businessCardColor, Orientation orientation) {
+    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSides, BusinessCardColor businessCardColor, Orientation orientation) {
         this.orientation = orientation;
         setPrice(100);
 

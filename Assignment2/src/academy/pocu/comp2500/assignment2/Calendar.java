@@ -3,6 +3,9 @@ package academy.pocu.comp2500.assignment2;
 public class Calendar extends Product {
     private CalendarColor calendarColor;
 
+    // registerWallCalendarCreator
+    // registerMagnetCalendarCreator
+    // registerDeskCalendarCreator
     public Calendar(final CalendarType calendarType) {
         this.calendarColor = CalendarColor.WHITE;
         switch (calendarType) {

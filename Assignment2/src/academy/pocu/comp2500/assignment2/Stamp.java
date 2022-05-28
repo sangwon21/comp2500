@@ -4,6 +4,9 @@ public class Stamp extends Product {
     private String text;
     private StampColor stampColor;
 
+    // registerRedStampCreator
+    // registerBlueStampCreator
+    // registerGreenStampCreator
     public Stamp(final String text, final StampSize stampSize, final StampColor stampColor) {
         this.text = text;
         this.stampColor = stampColor;

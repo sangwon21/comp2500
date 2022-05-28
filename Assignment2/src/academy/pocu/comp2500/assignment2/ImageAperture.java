@@ -7,4 +7,12 @@ public class ImageAperture extends Aperture {
         super(x, y, width, height);
         this.imageUrl = imagePath;
     }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

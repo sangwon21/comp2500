@@ -7,4 +7,12 @@ public class TextAperture extends Aperture {
         super(x, y, width, height);
         this.text = text;
     }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

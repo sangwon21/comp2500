@@ -2,11 +2,23 @@ package academy.pocu.comp2500.assignment2;
 
 import academy.pocu.comp2500.BusinessCardColor;
 
-public class BusinessCard extends Product {
+public class BusinessCard extends ProductWithAperture {
     private BusinessCardColor businessCardColor;
 
-    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSide, BusinessCardColor businessCardColor) {
+    // registerLandscapeBusinessCardCreator
+    // registerPortraitBusinessCardCreator
+    // registerIvoryBusinessCardCreator
+    // registerGrayBusinessCardCreator
+    // registerWhiteBusinessCardCreator
+    // registerLaidBusinessCardCreator
+    // registerLinenBusinessCardCreator
+    // registerSmoothBusinessCardCreator
+    // registerSingleSidedBusinessCardCreator
+    // registerDoubleSidedBusinessCardCreator
+    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSide, BusinessCardColor businessCardColor, Orientation orientation) {
+        this.orientation = orientation;
         setPrice(100);
+
         if (businessCardSide == BusinessCardSide.DOUBLE) {
             setPrice(this.price + 30);
         }

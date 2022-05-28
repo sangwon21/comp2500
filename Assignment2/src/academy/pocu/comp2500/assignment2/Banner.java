@@ -46,11 +46,7 @@ public class Banner extends ProductWithAperture {
     public BannerType getBannerType() {
         return this.bannerType;
     }
-
-    public int getColor() {
-        return this.color;
-    }
-
+    
     public BannerSize getBannerSize() {
         return this.bannerSize;
     }

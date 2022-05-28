@@ -31,6 +31,6 @@ public class ShoppingCart {
     }
 
     public List<Product> getProducts() {
-        return this.products.stream().collect(Collectors.toList());
+        return this.products;
     }
 }

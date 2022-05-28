@@ -20,10 +20,8 @@ public class ProductWithAperture extends Product {
 
         return 0 <= x && x <= this.width &&
                 0 < apertureWidth && apertureWidth < this.width &&
-                x + apertureWidth <= this.width &&
                 0 <= y && y <= this.height &&
-                0 < apertureHeight && apertureHeight < height &&
-                y + apertureHeight < this.height;
+                0 < apertureHeight && apertureHeight < this.height;
     }
 
     public boolean addAperture(final Aperture aperture) {
@@ -39,7 +37,7 @@ public class ProductWithAperture extends Product {
     }
 
     public List<Aperture> getApertures() {
-        return this.apertures.stream().collect(Collectors.toList());
+        return this.apertures;
     }
 
     public Orientation getOrientation() {

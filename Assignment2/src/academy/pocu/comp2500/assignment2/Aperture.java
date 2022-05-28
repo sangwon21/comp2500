@@ -6,7 +6,7 @@ public class Aperture {
     private int width;
     private int height;
 
-    public Aperture(final int x, final int y, final int width, final int height) {
+    protected Aperture(final int x, final int y, final int width, final int height) {
         this.x = x;
         this.y = y;
         this.width = width;

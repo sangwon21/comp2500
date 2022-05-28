@@ -4,9 +4,15 @@ public class Banner extends ProductWithAperture {
     private BannerType bannerType;
     private int color;
 
-    public Banner(BannerType bannerType, BannerSize bannerSize, int color) {
+    // registerLandscapeBannerCreator
+    // registerPortraitBannerCreator
+    // registerGlossBannerCreator
+    // registerScrimBannerCreator
+    // registerMeshBannerCreator
+    public Banner(BannerType bannerType, BannerSize bannerSize, int color, Orientation orientation) {
         this.bannerType = bannerType;
         this.color = color;
+        this.orientation = orientation;
 
         switch (bannerSize) {
             case W1000H500:

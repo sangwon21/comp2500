@@ -11,7 +11,8 @@ public class ShoppingCart {
         this.products = new ArrayList<>();
     }
 
-    public void addProductToCart(final Product product) {
+    public void addProductToCart(final Product product, ShippingMethod shippingMethod) {
+        product.setShippingMethod(shippingMethod);
         this.products.add(product);
     }
 

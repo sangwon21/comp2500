@@ -7,7 +7,7 @@ public class ProductWithAperture extends Product {
     protected List<Aperture> apertures;
     protected Orientation orientation;
 
-    public ProductWithAperture() {
+    protected ProductWithAperture() {
         this.apertures = new ArrayList<>();
     }
 

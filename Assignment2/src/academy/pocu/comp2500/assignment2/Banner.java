@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment2;
 
 public class Banner extends ProductWithAperture {
     private BannerType bannerType;
-    private int color;
     private BannerSize bannerSize;
 
     // registerLandscapeBannerCreator

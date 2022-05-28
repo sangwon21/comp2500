@@ -2,9 +2,10 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductWithAperture extends Product {
-    protected List<Aperture> apertures;
+    protected final List<Aperture> apertures;
     protected Orientation orientation;
 
     protected ProductWithAperture() {
@@ -38,7 +39,7 @@ public class ProductWithAperture extends Product {
     }
 
     public List<Aperture> getApertures() {
-        return this.apertures;
+        return this.apertures.stream().collect(Collectors.toList());
     }
 
     public Orientation getOrientation() {

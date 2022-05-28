@@ -15,11 +15,11 @@ public class BusinessCard extends ProductWithAperture {
     // registerSmoothBusinessCardCreator
     // registerSingleSidedBusinessCardCreator
     // registerDoubleSidedBusinessCardCreator
-    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSides, BusinessCardColor businessCardColor, Orientation orientation) {
-        this.orientation = orientation;
+    public BusinessCard(BusinessCardType businessCardType, BusinessCardSide businessCardSides, BusinessCardColor businessCardColor, Orientation businessCardOrientation) {
+        this.orientation = businessCardOrientation;
         setPrice(100);
 
-        if (businessCardSide == BusinessCardSide.DOUBLE) {
+        if (businessCardSides == BusinessCardSide.DOUBLE) {
             setPrice(this.price + 30);
         }
 

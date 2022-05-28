@@ -28,6 +28,7 @@ public class ProductWithAperture extends Product {
         }
 
         this.apertures.add(aperture);
+        setPrice(this.price + 5);
         return true;
     }
 }

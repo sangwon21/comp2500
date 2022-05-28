@@ -4,7 +4,12 @@ public class Product {
     protected int width;
     protected int height;
     protected int price;
+    protected int color;
     protected ShippingMethod shippingMethod;
+
+    protected Product() {
+        
+    }
 
     protected void setWidth(final int width) {
         this.width = width;
@@ -16,6 +21,10 @@ public class Product {
 
     protected void setPrice(final int price) {
         this.price = price;
+    }
+
+    protected void setColor(final int color) {
+        this.color = color;
     }
 
     public void setShippingMethod(final ShippingMethod shippingMethod) {
@@ -36,5 +45,9 @@ public class Product {
 
     public ShippingMethod getShippingMethod() {
         return this.shippingMethod;
+    }
+
+    public int getColor() {
+        return this.color;
     }
 }

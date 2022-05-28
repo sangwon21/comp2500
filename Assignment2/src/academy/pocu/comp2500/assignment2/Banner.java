@@ -41,4 +41,12 @@ public class Banner extends ProductWithAperture {
             setPrice(this.price + 100);
         }
     }
+
+    public BannerType getBannerType() {
+        return this.bannerType;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
 }

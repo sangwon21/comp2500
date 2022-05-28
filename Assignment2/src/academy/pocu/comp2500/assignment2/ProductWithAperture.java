@@ -31,4 +31,12 @@ public class ProductWithAperture extends Product {
         setPrice(this.price + 5);
         return true;
     }
+
+    public List<Aperture> getApertures() {
+        return this.apertures;
+    }
+
+    public Orientation getOrientation() {
+        return this.orientation;
+    }
 }

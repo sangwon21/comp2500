@@ -33,4 +33,8 @@ public class BusinessCard extends ProductWithAperture {
         setWidth(900);
         setHeight(500);
     }
+
+    public BusinessCardColor getBusinessCardColor() {
+        return this.businessCardColor;
+    }
 }

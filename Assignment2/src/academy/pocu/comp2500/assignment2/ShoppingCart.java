@@ -27,4 +27,8 @@ public class ShoppingCart {
 
         return totalSum;
     }
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
 }

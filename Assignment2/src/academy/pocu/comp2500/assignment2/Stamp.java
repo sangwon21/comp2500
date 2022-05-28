@@ -32,4 +32,12 @@ public class Stamp extends Product {
                 break;
         }
     }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public StampColor getStampColor() {
+        return this.stampColor;
+    }
 }

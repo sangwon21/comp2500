@@ -26,4 +26,8 @@ public class Calendar extends Product {
                 break;
         }
     }
+
+    public CalendarColor getCalendarColor() {
+        return this.calendarColor;
+    }
 }

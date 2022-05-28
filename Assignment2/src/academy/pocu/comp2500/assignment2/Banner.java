@@ -3,6 +3,7 @@ package academy.pocu.comp2500.assignment2;
 public class Banner extends ProductWithAperture {
     private BannerType bannerType;
     private BannerSize bannerSize;
+    private int color;
 
     // registerLandscapeBannerCreator
     // registerPortraitBannerCreator
@@ -46,8 +47,12 @@ public class Banner extends ProductWithAperture {
     public BannerType getBannerType() {
         return this.bannerType;
     }
-    
+
     public BannerSize getBannerSize() {
         return this.bannerSize;
+    }
+
+    public int getColor() {
+        return this.color;
     }
 }

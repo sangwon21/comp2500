@@ -19,6 +19,7 @@ public class BusinessCard extends ProductWithAperture {
         this.orientation = businessCardOrientation;
         this.businessCardSides = businessCardSides;
         this.businessCardType = businessCardType;
+        this.businessCardColor = businessCardColor;
 
         setPrice(100);
 
@@ -34,18 +35,6 @@ public class BusinessCard extends ProductWithAperture {
             setPrice(this.price + 20);
         }
 
-        switch (businessCardColor) {
-            case GRAY:
-                setColor(0xE6E6E6);
-                break;
-            case IVORY:
-                setColor(0xFFFFF0);
-                break;
-            case WHITE:
-                setColor(0xFFFFFF);
-                break;
-        }
-
         setWidth(900);
         setHeight(500);
     }
@@ -57,5 +46,9 @@ public class BusinessCard extends ProductWithAperture {
 
     public BusinessCardSides getBusinessCardSides() {
         return this.businessCardSides;
+    }
+
+    public BusinessCardColor getBusinessCardColor() {
+        return this.businessCardColor;
     }
 }

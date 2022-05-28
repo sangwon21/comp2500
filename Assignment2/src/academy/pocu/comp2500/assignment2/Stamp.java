@@ -3,6 +3,7 @@ package academy.pocu.comp2500.assignment2;
 public class Stamp extends Product {
     private String text;
     private StampColor stampColor;
+    private StampSize stampSize;
 
     // registerRedStampCreator
     // registerBlueStampCreator
@@ -10,6 +11,7 @@ public class Stamp extends Product {
     public Stamp(final String text, final StampSize stampSize, final StampColor stampColor) {
         this.text = text;
         this.stampColor = stampColor;
+        this.stampSize = stampSize;
         setStampSize(stampSize);
     }
 
@@ -39,5 +41,9 @@ public class Stamp extends Product {
 
     public StampColor getStampColor() {
         return this.stampColor;
+    }
+
+    public StampSize getStampSize() {
+        return this.stampSize;
     }
 }

@@ -1,10 +1,15 @@
 package academy.pocu.comp2500.assignment2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductWithAperture extends Product {
     protected List<Aperture> apertures;
     protected Orientation orientation;
+
+    public ProductWithAperture() {
+        this.apertures = new ArrayList<>();
+    }
 
     private boolean isValidAperture(final Aperture aperture) {
         final int x = aperture.getX();

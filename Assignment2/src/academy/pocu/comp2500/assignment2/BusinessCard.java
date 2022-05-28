@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import academy.pocu.comp2500.BusinessCardColor;
-
 public class BusinessCard extends ProductWithAperture {
     private BusinessCardColor businessCardColor;
 

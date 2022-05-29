@@ -5,6 +5,7 @@ public class Product {
     protected int height;
     protected int price;
     protected ShippingMethod shippingMethod;
+    protected String displayName;
 
     protected Product() {
 
@@ -20,6 +21,10 @@ public class Product {
 
     protected void setPrice(final int price) {
         this.price = price;
+    }
+
+    protected void setDisplayName(final String displayName) {
+        this.displayName = displayName;
     }
 
 
@@ -41,5 +46,9 @@ public class Product {
 
     public ShippingMethod getShippingMethod() {
         return this.shippingMethod;
+    }
+
+    public String getDisplayName() {
+        return this.displayName;
     }
 }

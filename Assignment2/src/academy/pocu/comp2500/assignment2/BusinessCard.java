@@ -22,6 +22,7 @@ public class BusinessCard extends ProductWithAperture {
         this.businessCardColor = businessCardColor;
 
         setPrice(100);
+        setDisplayName("Smooth Business Card");
 
         if (businessCardSides == BusinessCardSides.DOUBLE) {
             setPrice(this.price + 30);
@@ -29,10 +30,12 @@ public class BusinessCard extends ProductWithAperture {
 
         if (businessCardType == BusinessCardType.LINEN) {
             setPrice(this.price + 10);
+            setDisplayName("Linen Business Card");
         }
 
         if (businessCardType == BusinessCardType.LAID) {
             setPrice(this.price + 20);
+            setDisplayName("Laid Business Card");
         }
 
         setWidth(900);

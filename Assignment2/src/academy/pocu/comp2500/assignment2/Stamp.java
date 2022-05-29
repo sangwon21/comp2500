@@ -13,6 +13,7 @@ public class Stamp extends Product {
         this.stampSize = stampSize;
         this.stampColor = stampColor;
         setStampSize(stampSize);
+        setDisplayName("Stamp");
     }
 
     private void setStampSize(StampSize stampSize) {

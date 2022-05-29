@@ -42,6 +42,18 @@ public class Banner extends ProductWithAperture {
         if (bannerType == BannerType.MESH || bannerType == BannerType.SCRIM) {
             setPrice(this.price + 100);
         }
+
+        switch (bannerType) {
+            case MESH:
+                setDisplayName("Mesh Banner");
+                break;
+            case GLOSS:
+                setDisplayName("Gloss Banner");
+                break;
+            case SCRIM:
+                setDisplayName("Scrim Banner");
+                break;
+        }
     }
 
     public BannerType getBannerType() {

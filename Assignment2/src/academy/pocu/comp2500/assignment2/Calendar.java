@@ -14,20 +14,20 @@ public class Calendar extends Product {
 
         switch (calendarType) {
             case DESK:
-                this.setHeight(150);
-                this.setWidth(200);
+                this.setHeight(15);
+                this.setWidth(20);
                 this.setPrice(1000);
                 this.setDisplayName("Desk Calendar");
                 break;
             case WALL:
-                this.setHeight(400);
-                this.setWidth(400);
+                this.setHeight(40);
+                this.setWidth(40);
                 this.setPrice(1000);
                 this.setDisplayName("Wall Calendar");
                 break;
             case MAGNET:
-                this.setHeight(200);
-                this.setWidth(100);
+                this.setHeight(20);
+                this.setWidth(10);
                 this.setPrice(1500);
                 this.setDisplayName("Magnet Calendar");
                 break;

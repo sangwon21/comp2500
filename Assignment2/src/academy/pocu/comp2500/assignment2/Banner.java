@@ -19,23 +19,23 @@ public class Banner extends ProductWithAperture {
 
         switch (bannerSize) {
             case W1000H500:
-                setWidth(1000);
-                setHeight(500);
+                setWidth(100);
+                setHeight(50);
                 setPrice(5000);
                 break;
             case W1000H1000:
-                setWidth(1000);
-                setHeight(1000);
+                setWidth(100);
+                setHeight(100);
                 setPrice(5200);
                 break;
             case W2000H500:
-                setWidth(2000);
-                setHeight(500);
+                setWidth(200);
+                setHeight(50);
                 setPrice(5300);
                 break;
             case W3000H1000:
-                setWidth(3000);
-                setHeight(1000);
+                setWidth(300);
+                setHeight(100);
                 setPrice(6000);
                 break;
         }

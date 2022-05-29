@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductWithAperture extends Product {
     protected final List<Aperture> apertures;
@@ -24,13 +23,13 @@ public class ProductWithAperture extends Product {
     }
 
     public boolean addAperture(final Aperture aperture) {
-        this.apertures.add(aperture);
         boolean validAperture = isValidAperture(aperture);
 
         if (validAperture == false) {
             return false;
         }
 
+        this.apertures.add(aperture);
         setPrice(this.price + 5);
         return true;
     }

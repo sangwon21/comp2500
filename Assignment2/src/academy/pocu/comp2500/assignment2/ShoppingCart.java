@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShoppingCart {
     private final List<Product> products;

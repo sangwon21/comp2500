@@ -20,8 +20,7 @@ public class ProductWithAperture extends Product {
 
         return 0 <= x &&
                 0 < apertureWidth && apertureWidth + x < this.width &&
-                0 <= y &&
-                0 < apertureHeight && apertureHeight + y < this.height;
+                0 <= y && 0 < apertureHeight && apertureHeight + y < this.height;
     }
 
     public boolean addAperture(final Aperture aperture) {

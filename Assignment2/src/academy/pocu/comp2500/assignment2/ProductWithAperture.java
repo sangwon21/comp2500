@@ -25,13 +25,13 @@ public class ProductWithAperture extends Product {
     }
 
     public boolean addAperture(final Aperture aperture) {
+        this.apertures.add(aperture);
         boolean validAperture = isValidAperture(aperture);
 
         if (validAperture == false) {
             return false;
         }
 
-        this.apertures.add(aperture);
         setPrice(this.price + 5);
         return true;
     }

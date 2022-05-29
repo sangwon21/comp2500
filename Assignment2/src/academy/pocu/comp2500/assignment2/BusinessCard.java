@@ -39,8 +39,8 @@ public class BusinessCard extends ProductWithAperture {
             setDisplayName("Laid Business Card");
         }
 
-        setWidth(90);
-        setHeight(50);
+        setWidth(900);
+        setHeight(500);
     }
 
 

@@ -21,18 +21,18 @@ public class Stamp extends Product {
     private void setStampSize(StampSize stampSize) {
         switch (stampSize) {
             case W40H30:
-                this.setHeight(3);
-                this.setWidth(4);
+                this.setHeight(30);
+                this.setWidth(40);
                 this.setPrice(2300);
                 break;
             case W50H20:
-                this.setHeight(2);
-                this.setWidth(5);
+                this.setHeight(20);
+                this.setWidth(50);
                 this.setPrice(2300);
                 break;
             case W70H40:
-                this.setHeight(4);
-                this.setWidth(7);
+                this.setHeight(40);
+                this.setWidth(70);
                 this.setPrice(2600);
                 break;
         }

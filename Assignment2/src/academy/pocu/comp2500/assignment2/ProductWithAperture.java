@@ -17,8 +17,7 @@ public class ProductWithAperture extends Product {
         final int apertureWidth = aperture.getWidth();
         final int apertureHeight = aperture.getHeight();
 
-        return 0 <= x &&
-                0 < apertureWidth && apertureWidth + x < this.width &&
+        return 0 <= x && 0 < apertureWidth && apertureWidth + x < this.width &&
                 0 <= y && 0 < apertureHeight && apertureHeight + y < this.height;
     }
 

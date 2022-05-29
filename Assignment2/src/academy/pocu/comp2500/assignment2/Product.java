@@ -27,8 +27,7 @@ public class Product {
         this.displayName = displayName;
     }
 
-
-    public void setShippingMethod(final ShippingMethod shippingMethod) {
+    protected void setShippingMethod(final ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
 

@@ -8,10 +8,12 @@ public class Stamp extends Product {
     // registerRedStampCreator
     // registerBlueStampCreator
     // registerGreenStampCreator
-    public Stamp(final String text, final StampSize stampSize, final StampColor stampColor) {
+    public Stamp(final String text, final StampSize stampSize, final StampColor stampColor, ShippingMethod shippingMethod) {
         this.text = text;
         this.stampSize = stampSize;
         this.stampColor = stampColor;
+        this.shippingMethod = shippingMethod;
+
         setStampSize(stampSize);
         setDisplayName("Stamp");
     }

@@ -7,9 +7,10 @@ public class Calendar extends Product {
     // registerWallCalendarCreator
     // registerMagnetCalendarCreator
     // registerDeskCalendarCreator
-    public Calendar(final CalendarType calendarType) {
+    public Calendar(final CalendarType calendarType, ShippingMethod shippingMethod) {
         this.calendarColor = CalendarColor.WHITE;
         this.calendarType = calendarType;
+        this.shippingMethod = shippingMethod;
 
         switch (calendarType) {
             case DESK:

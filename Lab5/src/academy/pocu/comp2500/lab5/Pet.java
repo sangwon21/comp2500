@@ -1,10 +1,10 @@
 package academy.pocu.comp2500.lab5;
 
 public class Pet {
-    private String name;
-    private int attackPower;
+    private final String name;
+    private final int attackPower;
 
-    public Pet(String name, int attackPower) {
+    public Pet(final String name, final int attackPower) {
         this.name = name;
         this.attackPower = attackPower;
     }

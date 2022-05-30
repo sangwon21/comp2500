@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Gladiator extends Barbarian {
-    protected Map<String, Move> moveMap;
+    protected final Map<String, Move> moveMap;
 
     public Gladiator(final String name, final int maxHp, final int attackPower, final int defensePower) {
         super(name, maxHp, attackPower, defensePower);
         this.moveMap = new HashMap<>();
     }
 
-    public boolean addMove(Move move) {
+    public boolean addMove(final Move move) {
         final String moveName = move.getName();
 
         if (this.moveMap.containsKey(moveName) || this.moveMap.size() >= 4) {
@@ -25,7 +25,7 @@ public class Gladiator extends Barbarian {
         return true;
     }
 
-    public boolean removeMove(String moveName) {
+    public boolean removeMove(final String moveName) {
         if (this.moveMap.containsKey(moveName)) {
             this.moveMap.remove(moveName);
             return true;
@@ -34,7 +34,7 @@ public class Gladiator extends Barbarian {
         return false;
     }
 
-    public void attack(String name, Barbarian gladiator) {
+    public void attack(final String name, final Barbarian gladiator) {
         if (this == gladiator) {
             return;
         }

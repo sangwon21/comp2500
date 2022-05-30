@@ -1,11 +1,11 @@
 package academy.pocu.comp2500.lab5;
 
 public class Barbarian {
-    protected String name;
-    protected int maxHp;
+    protected final String name;
+    protected final int maxHp;
     protected int currentHp;
-    protected int attackPower;
-    protected int defensePower;
+    protected final int attackPower;
+    protected final int defensePower;
 
     public Barbarian(final String name, final int maxHp, final int attackPower, final int defensePower) {
         this.name = name;
@@ -19,7 +19,7 @@ public class Barbarian {
         return this.currentHp;
     }
 
-    public void attack(Barbarian barbarian) {
+    public void attack(final Barbarian barbarian) {
         if (this == barbarian) {
             return;
         }

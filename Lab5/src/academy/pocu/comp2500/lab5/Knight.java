@@ -7,11 +7,11 @@ public class Knight extends Gladiator {
         super(name, maxHp, attackPower, defensePower);
     }
 
-    public void setPet(Pet petOrNull) {
+    public void setPet(final Pet petOrNull) {
         this.petOrNull = petOrNull;
     }
 
-    public void attackTogether(Barbarian knight) {
+    public void attackTogether(final Barbarian knight) {
         if (this.petOrNull == null) {
             return;
         }

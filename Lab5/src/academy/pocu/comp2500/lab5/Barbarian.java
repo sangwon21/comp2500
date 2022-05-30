@@ -24,7 +24,7 @@ public class Barbarian {
             return;
         }
 
-        if (barbarian.isAlive() == false) {
+        if (barbarian.isAlive() == false || this.isAlive() == false) {
             return;
         }
 

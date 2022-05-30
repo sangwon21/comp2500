@@ -16,7 +16,7 @@ public class Gladiator extends Barbarian {
     public boolean addMove(Move move) {
         final String moveName = move.getName();
 
-        if (this.moveMap.containsKey(moveName)) {
+        if (this.moveMap.containsKey(moveName) || this.moveMap.size() >= 4) {
             return false;
         }
 
@@ -43,7 +43,7 @@ public class Gladiator extends Barbarian {
             return;
         }
 
-        if (gladiator.isAlive() == false) {
+        if (gladiator.isAlive() == false || this.isAlive() == false) {
             return;
         }
 

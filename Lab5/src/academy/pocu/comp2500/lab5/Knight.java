@@ -16,7 +16,11 @@ public class Knight extends Gladiator {
             return;
         }
 
-        if (knight.isAlive() == false) {
+        if (knight.isAlive() == false || this.isAlive() == false) {
+            return;
+        }
+
+        if (this == knight) {
             return;
         }
 

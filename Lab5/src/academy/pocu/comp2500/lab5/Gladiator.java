@@ -50,6 +50,14 @@ public class Gladiator extends Barbarian {
         move.usePoint();
         final int damage = Math.max((this.attackPower / gladiator.defensePower * move.getPower()) / 2, 1);
 
-        gladiator.hp -= damage;
+        gladiator.currentHp -= damage;
+    }
+
+    public void rest() {
+        this.currentHp = Math.max(this.maxHp, this.currentHp + 10);
+
+        for (Map.Entry<String, Move> entry : this.moveMap.entrySet()) {
+            entry.getValue().rest();
+        }
     }
 }

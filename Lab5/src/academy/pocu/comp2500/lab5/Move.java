@@ -3,12 +3,14 @@ package academy.pocu.comp2500.lab5;
 public class Move {
     private String name;
     private int power;
-    private int point;
+    private int currentPoint;
+    private int maxPoint;
 
     public Move(final String name, final int power, final int point) {
         this.name = name;
         this.power = power;
-        this.point = point;
+        this.maxPoint = point;
+        this.currentPoint = point;
     }
 
     public String getName() {
@@ -20,15 +22,15 @@ public class Move {
     }
 
     public boolean isAvailable() {
-        return this.point > 0;
+        return this.currentPoint > 0;
     }
 
     public void usePoint() {
-        this.point -= 1;
-        this.point = Math.max(0, this.point);
+        this.currentPoint -= 1;
+        this.currentPoint = Math.max(0, this.currentPoint);
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void rest() {
+        this.currentPoint = Math.max(this.maxPoint, this.currentPoint + 1);
     }
 }

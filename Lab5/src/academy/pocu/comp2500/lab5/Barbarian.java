@@ -1,16 +1,16 @@
 package academy.pocu.comp2500.lab5;
 
 public class Barbarian {
-    private String name;
-    private int hp;
-    private int attack;
-    private int defense;
+    protected String name;
+    protected int hp;
+    protected int attackPower;
+    protected int defensePower;
 
-    public Barbarian(final String name, final int maxHp, final int attack, final int defense) {
+    public Barbarian(final String name, final int maxHp, final int attackPower, final int defensePower) {
         this.name = name;
         this.hp = maxHp;
-        this.attack = attack;
-        this.defense = defense;
+        this.attackPower = attackPower;
+        this.defensePower = defensePower;
     }
 
     public int getHp() {
@@ -18,7 +18,7 @@ public class Barbarian {
     }
 
     public void attack(Barbarian barbarian) {
-        final int damage = Math.max((this.attack - barbarian.defense) / 2, 1);
+        final int damage = Math.max((this.attackPower - barbarian.defensePower) / 2, 1);
 
         barbarian.hp -= damage;
     }

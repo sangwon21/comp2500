@@ -20,9 +20,18 @@ public class Barbarian {
     }
 
     public void attack(Barbarian barbarian) {
-        final int damage = Math.max((this.attackPower - barbarian.defensePower) / 2, 1);
+        if (this == barbarian) {
+            return;
+        }
 
-        barbarian.currentHp -= damage;
+        if (barbarian.isAlive() == false) {
+            return;
+        }
+
+        final double damage = (this.attackPower - barbarian.defensePower) / 2;
+
+        barbarian.currentHp -= Math.max((int) damage, 1);
+        barbarian.currentHp = Math.max(barbarian.currentHp, 0);
     }
 
     public boolean isAlive() {

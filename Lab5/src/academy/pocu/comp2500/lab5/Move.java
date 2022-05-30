@@ -31,6 +31,6 @@ public class Move {
     }
 
     public void rest() {
-        this.currentPoint = Math.max(this.maxPoint, this.currentPoint + 1);
+        this.currentPoint = Math.min(this.maxPoint, this.currentPoint + 1);
     }
 }

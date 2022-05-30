@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Gladiator extends Barbarian {
-    private Map<String, Move> moveMap;
+    protected Map<String, Move> moveMap;
 
     public Gladiator(final String name, final int maxHp, final int attackPower, final int defensePower) {
         super(name, maxHp, attackPower, defensePower);
@@ -25,9 +25,7 @@ public class Gladiator extends Barbarian {
         return true;
     }
 
-    public boolean removeMove(Move move) {
-        final String moveName = move.getName();
-
+    public boolean removeMove(String moveName) {
         if (this.moveMap.containsKey(moveName)) {
             this.moveMap.remove(moveName);
             return true;
@@ -36,8 +34,16 @@ public class Gladiator extends Barbarian {
         return false;
     }
 
-    public void attack(String name, Gladiator gladiator) {
+    public void attack(String name, Barbarian gladiator) {
+        if (this == gladiator) {
+            return;
+        }
+
         if (this.moveMap.containsKey(name) == false) {
+            return;
+        }
+
+        if (gladiator.isAlive() == false) {
             return;
         }
 
@@ -48,13 +54,14 @@ public class Gladiator extends Barbarian {
         }
 
         move.usePoint();
-        final int damage = Math.max((this.attackPower / gladiator.defensePower * move.getPower()) / 2, 1);
+        final double damage = (this.attackPower / (double) gladiator.defensePower * (double) move.getPower()) / (double) 2;
 
-        gladiator.currentHp -= damage;
+        gladiator.currentHp -= Math.max((int) damage, 1);
+        gladiator.currentHp = Math.max(gladiator.currentHp, 0);
     }
 
     public void rest() {
-        this.currentHp = Math.max(this.maxHp, this.currentHp + 10);
+        this.currentHp = Math.min(this.maxHp, this.currentHp + 10);
 
         for (Map.Entry<String, Move> entry : this.moveMap.entrySet()) {
             entry.getValue().rest();

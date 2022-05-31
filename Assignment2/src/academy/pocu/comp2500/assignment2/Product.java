@@ -6,6 +6,7 @@ public class Product {
     protected int price;
     protected ShippingMethod shippingMethod;
     protected String displayName;
+    protected Color color;
 
     protected Product() {
 
@@ -49,5 +50,9 @@ public class Product {
 
     public String getDisplayName() {
         return this.displayName;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

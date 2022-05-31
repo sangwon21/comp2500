@@ -3,14 +3,13 @@ package academy.pocu.comp2500.assignment2;
 public class Banner extends ProductWithAperture {
     private BannerType bannerType;
     private BannerSize bannerSize;
-    private int color;
 
     // registerLandscapeBannerCreator
     // registerPortraitBannerCreator
     // registerGlossBannerCreator
     // registerScrimBannerCreator
     // registerMeshBannerCreator
-    public Banner(BannerType bannerType, BannerSize bannerSize, int color, Orientation orientation, ShippingMethod shippingMethod) {
+    public Banner(BannerType bannerType, BannerSize bannerSize, Color color, Orientation orientation, ShippingMethod shippingMethod) {
         this.bannerType = bannerType;
         this.color = color;
         this.orientation = orientation;
@@ -63,9 +62,5 @@ public class Banner extends ProductWithAperture {
 
     public BannerSize getBannerSize() {
         return this.bannerSize;
-    }
-
-    public int getColor() {
-        return this.color;
     }
 }

@@ -2,13 +2,12 @@ package academy.pocu.comp2500.assignment2;
 
 public class Calendar extends Product {
     private CalendarType calendarType;
-    private CalendarColor calendarColor;
 
     // registerWallCalendarCreator
     // registerMagnetCalendarCreator
     // registerDeskCalendarCreator
     public Calendar(final CalendarType calendarType, ShippingMethod shippingMethod) {
-        this.calendarColor = CalendarColor.WHITE;
+        this.color = new Color(0xFF, 0xFF, 0xFF);
         this.calendarType = calendarType;
         this.shippingMethod = shippingMethod;
 
@@ -38,7 +37,4 @@ public class Calendar extends Product {
         return this.calendarType;
     }
 
-    public CalendarColor getCalendarColor() {
-        return this.calendarColor;
-    }
 }

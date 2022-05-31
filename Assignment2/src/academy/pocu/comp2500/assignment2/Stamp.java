@@ -3,7 +3,6 @@ package academy.pocu.comp2500.assignment2;
 public class Stamp extends Product {
     private String text;
     private StampSize stampSize;
-    private StampColor stampColor;
 
     // registerRedStampCreator
     // registerBlueStampCreator
@@ -11,8 +10,19 @@ public class Stamp extends Product {
     public Stamp(final String text, final StampSize stampSize, final StampColor stampColor, ShippingMethod shippingMethod) {
         this.text = text;
         this.stampSize = stampSize;
-        this.stampColor = stampColor;
         this.shippingMethod = shippingMethod;
+
+        switch (stampColor) {
+            case GREEN:
+                this.color = new Color(0, 0x80, 0);
+                break;
+            case BLUE:
+                this.color = new Color(0, 0, 0xFF);
+                break;
+            case RED:
+                this.color = new Color(0xFF, 0, 0);
+                break;
+        }
 
         setStampSize(stampSize);
         setDisplayName("Stamp");
@@ -44,9 +54,5 @@ public class Stamp extends Product {
 
     public StampSize getStampSize() {
         return this.stampSize;
-    }
-
-    public StampColor getStampColor() {
-        return this.stampColor;
     }
 }

@@ -1,7 +1,6 @@
 package academy.pocu.comp2500.assignment2;
 
 public class BusinessCard extends ProductWithAperture {
-    private BusinessCardColor businessCardColor;
     private BusinessCardSides businessCardSides;
     private BusinessCardType businessCardType;
 
@@ -19,7 +18,6 @@ public class BusinessCard extends ProductWithAperture {
         this.orientation = businessCardOrientation;
         this.businessCardSides = businessCardSides;
         this.businessCardType = businessCardType;
-        this.businessCardColor = businessCardColor;
         this.shippingMethod = shippingMethod;
 
         setPrice(100);
@@ -41,6 +39,18 @@ public class BusinessCard extends ProductWithAperture {
 
         setWidth(900);
         setHeight(500);
+
+        switch (businessCardColor) {
+            case WHITE:
+                this.color = new Color(0xFF, 0xFF, 0xFF);
+                break;
+            case IVORY:
+                this.color = new Color(0xFF, 0xFF, 0xF0);
+                break;
+            case GRAY:
+                this.color = new Color(0xE6, 0xE6, 0xE6);
+                break;
+        }
     }
 
 
@@ -50,9 +60,5 @@ public class BusinessCard extends ProductWithAperture {
 
     public BusinessCardSides getBusinessCardSides() {
         return this.businessCardSides;
-    }
-
-    public BusinessCardColor getBusinessCardColor() {
-        return this.businessCardColor;
     }
 }

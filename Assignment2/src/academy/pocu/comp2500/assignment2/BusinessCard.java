@@ -14,14 +14,14 @@ public class BusinessCard extends ProductWithAperture {
     // registerSmoothBusinessCardCreator
     // registerSingleSidedBusinessCardCreator
     // registerDoubleSidedBusinessCardCreator
-    public BusinessCard(BusinessCardType businessCardType, BusinessCardSides businessCardSides, BusinessCardColor businessCardColor, Orientation businessCardOrientation, ShippingMethod shippingMethod) {
-        this.orientation = businessCardOrientation;
+    public BusinessCard(final BusinessCardType businessCardType, final BusinessCardSides businessCardSides, final BusinessCardColor businessCardColor, final Orientation businessCardOrientation, final ShippingMethod shippingMethod) {
         this.businessCardSides = businessCardSides;
         this.businessCardType = businessCardType;
-        this.shippingMethod = shippingMethod;
 
         setPrice(100);
         setDisplayName("Smooth Business Card");
+        setOrientation(businessCardOrientation);
+        setShippingMethod(shippingMethod);
 
         if (businessCardSides == BusinessCardSides.DOUBLE) {
             setPrice(this.price + 30);
@@ -42,13 +42,13 @@ public class BusinessCard extends ProductWithAperture {
 
         switch (businessCardColor) {
             case WHITE:
-                this.color = new Color(0xFF, 0xFF, 0xFF);
+                setColor(new Color(0xFF, 0xFF, 0xFF));
                 break;
             case IVORY:
-                this.color = new Color(0xFF, 0xFF, 0xF0);
+                setColor(new Color(0xFF, 0xFF, 0xF0));
                 break;
             case GRAY:
-                this.color = new Color(0xE6, 0xE6, 0xE6);
+                setColor(new Color(0xE6, 0xE6, 0xE6));
                 break;
         }
     }

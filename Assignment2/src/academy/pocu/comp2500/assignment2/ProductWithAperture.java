@@ -40,4 +40,8 @@ public class ProductWithAperture extends Product {
     public Orientation getOrientation() {
         return this.orientation;
     }
+
+    protected void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
 }

@@ -3,7 +3,7 @@ package academy.pocu.comp2500.assignment2;
 public class ImageAperture extends Aperture {
     private String imageUrl;
 
-    public ImageAperture(int x, int y, int width, int height, String imagePath) {
+    public ImageAperture(final int x, final int y, final int width, final int height, final String imagePath) {
         super(x, y, width, height);
         this.imageUrl = imagePath;
     }
@@ -12,7 +12,7 @@ public class ImageAperture extends Aperture {
         return this.imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(final String imageUrl) {
         this.imageUrl = imageUrl;
     }
 }

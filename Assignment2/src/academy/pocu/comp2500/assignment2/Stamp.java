@@ -7,43 +7,43 @@ public class Stamp extends Product {
     // registerRedStampCreator
     // registerBlueStampCreator
     // registerGreenStampCreator
-    public Stamp(final String text, final StampSize stampSize, final StampColor stampColor, ShippingMethod shippingMethod) {
+    public Stamp(final String text, final StampSize stampSize, final StampColor stampColor, final ShippingMethod shippingMethod) {
         this.text = text;
         this.stampSize = stampSize;
-        this.shippingMethod = shippingMethod;
+
+        setShippingMethod(shippingMethod);
+        setStampSize(stampSize);
+        setDisplayName("Stamp");
 
         switch (stampColor) {
             case GREEN:
-                this.color = new Color(0, 0x80, 0);
+                setColor(new Color(0, 0x80, 0));
                 break;
             case BLUE:
-                this.color = new Color(0, 0, 0xFF);
+                setColor(new Color(0, 0, 0xFF));
                 break;
             case RED:
-                this.color = new Color(0xFF, 0, 0);
+                setColor(new Color(0xFF, 0, 0));
                 break;
         }
-
-        setStampSize(stampSize);
-        setDisplayName("Stamp");
     }
 
-    private void setStampSize(StampSize stampSize) {
+    private void setStampSize(final StampSize stampSize) {
         switch (stampSize) {
             case W40H30:
-                this.setHeight(30);
-                this.setWidth(40);
-                this.setPrice(2300);
+                setHeight(30);
+                setWidth(40);
+                setPrice(2300);
                 break;
             case W50H20:
-                this.setHeight(20);
-                this.setWidth(50);
-                this.setPrice(2300);
+                setHeight(20);
+                setWidth(50);
+                setPrice(2300);
                 break;
             case W70H40:
-                this.setHeight(40);
-                this.setWidth(70);
-                this.setPrice(2600);
+                setHeight(40);
+                setWidth(70);
+                setPrice(2600);
                 break;
         }
     }

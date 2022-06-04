@@ -28,6 +28,10 @@ public class Product {
         this.displayName = displayName;
     }
 
+    protected void setColor(final Color color) {
+        this.color = color;
+    }
+
     public void setShippingMethod(final ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
     }

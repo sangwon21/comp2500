@@ -9,12 +9,13 @@ public class Banner extends ProductWithAperture {
     // registerGlossBannerCreator
     // registerScrimBannerCreator
     // registerMeshBannerCreator
-    public Banner(BannerType bannerType, BannerSize bannerSize, Color color, Orientation orientation, ShippingMethod shippingMethod) {
+    public Banner(final BannerType bannerType, final BannerSize bannerSize, final Color color, final Orientation orientation, final ShippingMethod shippingMethod) {
         this.bannerType = bannerType;
-        this.color = color;
-        this.orientation = orientation;
         this.bannerSize = bannerSize;
-        this.shippingMethod = shippingMethod;
+
+        setOrientation(orientation);
+        setShippingMethod(shippingMethod);
+        setColor(color);
 
         switch (bannerSize) {
             case W1000H500:

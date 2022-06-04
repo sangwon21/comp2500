@@ -6,29 +6,30 @@ public class Calendar extends Product {
     // registerWallCalendarCreator
     // registerMagnetCalendarCreator
     // registerDeskCalendarCreator
-    public Calendar(final CalendarType calendarType, ShippingMethod shippingMethod) {
-        this.color = new Color(0xFF, 0xFF, 0xFF);
+    public Calendar(final CalendarType calendarType, final ShippingMethod shippingMethod) {
         this.calendarType = calendarType;
-        this.shippingMethod = shippingMethod;
+
+        setShippingMethod(shippingMethod);
+        setColor(new Color(0xFF, 0xFF, 0xFF));
 
         switch (calendarType) {
             case DESK:
-                this.setHeight(150);
-                this.setWidth(200);
-                this.setPrice(1000);
-                this.setDisplayName("Desk Calendar");
+                setHeight(150);
+                setWidth(200);
+                setPrice(1000);
+                setDisplayName("Desk Calendar");
                 break;
             case WALL:
-                this.setHeight(400);
-                this.setWidth(400);
-                this.setPrice(1000);
-                this.setDisplayName("Wall Calendar");
+                setHeight(400);
+                setWidth(400);
+                setPrice(1000);
+                setDisplayName("Wall Calendar");
                 break;
             case MAGNET:
-                this.setHeight(200);
-                this.setWidth(100);
-                this.setPrice(1500);
-                this.setDisplayName("Magnet Calendar");
+                setHeight(200);
+                setWidth(100);
+                setPrice(1500);
+                setDisplayName("Magnet Calendar");
                 break;
         }
     }

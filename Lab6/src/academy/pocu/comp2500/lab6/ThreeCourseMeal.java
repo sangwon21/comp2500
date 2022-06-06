@@ -2,23 +2,18 @@ package academy.pocu.comp2500.lab6;
 
 public class ThreeCourseMeal extends Meal {
     private static final int PRICE = 25;
-    private MainCourse mainCourse;
 
     public ThreeCourseMeal() {
         super(PRICE);
     }
 
     private void checkValidity() {
-        this.valid = this.appetizers.size() == 1 && this.mainCourse != null && this.desserts.size() == 1;
-    }
-
-    public MainCourse getMainCourse() {
-        assert (this.mainCourse != null) : "call isValid() first!";
-        return this.mainCourse;
+        this.valid = this.appetizers.size() == 1 && this.mainCourses.size() == 1 && this.desserts.size() == 1;
     }
 
     public void setMainCourse(MainCourse mainCourse) {
-        this.mainCourse = mainCourse;
+        this.mainCourses.clear();
+        this.mainCourses.add(mainCourse);
         checkValidity();
     }
 

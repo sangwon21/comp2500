@@ -9,7 +9,7 @@ public class ThreeCourseMeal extends Meal {
     }
 
     private void checkValidity() {
-        this.valid = this.appetizers.size() != 0 && this.mainCourse != null && this.desserts.size() != 0;
+        this.valid = this.appetizers.size() == 1 && this.mainCourse != null && this.desserts.size() == 1;
     }
 
     public MainCourse getMainCourse() {

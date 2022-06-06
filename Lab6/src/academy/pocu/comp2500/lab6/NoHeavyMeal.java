@@ -10,7 +10,7 @@ public class NoHeavyMeal extends Meal {
     }
 
     private void checkValidity() {
-        this.valid = this.appetizers.size() == 2 && this.desserts.size() != 0;
+        this.valid = this.appetizers.size() == 2 && this.desserts.size() == 1;
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {
@@ -25,7 +25,7 @@ public class NoHeavyMeal extends Meal {
     public void setDessert(Dessert dessert) {
         this.desserts.clear();
         this.desserts.add(dessert);
-        
+
         checkValidity();
     }
 }

@@ -9,7 +9,7 @@ public class DeathByDesserts extends Meal {
         super(PRICE);
     }
     private void checkValidity() {
-        this.valid = true;
+        this.valid = this.desserts.size() == 4;
     }
 
     public void setDesserts(Dessert dessert1, Dessert dessert2, Dessert dessert3, Dessert dessert4) {

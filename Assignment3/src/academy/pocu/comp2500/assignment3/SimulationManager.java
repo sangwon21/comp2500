@@ -62,7 +62,7 @@ public final class SimulationManager {
         }
 
         for (ICollidable iCollidable : collidables) {
-            iCollidable.collide();
+
         }
 
         for (int y = 0; y < BattleField.Y_LENGTH; y++) {
@@ -82,6 +82,6 @@ public final class SimulationManager {
         for (AttackIntent attackIntent : this.attackIntents) {
             attackIntent.inflict();
         }
-        
+
     }
 }

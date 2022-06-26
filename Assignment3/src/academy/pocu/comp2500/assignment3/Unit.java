@@ -8,100 +8,6 @@ public abstract class Unit {
     protected char symbol;
     protected EActionType action;
     protected EUnitType unitType;
-    protected IntVector2D[] vision;
-    protected IntVector2D[] areaOfEffect;
-
-
-    private final static IntVector2D[] RANGE_1 = {
-            new IntVector2D(-1, 0),
-            new IntVector2D(1, 1),
-            new IntVector2D(0, 1),
-            new IntVector2D(-1, 1),
-            new IntVector2D(-1, 0),
-            new IntVector2D(-1, -1),
-            new IntVector2D(0, -1),
-            new IntVector2D(1, -1),
-
-    };
-
-    private final static IntVector2D[] RANGE_2 = {
-            new IntVector2D(-1, 0),
-            new IntVector2D(1, 1),
-            new IntVector2D(0, 1),
-            new IntVector2D(-1, 1),
-            new IntVector2D(-1, 0),
-            new IntVector2D(-1, -1),
-            new IntVector2D(0, -1),
-            new IntVector2D(1, -1),
-            new IntVector2D(-2, 0),
-            new IntVector2D(-2, 1),
-            new IntVector2D(-2, 2),
-            new IntVector2D(-1, 2),
-            new IntVector2D(0, 2),
-            new IntVector2D(-1, 2),
-            new IntVector2D(-2, 2),
-            new IntVector2D(-2, 1),
-            new IntVector2D(-2, 0),
-            new IntVector2D(-2, -1),
-            new IntVector2D(-2, -2),
-            new IntVector2D(-1, -2),
-            new IntVector2D(0, -2),
-            new IntVector2D(1, -2),
-            new IntVector2D(2, -2),
-            new IntVector2D(2, -1)
-    };
-
-    private final static IntVector2D[] RANGE_3 = {
-            new IntVector2D(-1, 0),
-            new IntVector2D(1, 1),
-            new IntVector2D(0, 1),
-            new IntVector2D(-1, 1),
-            new IntVector2D(-1, 0),
-            new IntVector2D(-1, -1),
-            new IntVector2D(0, -1),
-            new IntVector2D(1, -1),
-            new IntVector2D(-2, 0),
-            new IntVector2D(-2, 1),
-            new IntVector2D(-2, 2),
-            new IntVector2D(-1, 2),
-            new IntVector2D(0, 2),
-            new IntVector2D(-1, 2),
-            new IntVector2D(-2, 2),
-            new IntVector2D(-2, 1),
-            new IntVector2D(-2, 0),
-            new IntVector2D(-2, -1),
-            new IntVector2D(-2, -2),
-            new IntVector2D(-1, -2),
-            new IntVector2D(0, -2),
-            new IntVector2D(1, -2),
-            new IntVector2D(2, -2),
-            new IntVector2D(2, -1),
-            new IntVector2D(3, 0),
-            new IntVector2D(3, 1),
-            new IntVector2D(3, 2),
-            new IntVector2D(3, 3),
-            new IntVector2D(2, 3),
-            new IntVector2D(1, 3),
-            new IntVector2D(0, 3),
-            new IntVector2D(-1, 3),
-            new IntVector2D(-2, 3),
-            new IntVector2D(-3, 3),
-            new IntVector2D(-3, 2),
-            new IntVector2D(-3, 1),
-            new IntVector2D(-3, 0),
-            new IntVector2D(-3, -1),
-            new IntVector2D(-3, -2),
-            new IntVector2D(-3, -3),
-            new IntVector2D(-2, -3),
-            new IntVector2D(-1, -3),
-            new IntVector2D(0, -3),
-            new IntVector2D(1, -3),
-            new IntVector2D(2, -3),
-            new IntVector2D(3, -3),
-            new IntVector2D(3, -2),
-            new IntVector2D(3, -1)
-    };
-
 
     protected Unit(IntVector2D position, int hp, char symbol, EUnitType unitType) {
         this.position = position;
@@ -141,30 +47,34 @@ public abstract class Unit {
 
             // 12시 방향부터 시작
             for (int j = 0; j <= i; j++) {
-                offsets.add(new IntVector2D(i, j));
+                offsets.add(new IntVector2D(j, -i));
             }
 
             // 오른쪽
-            for (int j = i - 1; j >= -i; j--) {
-                offsets.add(new IntVector2D(j, i));
+            for (int j = -i + 1; j <= i; j++) {
+                offsets.add(new IntVector2D(i, j));
             }
 
             // 아래쪽
             for (int j = i - 1; j >= -i; j--) {
-                offsets.add(new IntVector2D(-i, j));
+                offsets.add(new IntVector2D(j, i));
             }
 
             // 왼쪽
-            for (int j = -i + 1; j <= i; j++) {
-                offsets.add(new IntVector2D(j, -i));
+            for (int j = i - 1; j >= -i; j--) {
+                offsets.add(new IntVector2D(-i, j));
             }
 
             // 위쪽 나머지
-            for (int j = -i; j < 0; j++) {
-                offsets.add(new IntVector2D(i, j));
+            for (int j = -i + 1; j < 0; j++) {
+                offsets.add(new IntVector2D(j, -i));
             }
         }
 
         return offsets.toArray(new IntVector2D[0]);
+    }
+
+    public int getDistanceFrom(Unit unit) {
+        return Math.max(Math.abs(this.position.getY() - unit.position.getY()), Math.abs(this.position.getX() - unit.position.getX()));
     }
 }

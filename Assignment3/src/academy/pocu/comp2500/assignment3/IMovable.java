@@ -1,4 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-public class Thinkable {
+public interface IMovable {
+    void move();
 }

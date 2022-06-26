@@ -4,7 +4,7 @@ public class IntVector2D {
     private int x;
     private int y;
 
-    public IntVector2D(int x, int y) {
+    public IntVector2D(int y, int x) {
         this.x = x;
         this.y = y;
     }

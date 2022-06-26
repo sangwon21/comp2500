@@ -1,6 +1,7 @@
 package academy.pocu.comp2500.assignment3;
 
-public enum UnitType {
+public enum EUnitType {
     GROUND,
-    AIR
+    AIR,
+    INVISIBLE
 }

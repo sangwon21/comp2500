@@ -3,7 +3,6 @@ package academy.pocu.comp2500.assignment3;
 import java.util.HashSet;
 
 public class Marine extends Unit implements IThinkable, IMovable {
-    private EUnitType[] possibleAttack = {EUnitType.AIR, EUnitType.GROUND};
     private static final char SYMBOL = 'M';
     private static final int VISION = 2;
     private static final int AREA_OF_EFFECT = 0;
@@ -54,7 +53,30 @@ public class Marine extends Unit implements IThinkable, IMovable {
         IntVector2D targetOrNullPosition = this.targetOrNull.getPosition();
 
         BattleField battleField = SimulationManager.getInstance().getBattleField();
-        battleField.move(this.position.getY(), this.position.getX(), targetOrNullPosition.getY(), targetOrNullPosition.getX(), this);
+
+        int targetY = targetOrNullPosition.getY();
+        int targetX = targetOrNullPosition.getX();
+
+        int toY = this.position.getY();
+        int toX = this.position.getX();
+        if (targetY != this.position.getY()) {
+            if (this.position.getY() < targetY) {
+                toY += 1;
+            } else {
+                toY -= 1;
+            }
+        } else if (targetX != this.position.getX()) {
+            if (this.position.getX() < targetX) {
+                toX += 1;
+            } else {
+                toX -= 1;
+            }
+        }
+
+        battleField.move(this.position.getY(), this.position.getX(), toY, toX, this);
+        this.position.setX(toX);
+        this.position.setY(toY);
+
     }
 
     public AttackIntent attack() {
@@ -129,7 +151,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
                     continue;
                 }
 
-                int distance = Math.max(Math.abs(unit.getPosition().getY() - this.position.getY()), Math.abs(unit.getPosition().getX() - this.position.getX()));
+                int distance = getDistanceFrom(unit);
 
                 if (targetOrNull == null) {
                     targetOrNull = unit;

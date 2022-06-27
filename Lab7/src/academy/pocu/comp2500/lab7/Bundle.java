@@ -29,7 +29,7 @@ public class Bundle {
             return true;
         }
 
-        if (obj == null || obj instanceof Bundle == false|| obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof Bundle == false || obj.hashCode() != this.hashCode()) {
             return false;
         }
 

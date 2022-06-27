@@ -25,7 +25,7 @@ public class ReadingList {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < this.books.size(); i++) {
-            stringBuilder.append(String.format("%d. %s", i + 1, this.books.get(i)));
+            stringBuilder.append(String.format("%d. %s", i + 1, this.books.get(i)) + System.lineSeparator());
         }
 
         return stringBuilder.toString();

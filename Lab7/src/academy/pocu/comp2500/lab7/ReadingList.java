@@ -68,6 +68,8 @@ public class ReadingList {
             sum ^= this.books.get(i).hashCode();
         }
 
+        sum ^= this.books.size();
+
         return sum;
     }
 }

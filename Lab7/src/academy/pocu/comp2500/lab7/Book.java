@@ -30,7 +30,7 @@ public class Book {
 
         Book other = (Book) obj;
 
-        return other.title.equals(this.title) && other.author.equals(this.author) && other.publishedYear == this.publishedYear && other.genre == this.genre;
+        return other.title.equals(this.title) && other.author.equals(this.author) && other.publishedYear == this.publishedYear && other.genre.equals(this.genre);
     }
 
     @Override

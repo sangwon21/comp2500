@@ -37,7 +37,7 @@ public class ReadingList {
             return true;
         }
 
-        if (obj == null || obj instanceof ReadingList == false || obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof ReadingList == false) {
             return false;
         }
 
@@ -65,11 +65,12 @@ public class ReadingList {
         int sum = this.title.hashCode();
 
         for (int i = 0; i < this.books.size(); i++) {
-            sum ^= (this.books.get(i).hashCode() << (i + 1));
+            sum ^= (this.books.get(i).hashCode() << 3);
         }
 
-        sum ^= this.books.size();
+        sum ^= (this.books.size() << 5);
 
-        return sum;
+
+        return sum + 7 * 31;
     }
 }

@@ -20,11 +20,13 @@ public class Author {
             return true;
         }
 
-        if (obj == null || obj instanceof Author == false  || obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof Author == false || obj.hashCode() != this.hashCode()) {
             return false;
         }
 
-        return ((Author)obj).firstName.equals(this.firstName) && ((Author) obj).lastName.equals(this.lastName);
+        Author other = (Author) obj;
+
+        return other.firstName.equals(this.firstName) && other.lastName.equals(this.lastName);
     }
 
     @Override

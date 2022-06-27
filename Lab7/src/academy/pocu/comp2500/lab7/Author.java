@@ -31,6 +31,6 @@ public class Author {
 
     @Override
     public int hashCode() {
-        return this.firstName.hashCode() ^ (this.lastName.hashCode() << 16);
+        return this.firstName.hashCode() ^ (this.lastName.hashCode() << 3) + 7 * 31;
     }
 }

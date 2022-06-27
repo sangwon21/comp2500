@@ -62,14 +62,13 @@ public class ReadingList {
 
     @Override
     public int hashCode() {
-        int sum = this.title.hashCode();
+        int sum = this.title.hashCode() + 7 * 31;
 
         for (int i = 0; i < this.books.size(); i++) {
             sum ^= (this.books.get(i).hashCode() << 3);
         }
 
         sum ^= (this.books.size() << 5);
-
 
         return sum + 7 * 31;
     }

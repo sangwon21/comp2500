@@ -65,7 +65,7 @@ public class ReadingList {
         int sum = this.title.hashCode();
 
         for (int i = 0; i < this.books.size(); i++) {
-            sum ^= this.books.get(i).hashCode();
+            sum ^= (this.books.get(i).hashCode() << (i + 1));
         }
 
         sum ^= this.books.size();

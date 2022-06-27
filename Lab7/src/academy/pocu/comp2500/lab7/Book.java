@@ -35,6 +35,6 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return this.title.hashCode() ^ (this.author.hashCode() << 16) ^ this.publishedYear ^ this.genre.hashCode();
+        return this.title.hashCode() ^ (this.author.hashCode() << 2) ^ (this.publishedYear << 3) ^ (this.genre.hashCode() << 5);
     }
 }

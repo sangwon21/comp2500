@@ -7,19 +7,15 @@ import java.util.Set;
 public class Bundle {
     private String title;
     private Set<Book> set;
-    private static final int MAX_CAPACITY = 4;
+
 
 
     public Bundle(final String title) {
         this.title = title;
-        this.set = new HashSet<>(4);
+        this.set = new HashSet<>();
     }
 
     public boolean add(Book book) {
-        if (this.set.size() >= MAX_CAPACITY) {
-            return false;
-        }
-
         return this.set.add(book);
     }
 
@@ -33,7 +29,7 @@ public class Bundle {
             return true;
         }
 
-        if (obj == null || obj instanceof Bundle || obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof Bundle == false|| obj.hashCode() != this.hashCode()) {
             return false;
         }
 

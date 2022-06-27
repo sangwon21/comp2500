@@ -20,7 +20,7 @@ public class Author {
             return true;
         }
 
-        if (obj == null || obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof Author == false  || obj.hashCode() != this.hashCode()) {
             return false;
         }
 

@@ -10,6 +10,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.publishedYear = publishedYear;
+        this.genre = genre;
     }
 
     @Override
@@ -23,7 +24,7 @@ public class Book {
             return true;
         }
 
-        if (obj == null || obj.hashCode() != this.hashCode()) {
+        if (obj == null || obj instanceof Book == false || obj.hashCode() != this.hashCode()) {
             return false;
         }
 

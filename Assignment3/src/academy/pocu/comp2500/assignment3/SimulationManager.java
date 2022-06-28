@@ -10,13 +10,15 @@ public final class SimulationManager {
     private ArrayList<ICollidable> collidables;
     private static SimulationManager instance;
     private ArrayList<AttackIntent> attackIntents;
-    private ArrayList<Unit> attackedUnit;
+    private HashSet<Unit> attackedUnits;
 
     private SimulationManager() {
         this.battleField = new BattleField();
         this.movables = new ArrayList<>();
         this.thinkables = new ArrayList<>();
         this.collidables = new ArrayList<>();
+        this.attackIntents = new ArrayList<>();
+        this.attackedUnits = new HashSet<>();
     }
 
     public static SimulationManager getInstance() {
@@ -33,11 +35,26 @@ public final class SimulationManager {
     }
 
     public ArrayList<Unit> getUnits() {
-        return null;
+        ArrayList<Unit> out = new ArrayList<>();
+
+        for (int y = 0; y < BattleField.Y_LENGTH; y++) {
+            for (int x = 0; x < BattleField.X_LENGTH; x++) {
+                HashSet<Unit> units = this.battleField.getUnitsFromPosition(y, x);
+
+                for (Unit unit : units) {
+                    out.add(unit);
+                }
+            }
+        }
+
+        return out;
     }
 
     public void spawn(Unit unit) {
         unit.onSpawn();
+
+        IntVector2D position = unit.getPosition();
+        this.battleField.add(position.getY(), position.getX(), unit);
     }
 
     public void registerThinkable(IThinkable thinkable) {
@@ -62,7 +79,13 @@ public final class SimulationManager {
         }
 
         for (ICollidable iCollidable : collidables) {
+            IntVector2D position = iCollidable.getPosition();
 
+            HashSet<Unit> units = this.battleField.getUnitsFromPosition(position.getY(), position.getX());
+
+            for (Unit unit : units) {
+                iCollidable.collide(unit);
+            }
         }
 
         for (int y = 0; y < BattleField.Y_LENGTH; y++) {
@@ -80,8 +103,17 @@ public final class SimulationManager {
         }
 
         for (AttackIntent attackIntent : this.attackIntents) {
-            attackIntent.inflict();
+            attackIntent.inflict(attackedUnits);
         }
 
+        for (Unit unit : attackedUnits) {
+            if (unit.getHp() <= 0) {
+                IntVector2D position = unit.getPosition();
+                battleField.remove(position.getY(), position.getX(), unit);
+            }
+        }
+
+        attackIntents.clear();
+        attackedUnits.clear();
     }
 }

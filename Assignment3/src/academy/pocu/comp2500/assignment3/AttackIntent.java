@@ -1,6 +1,7 @@
 package academy.pocu.comp2500.assignment3;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class AttackIntent {
     private Unit attacker;
@@ -11,21 +12,22 @@ public class AttackIntent {
     EUnitType[] possibleAttackUnitTypes;
     private boolean selfAttack;
 
-    public AttackIntent(Unit attacker, int y, int x, int ap, int areaOfEffect, EUnitType[] possibleAttackUnitTypes) {
+    public AttackIntent(Unit attacker, int y, int x, int ap, int areaOfEffect, EUnitType[] possibleAttackUnitTypes, boolean selfAttack) {
         this.attacker = attacker;
         this.y = y;
         this.x = x;
         this.ap = ap;
         this.areaOfEffect = areaOfEffect;
         this.possibleAttackUnitTypes = possibleAttackUnitTypes;
+        this.selfAttack = selfAttack;
     }
 
-    public void inflict() {
-        final int fromY = y - this.areaOfEffect;
-        final int fromX = x - this.areaOfEffect;
+    public void inflict(Set<Unit> attackedUnits) {
+        final int fromY = this.y - this.areaOfEffect;
+        final int fromX = this.x - this.areaOfEffect;
 
-        final int toY = y + this.areaOfEffect;
-        final int toX = x + this.areaOfEffect;
+        final int toY = this.y + this.areaOfEffect;
+        final int toX = this.x + this.areaOfEffect;
 
         BattleField battleField = SimulationManager.getInstance().getBattleField();
 
@@ -38,13 +40,15 @@ public class AttackIntent {
                 HashSet<Unit> units = battleField.getUnitsFromPosition(y, x);
 
                 for (Unit unit : units) {
-                    if (unit == attacker && this.selfAttack == false) {
+                    if (unit == this.attacker && this.selfAttack == false) {
                         continue;
                     }
 
                     for (EUnitType unitType : this.possibleAttackUnitTypes) {
                         if (unitType == unit.unitType) {
-                            unit.onAttacked(1);
+                            unit.onAttacked(calculateDamage(unit));
+                            attackedUnits.add(unit);
+                            continue;
                         }
                     }
                 }

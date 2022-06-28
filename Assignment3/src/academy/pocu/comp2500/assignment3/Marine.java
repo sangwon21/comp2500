@@ -1,14 +1,15 @@
 package academy.pocu.comp2500.assignment3;
 
+import academy.pocu.comp2500.Symbol;
+
 import java.util.HashSet;
 
 public class Marine extends Unit implements IThinkable, IMovable {
-    private static final char SYMBOL = 'M';
     private static final int VISION = 2;
     private static final int AREA_OF_EFFECT = 0;
     private static final int AP = 6;
     private static final int HP = 35;
-    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.AIR};
+    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.AIR, EUnitType.INVISIBLE};
     private static final IntVector2D[] ATTACK_AREA_RANGE = {
             new IntVector2D(0, 0),
             new IntVector2D(0, -1),
@@ -21,14 +22,22 @@ public class Marine extends Unit implements IThinkable, IMovable {
     private Unit targetOrNull;
 
     public Marine(IntVector2D position) {
-        super(position, HP, SYMBOL, EUnitType.GROUND);
+        super(position, HP, Symbol.Marine, EUnitType.GROUND);
     }
 
+    @Override
     public void onSpawn() {
         SimulationManager.getInstance().registerThinkable(this);
         SimulationManager.getInstance().registerMovable(this);
     }
 
+    @Override
+    public void onRemove() {
+        SimulationManager.getInstance().removeMovable(this);
+        SimulationManager.getInstance().removeThinkable(this);
+    }
+
+    @Override
     public void think() {
         this.targetOrNull = findAttackTargetOrNull();
         if (this.targetOrNull != null) {
@@ -45,6 +54,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
         this.action = EActionType.NOTHING;
     }
 
+    @Override
     public void move() {
         if (this.action != EActionType.MOVE) {
             return;
@@ -57,34 +67,37 @@ public class Marine extends Unit implements IThinkable, IMovable {
         int targetY = targetOrNullPosition.getY();
         int targetX = targetOrNullPosition.getX();
 
-        int toY = this.position.getY();
-        int toX = this.position.getX();
+        int fromY = this.position.getY();
+        int fromX = this.position.getX();
+
         if (targetY != this.position.getY()) {
             if (this.position.getY() < targetY) {
-                toY += 1;
+                fromY += 1;
             } else {
-                toY -= 1;
+                fromY -= 1;
             }
         } else if (targetX != this.position.getX()) {
             if (this.position.getX() < targetX) {
-                toX += 1;
+                fromX += 1;
             } else {
-                toX -= 1;
+                fromX -= 1;
             }
         }
 
-        battleField.move(this.position.getY(), this.position.getX(), toY, toX, this);
-        this.position.setX(toX);
-        this.position.setY(toY);
-
+        battleField.move(this.position.getY(), this.position.getX(), fromY, fromX, this);
+        this.position.setX(fromX);
+        this.position.setY(fromY);
     }
 
+    @Override
     public AttackIntent attack() {
         if (this.action != EActionType.ATTACK) {
             return null;
         }
 
-        return new AttackIntent(this, 1, 1, AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES);
+        final IntVector2D targetPosition = this.targetOrNull.getPosition();
+
+        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override
@@ -110,7 +123,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
             HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
 
             for (Unit unit : unitSet) {
-                if (unit == this) {
+                if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
                     continue;
                 }
 
@@ -147,7 +160,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
             HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
 
             for (Unit unit : unitSet) {
-                if (unit == this) {
+                if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
                     continue;
                 }
 

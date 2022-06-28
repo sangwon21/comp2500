@@ -1,14 +1,15 @@
 package academy.pocu.comp2500.assignment3;
 
+import academy.pocu.comp2500.Symbol;
+
 import java.util.HashSet;
 
 public class Tank extends Unit implements IMovable, IThinkable {
-    private static final char SYMBOL = 'T';
     private static final int VISION = 3;
     private static final int AREA_OF_EFFECT = 1;
     private static final int AP = 8;
     private static final int HP = 85;
-    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND};
+    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.INVISIBLE};
     private static final IntVector2D[] ATTACK_AREA_RANGE = {
             new IntVector2D(0, -2),
             new IntVector2D(1, -2),
@@ -29,16 +30,24 @@ public class Tank extends Unit implements IMovable, IThinkable {
     private boolean moveToRightDirection;
 
     public Tank(IntVector2D position) {
-        super(position, HP, SYMBOL, EUnitType.GROUND);
+        super(position, HP, Symbol.Tank, EUnitType.GROUND);
         this.mode = ETankMode.TANK;
         this.moveToRightDirection = true;
     }
 
+    @Override
     public void onSpawn() {
         SimulationManager.getInstance().registerThinkable(this);
         SimulationManager.getInstance().registerMovable(this);
     }
 
+    @Override
+    public void onRemove() {
+        SimulationManager.getInstance().removeMovable(this);
+        SimulationManager.getInstance().removeThinkable(this);
+    }
+
+    @Override
     public void think() {
         this.targetOrNull = findAttackTargetOrNull();
         // 공격가능
@@ -57,7 +66,6 @@ public class Tank extends Unit implements IMovable, IThinkable {
         if (findTargetInVisionOrNull() != null) {
             if (this.mode == ETankMode.TANK) {
                 this.mode = ETankMode.SIEGE;
-                return;
             }
 
             this.action = EActionType.NOTHING;
@@ -74,6 +82,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
         this.action = EActionType.NOTHING;
     }
 
+    @Override
     public void move() {
         if (this.action != EActionType.MOVE) {
             return;
@@ -102,12 +111,15 @@ public class Tank extends Unit implements IMovable, IThinkable {
         this.position.setX(toX);
     }
 
+    @Override
     public AttackIntent attack() {
         if (this.action != EActionType.ATTACK) {
             return null;
         }
 
-        return new AttackIntent(this, 1, 1, AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES);
+        final IntVector2D targetPosition = this.targetOrNull.getPosition();
+
+        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override

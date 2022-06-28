@@ -24,7 +24,12 @@ public class SmartMine extends Mine implements IThinkable {
         SimulationManager.getInstance().registerThinkable(this);
     }
 
-    // 시그내처 불변
+    @Override
+    public void onRemove() {
+        super.onRemove();
+        SimulationManager.getInstance().removeThinkable(this);
+    }
+
     @Override
     public AttackIntent attack() {
         AttackIntent attackIntentOrNull = super.attack();

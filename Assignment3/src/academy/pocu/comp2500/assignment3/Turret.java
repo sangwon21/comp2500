@@ -1,9 +1,10 @@
 package academy.pocu.comp2500.assignment3;
 
+import academy.pocu.comp2500.Symbol;
+
 import java.util.HashSet;
 
 public class Turret extends Unit {
-    private static final char SYMBOL = 'U';
     private static final int VISION = 2;
     private static final int AREA_OF_EFFECT = 0;
     private static final int AP = 7;
@@ -23,14 +24,19 @@ public class Turret extends Unit {
     private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
 
     public Turret(IntVector2D position) {
-        super(position, HP, SYMBOL, EUnitType.GROUND);
+        super(position, HP, Symbol.Turret, EUnitType.GROUND);
         this.action = EActionType.ATTACK;
     }
 
+    @Override
     public void onSpawn() {
     }
 
+    @Override
+    public void onRemove() {
+    }
 
+    @Override
     public AttackIntent attack() {
         Unit target = findAttackTargetOrNull();
 
@@ -38,12 +44,13 @@ public class Turret extends Unit {
             return null;
         }
 
-        return new AttackIntent(this, 1, 1, AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES);
+        final IntVector2D targetPosition = target.getPosition();
+
+        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override
     public void onAttacked(int damage) {
-
         this.hp -= damage;
     }
 
@@ -66,7 +73,7 @@ public class Turret extends Unit {
             HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
 
             for (Unit unit : unitSet) {
-                if (unit == this || unit.unitType != EUnitType.GROUND) {
+                if (unit == this || unit.unitType != EUnitType.AIR) {
                     continue;
                 }
 

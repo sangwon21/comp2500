@@ -33,7 +33,9 @@ public abstract class Unit {
     }
 
     public void onSpawn() {
+    }
 
+    public void onRemove() {
     }
 
     public char getSymbol() {

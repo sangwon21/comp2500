@@ -69,6 +69,18 @@ public final class SimulationManager {
         collidables.add(listener);
     }
 
+    public void removeThinkable(IThinkable thinkable) {
+        this.thinkables.remove(thinkable);
+    }
+
+    public void removeMovable(IMovable movable) {
+        this.movables.remove(movable);
+    }
+
+    public void removeCollisionEventListener(ICollidable listener) {
+        collidables.remove(listener);
+    }
+
     public void update() {
         for (IThinkable thinkable : thinkables) {
             thinkable.think();

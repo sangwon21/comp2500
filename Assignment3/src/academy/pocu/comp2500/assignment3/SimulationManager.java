@@ -82,6 +82,7 @@ public final class SimulationManager {
     }
 
     public void update() {
+        System.out.println("UPDATE+++++++++++++++++++++++");
         for (IThinkable thinkable : thinkables) {
             thinkable.think();
         }

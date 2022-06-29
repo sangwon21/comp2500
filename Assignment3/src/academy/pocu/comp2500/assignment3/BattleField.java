@@ -38,7 +38,7 @@ public class BattleField {
     }
 
     public boolean isValidPosition(int y, int x) {
-        return 0 <= y && y <= Y_LENGTH && 0 <= x && x <= X_LENGTH;
+        return 0 <= y && y < Y_LENGTH && 0 <= x && x < X_LENGTH;
     }
 
     public void clear() {

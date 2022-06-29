@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import academy.pocu.comp2500.Symbol;
-
 public class Destroyer extends Unit {
     private static final EUnitType UNIT_TYPE = EUnitType.AIR;
     private static final int AREA_OF_EFFECT = 16;

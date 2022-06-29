@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import academy.pocu.comp2500.Symbol;
-
 import java.util.HashSet;
 
 public class Marine extends Unit implements IThinkable, IMovable {
@@ -40,6 +38,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
     @Override
     public void think() {
         this.targetOrNull = findAttackTargetOrNull();
+        System.out.println("targetOrNull" + targetOrNull);
         if (this.targetOrNull != null) {
             this.action = EActionType.ATTACK;
             return;

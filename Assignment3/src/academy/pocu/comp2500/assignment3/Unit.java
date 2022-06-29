@@ -17,29 +17,23 @@ public abstract class Unit {
     }
 
     public IntVector2D getPosition() {
-        return null;
+        return this.position;
     }
 
     public int getHp() {
-        return -1;
+        return hp;
     }
 
-    public AttackIntent attack() {
-        return null;
-    }
+    public abstract AttackIntent attack();
 
-    public void onAttacked(int damage) {
+    public abstract void onAttacked(int damage);
 
-    }
+    public abstract void onSpawn();
 
-    public void onSpawn() {
-    }
-
-    public void onRemove() {
-    }
+    public abstract void onRemove();
 
     public char getSymbol() {
-        return ' ';
+        return this.symbol;
     }
 
     protected static IntVector2D[] getVisionOffsets(int vision) {

@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import academy.pocu.comp2500.Symbol;
-
 import java.util.HashSet;
 
 public class SmartMine extends Mine implements IThinkable {

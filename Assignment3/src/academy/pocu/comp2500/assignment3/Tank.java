@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import academy.pocu.comp2500.Symbol;
-
 import java.util.HashSet;
 
 public class Tank extends Unit implements IMovable, IThinkable {
@@ -126,6 +124,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
     public void onAttacked(int damage) {
         if (this.mode == ETankMode.SIEGE) {
             this.hp -= damage * 2;
+            return;
         }
 
         this.hp -= damage;

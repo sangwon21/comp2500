@@ -65,6 +65,8 @@ public class AttackIntent {
 
         int damage = (int) ((double) this.ap * (1.0 - distance / ((double) this.areaOfEffect + 1.0)));
 
+        System.out.println("unit" + unit);
+        System.out.println("damage" + damage);
         return damage;
     }
 }

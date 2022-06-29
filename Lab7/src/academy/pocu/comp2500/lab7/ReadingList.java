@@ -52,7 +52,7 @@ public class ReadingList {
         }
 
         for (int i = 0; i < this.books.size(); i++) {
-            if (this.books.get(i).equals(other.books.get(i)) != false) {
+            if (this.books.get(i).equals(other.books.get(i)) == false) {
                 return false;
             }
         }

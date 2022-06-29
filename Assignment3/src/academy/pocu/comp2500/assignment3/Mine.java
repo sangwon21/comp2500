@@ -1,9 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import academy.pocu.comp2500.Symbol;
-
-import java.util.HashSet;
-
 public class Mine extends Unit implements ICollidable {
     private static final int AREA_OF_EFFECT = 0;
     private static final int AP = 10;
@@ -38,12 +34,15 @@ public class Mine extends Unit implements ICollidable {
             return;
         }
 
+        System.out.println("collide happended");
+
+
         this.threshold -= 1;
     }
 
     @Override
     public AttackIntent attack() {
-        if (this.threshold <= 0) {
+        if (this.threshold > 0) {
             return null;
         }
 

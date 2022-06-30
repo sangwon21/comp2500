@@ -2,7 +2,7 @@ package academy.pocu.comp2500.assignment3;
 
 import java.util.HashSet;
 
-public class Turret extends Unit {
+public class Turret extends Unit implements IThinkable {
     private static final int VISION = 2;
     private static final int AREA_OF_EFFECT = 0;
     private static final int AP = 7;
@@ -20,6 +20,8 @@ public class Turret extends Unit {
             new IntVector2D(-1, -1)
     };
     private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
+    private Unit targetOrNull;
+    private IntVector2D targetPos;
 
     public Turret(IntVector2D position) {
         super(position, HP, Symbol.TURRET, EUnitType.GROUND);
@@ -28,23 +30,34 @@ public class Turret extends Unit {
 
     @Override
     public void onSpawn() {
+        SimulationManager.getInstance().registerThinkable(this);
     }
 
     @Override
     public void onRemove() {
+        SimulationManager.getInstance().removeThinkable(this);
+    }
+
+    @Override
+    public void think() {
+        this.targetOrNull = findAttackTargetOrNull();
+        if (targetOrNull != null) {
+            this.action = EActionType.ATTACK;
+            this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
+            return;
+        }
+
+        this.action = EActionType.NOTHING;
+        return;
     }
 
     @Override
     public AttackIntent attack() {
-        Unit target = findAttackTargetOrNull();
-
-        if (target == null) {
+        if (this.targetOrNull == null) {
             return null;
         }
 
-        final IntVector2D targetPosition = target.getPosition();
-
-        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
+        return new AttackIntent(this, this.targetPos.getY(), this.targetPos.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override

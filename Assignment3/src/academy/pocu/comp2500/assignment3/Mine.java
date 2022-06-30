@@ -48,6 +48,6 @@ public class Mine extends Unit implements ICollidable {
 
     @Override
     public void onAttacked(int damage) {
-        this.hp = 0;
+        this.hp -= damage;
     }
 }

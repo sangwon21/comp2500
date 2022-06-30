@@ -51,7 +51,18 @@ public class Wraith extends Unit implements IMovable, IThinkable {
 
         this.action = EActionType.MOVE;
         this.targetOrNull = findNextMovePosition();
-        this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
+        if (this.targetOrNull != null) {
+            this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
+            return;
+        }
+
+        if (this.getPosition().getY() == this.originalPosition.getY() && this.getPosition().getX() == this.originalPosition.getX()) {
+            this.action = EActionType.NOTHING;
+            this.targetPos = null;
+            return;
+        }
+
+        this.targetPos = new IntVector2D(this.originalPosition);
     }
 
     private void moveByOneUnit(int targetY, int targetX) {
@@ -80,6 +91,10 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     }
 
     private void moveToTarget() {
+        if (this.targetPos == null) {
+            return;
+        }
+
         int targetY = this.targetPos.getY();
         int targetX = this.targetPos.getX();
 
@@ -191,68 +206,71 @@ public class Wraith extends Unit implements IMovable, IThinkable {
         Unit groundTargetOrNull = null;
         int groundMinDistance = Integer.MAX_VALUE;
 
-        for (IntVector2D offset : VISION_OFFSETS) {
-            int offsetY = offset.getY();
-            int offsetX = offset.getX();
 
-            int targetY = offsetY + position.getY();
-            int targetX = offsetX + position.getX();
+        int minY = this.position.getY() - VISION;
+        int minX = this.position.getX() - VISION;
 
-            if (battleField.isValidPosition(targetY, targetX) == false) {
-                continue;
-            }
+        int maxY = this.position.getY() + VISION;
+        int maxX = this.position.getX() + VISION;
 
-            HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
-
-            for (Unit unit : unitSet) {
-                if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
+        for (int y = minY; y <= maxY; y++) {
+            for (int x = minX; x <= maxX; x++) {
+                if (battleField.isValidPosition(y, x) == false) {
                     continue;
                 }
 
-                int distance = getDistanceFrom(unit);
+                HashSet<Unit> unitSet = battleField.getUnitsFromPosition(y, x);
 
-                if (unit.unitType == EUnitType.AIR) {
-                    if (airTargetOrNull == null) {
-                        airTargetOrNull = unit;
-                        airMinDistance = distance;
+                for (Unit unit : unitSet) {
+                    if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
                         continue;
                     }
 
-                    if (airMinDistance < distance) {
+                    int distance = getDistanceFrom(unit);
+
+                    if (unit.unitType == EUnitType.AIR) {
+                        if (airTargetOrNull == null) {
+                            airTargetOrNull = unit;
+                            airMinDistance = distance;
+                            continue;
+                        }
+
+                        if (airMinDistance < distance) {
+                            continue;
+                        }
+
+                        if (airMinDistance > distance) {
+                            airTargetOrNull = unit;
+                            airMinDistance = distance;
+                            continue;
+                        }
+
+                        if (airTargetOrNull.getHp() > unit.getHp()) {
+                            airTargetOrNull = unit;
+                            continue;
+                        }
                         continue;
                     }
 
-                    if (airMinDistance > distance) {
-                        airTargetOrNull = unit;
-                        airMinDistance = distance;
+                    if (groundTargetOrNull == null) {
+                        groundTargetOrNull = unit;
+                        groundMinDistance = distance;
                         continue;
                     }
 
-                    if (airTargetOrNull.getHp() > unit.getHp()) {
-                        airTargetOrNull = unit;
+                    if (groundMinDistance < distance) {
                         continue;
                     }
-                    continue;
-                }
 
-                if (groundTargetOrNull == null) {
-                    groundTargetOrNull = unit;
-                    groundMinDistance = distance;
-                    continue;
-                }
+                    if (groundMinDistance > distance) {
+                        groundTargetOrNull = unit;
+                        groundMinDistance = distance;
+                        continue;
+                    }
 
-                if (groundMinDistance < distance) {
-                    continue;
-                }
-
-                if (groundMinDistance > distance) {
-                    groundTargetOrNull = unit;
-                    groundMinDistance = distance;
-                    continue;
-                }
-
-                if (groundTargetOrNull.getHp() > unit.getHp()) {
-                    groundTargetOrNull = unit;
+                    if (groundTargetOrNull.getHp() > unit.getHp()) {
+                        groundTargetOrNull = unit;
+                    }
                 }
             }
         }

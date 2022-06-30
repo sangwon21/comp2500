@@ -21,11 +21,13 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     private Unit targetOrNull;
     private IntVector2D targetPos;
     private boolean hasShield;
+    private boolean usedShield;
 
     public Wraith(IntVector2D position) {
         super(position, HP, Symbol.WRAITH, EUnitType.AIR);
         this.hasShield = true;
         this.originalPosition = position;
+        this.usedShield = false;
     }
 
     @Override
@@ -42,6 +44,10 @@ public class Wraith extends Unit implements IMovable, IThinkable {
 
     @Override
     public void think() {
+        if (usedShield) {
+            hasShield = false;
+        }
+
         this.targetOrNull = findAttackTargetOrNull();
         if (this.targetOrNull != null) {
             this.action = EActionType.ATTACK;
@@ -137,8 +143,8 @@ public class Wraith extends Unit implements IMovable, IThinkable {
 
     @Override
     public void onAttacked(int damage) {
-        if (this.hasShield) {
-            this.hasShield = false;
+        if (hasShield) {
+            usedShield = true;
             return;
         }
 

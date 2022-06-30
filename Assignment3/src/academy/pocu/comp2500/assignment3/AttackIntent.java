@@ -46,7 +46,7 @@ public class AttackIntent {
 
                     for (EUnitType unitType : this.possibleAttackUnitTypes) {
                         if (unitType == unit.unitType) {
-                            unit.onAttacked(calculateDamage(unit));
+                            unit.onAttacked(calculateDamage(y, x, unit));
                             attackedUnits.add(unit);
                             continue;
                         }
@@ -57,16 +57,14 @@ public class AttackIntent {
     }
 
     // (공격 지점에서의 피해치) * (1 - 공격 지점으로부터의 거리 / (공격의 AoE 값 + 1))
-    private int calculateDamage(Unit unit) {
-        int unitY = unit.getPosition().getY();
-        int unitX = unit.getPosition().getX();
+    private int calculateDamage(int unitY, int unitX, Unit unit) {
 
         int distance = Math.max(Math.abs(unitY - this.y), Math.abs(unitX - this.x));
 
         int damage = (int) ((double) this.ap * (1.0 - distance / ((double) this.areaOfEffect + 1.0)));
 
-        System.out.println("unit" + unit);
-        System.out.println("damage" + damage);
+//        System.out.println(String.format("Damage: %d from Y: %d X: %d symbol: %c", damage, y, x, this.attacker.symbol));
+//        System.out.println(String.format("Damage to Y: %d X: %d symbol %c", unitY, unitX, unit.symbol));
         return damage;
     }
 }

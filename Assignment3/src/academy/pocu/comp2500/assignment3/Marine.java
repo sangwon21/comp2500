@@ -17,7 +17,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
     };
     private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
 
-    private Unit targetOrNull;
+    private IntVector2D targetOrNull;
 
     public Marine(IntVector2D position) {
         super(position, HP, Symbol.Marine, EUnitType.GROUND);
@@ -38,7 +38,6 @@ public class Marine extends Unit implements IThinkable, IMovable {
     @Override
     public void think() {
         this.targetOrNull = findAttackTargetOrNull();
-        System.out.println("targetOrNull" + targetOrNull);
         if (this.targetOrNull != null) {
             this.action = EActionType.ATTACK;
             return;
@@ -59,7 +58,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
             return;
         }
 
-        IntVector2D targetOrNullPosition = this.targetOrNull.getPosition();
+        IntVector2D targetOrNullPosition = this.targetOrNull;
 
         BattleField battleField = SimulationManager.getInstance().getBattleField();
 
@@ -86,6 +85,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
         battleField.move(this.position.getY(), this.position.getX(), fromY, fromX, this);
         this.position.setX(fromX);
         this.position.setY(fromY);
+//        System.out.println(String.format("Marine Position: Y %d X %d ", fromY, fromX));
     }
 
     @Override
@@ -94,9 +94,11 @@ public class Marine extends Unit implements IThinkable, IMovable {
             return null;
         }
 
-        final IntVector2D targetPosition = this.targetOrNull.getPosition();
+        if (this.targetOrNull == null) {
+            return null;
+        }
 
-        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
+        return new AttackIntent(this, this.targetOrNull.getY(), this.targetOrNull.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
         this.hp -= damage;
     }
 
-    private Unit findAttackTargetOrNull() {
+    private IntVector2D findAttackTargetOrNull() {
         BattleField battleField = SimulationManager.getInstance().getBattleField();
         Unit targetOrNull = null;
 
@@ -137,10 +139,14 @@ public class Marine extends Unit implements IThinkable, IMovable {
             }
         }
 
-        return targetOrNull;
+        if (targetOrNull == null) {
+            return null;
+        }
+
+        return new IntVector2D(targetOrNull.getPosition());
     }
 
-    private Unit findNextMovePosition() {
+    private IntVector2D findNextMovePosition() {
         BattleField battleField = SimulationManager.getInstance().getBattleField();
         Unit targetOrNull = null;
         int minDistance = Integer.MAX_VALUE;
@@ -189,6 +195,6 @@ public class Marine extends Unit implements IThinkable, IMovable {
             return null;
         }
 
-        return targetOrNull;
+        return new IntVector2D(targetOrNull.getPosition());
     }
 }

@@ -9,6 +9,11 @@ public class IntVector2D {
         this.y = y;
     }
 
+    public IntVector2D(IntVector2D other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     public int getX() {
         return this.x;
     }

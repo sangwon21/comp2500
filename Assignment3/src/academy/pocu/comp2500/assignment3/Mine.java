@@ -34,9 +34,6 @@ public class Mine extends Unit implements ICollidable {
             return;
         }
 
-        System.out.println("collide happended");
-
-
         this.threshold -= 1;
     }
 

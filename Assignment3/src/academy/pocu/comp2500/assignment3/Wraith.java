@@ -19,6 +19,7 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     private IntVector2D originalPosition;
 
     private Unit targetOrNull;
+    private IntVector2D targetPos;
     private boolean hasShield;
 
     public Wraith(IntVector2D position) {
@@ -44,11 +45,13 @@ public class Wraith extends Unit implements IMovable, IThinkable {
         this.targetOrNull = findAttackTargetOrNull();
         if (this.targetOrNull != null) {
             this.action = EActionType.ATTACK;
+            this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
             return;
         }
 
         this.action = EActionType.MOVE;
         this.targetOrNull = findNextMovePosition();
+        this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
     }
 
     private void moveByOneUnit(int targetY, int targetX) {
@@ -77,10 +80,8 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     }
 
     private void moveToTarget() {
-        IntVector2D targetOrNullPosition = this.targetOrNull.getPosition();
-
-        int targetY = targetOrNullPosition.getY();
-        int targetX = targetOrNullPosition.getX();
+        int targetY = this.targetPos.getY();
+        int targetX = this.targetPos.getX();
 
         moveByOneUnit(targetY, targetX);
     }
@@ -112,9 +113,11 @@ public class Wraith extends Unit implements IMovable, IThinkable {
             return null;
         }
 
-        final IntVector2D targetPosition = this.targetOrNull.getPosition();
+        if (this.targetPos == null) {
+            return null;
+        }
 
-        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
+        return new AttackIntent(this, this.targetPos.getY(), this.targetPos.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override

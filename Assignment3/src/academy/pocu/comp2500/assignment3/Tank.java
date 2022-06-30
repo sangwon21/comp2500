@@ -23,7 +23,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
             new IntVector2D(-1, -2),
     };
     private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
-    private Unit targetOrNull;
+    private IntVector2D targetOrNull;
     private ETankMode mode;
     private boolean moveToRightDirection;
 
@@ -47,8 +47,11 @@ public class Tank extends Unit implements IMovable, IThinkable {
 
     @Override
     public void think() {
+//        System.out.println("Tank Mode is " + this.mode);
+
         this.targetOrNull = findAttackTargetOrNull();
         // 공격가능
+//        System.out.println("targetOrNull in Tank is " + this.targetOrNull);
         if (this.targetOrNull != null) {
             if (this.mode == ETankMode.SIEGE) {
                 this.action = EActionType.ATTACK;
@@ -61,7 +64,9 @@ public class Tank extends Unit implements IMovable, IThinkable {
         }
 
         // 시야에 확보
-        if (findTargetInVisionOrNull() != null) {
+        this.targetOrNull = findTargetInVisionOrNull();
+//        System.out.println("Move TargetORNULL find target In Vision or Null" + this.targetOrNull);
+        if (targetOrNull != null) {
             if (this.mode == ETankMode.TANK) {
                 this.mode = ETankMode.SIEGE;
             }
@@ -71,6 +76,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
         }
 
         // 이동
+//        System.out.println("FINAL MOVE");
         if (this.mode == ETankMode.TANK) {
             this.action = EActionType.MOVE;
             return;
@@ -115,9 +121,11 @@ public class Tank extends Unit implements IMovable, IThinkable {
             return null;
         }
 
-        final IntVector2D targetPosition = this.targetOrNull.getPosition();
+        if (targetOrNull == null) {
+            return null;
+        }
 
-        return new AttackIntent(this, targetPosition.getY(), targetPosition.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
+        return new AttackIntent(this, targetOrNull.getY(), targetOrNull.getX(), AP, AREA_OF_EFFECT, POSSIBLE_ATTACK_UNIT_TYPES, false);
     }
 
     @Override
@@ -130,7 +138,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
         this.hp -= damage;
     }
 
-    private Unit findAttackTargetOrNull() {
+    private IntVector2D findAttackTargetOrNull() {
         BattleField battleField = SimulationManager.getInstance().getBattleField();
         Unit targetOrNull = null;
 
@@ -163,35 +171,41 @@ public class Tank extends Unit implements IMovable, IThinkable {
                 }
             }
         }
-        return targetOrNull;
+
+        if (targetOrNull == null) {
+            return null;
+        }
+
+        return new IntVector2D(targetOrNull.getPosition());
     }
 
-    private Unit findTargetInVisionOrNull() {
+    private IntVector2D findTargetInVisionOrNull() {
         BattleField battleField = SimulationManager.getInstance().getBattleField();
-        Unit targetOrNull = null;
 
-        for (IntVector2D offset : VISION_OFFSETS) {
-            int offsetY = offset.getY();
-            int offsetX = offset.getX();
+        int fromY = this.getPosition().getY() - VISION;
+        int fromX = this.getPosition().getX() - VISION;
 
-            int targetY = offsetY + position.getY();
-            int targetX = offsetX + position.getX();
+        int toY = this.getPosition().getY() + VISION;
+        int toX = this.getPosition().getX() + VISION;
 
-            if (battleField.isValidPosition(targetY, targetX) == false) {
-                continue;
-            }
-
-            HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
-
-            for (Unit unit : unitSet) {
-                if (unit == this || unit.unitType != EUnitType.GROUND) {
+        for (int y = fromY; y <= toY; y++) {
+            for (int x = fromX; x <= toX; x++) {
+                if (battleField.isValidPosition(y, x) == false) {
                     continue;
                 }
 
-                return targetOrNull;
+                HashSet<Unit> unitHashSet = battleField.getUnitsFromPosition(y, x);
+
+                for (Unit unit : unitHashSet) {
+                    if (unit == this || unit.unitType != EUnitType.GROUND) {
+                        continue;
+                    }
+
+                    return new IntVector2D(unit.getPosition());
+                }
             }
         }
 
-        return targetOrNull;
+        return null;
     }
 }

@@ -31,6 +31,10 @@ public class AttackIntent {
 
         BattleField battleField = SimulationManager.getInstance().getBattleField();
 
+        if (battleField.isValidPosition(this.y, this.x) == false) {
+            return;
+        }
+
         for (int y = fromY; y <= toY; y++) {
             for (int x = fromX; x <= toX; x++) {
                 if (battleField.isValidPosition(y, x) == false) {
@@ -46,7 +50,7 @@ public class AttackIntent {
 
                     for (EUnitType unitType : this.possibleAttackUnitTypes) {
                         if (unitType == unit.unitType) {
-                            unit.onAttacked(calculateDamage(y, x, unit));
+                            unit.onAttacked(calculateDamage(y, x));
                             attackedUnits.add(unit);
                             continue;
                         }
@@ -57,7 +61,7 @@ public class AttackIntent {
     }
 
     // (공격 지점에서의 피해치) * (1 - 공격 지점으로부터의 거리 / (공격의 AoE 값 + 1))
-    private int calculateDamage(int unitY, int unitX, Unit unit) {
+    private int calculateDamage(int unitY, int unitX) {
 
         int distance = Math.max(Math.abs(unitY - this.y), Math.abs(unitX - this.x));
 

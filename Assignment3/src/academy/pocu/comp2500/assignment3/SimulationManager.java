@@ -82,7 +82,7 @@ public final class SimulationManager {
     }
 
     public void update() {
-        System.out.println("UPDATE+++++++++++++++++++++++");
+//        System.out.println("UPDATE+++++++++++++++++++++++");
         for (IThinkable thinkable : thinkables) {
             thinkable.think();
         }
@@ -123,6 +123,7 @@ public final class SimulationManager {
             if (unit.getHp() <= 0) {
                 IntVector2D position = unit.getPosition();
                 battleField.remove(position.getY(), position.getX(), unit);
+                unit.onRemove();
             }
         }
 

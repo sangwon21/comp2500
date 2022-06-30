@@ -34,6 +34,10 @@ public class Mine extends Unit implements ICollidable {
             return;
         }
 
+        if (unit.unitType == EUnitType.INVISIBLE) {
+            this.threshold -= 1;
+        }
+
         this.threshold -= 1;
     }
 

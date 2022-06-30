@@ -11,7 +11,7 @@ public class SmartMine extends Mine implements IThinkable {
     private final int minimumEnemyCount;
 
     public SmartMine(final IntVector2D position, final int threshold, final int minimumEnemyCount) {
-        super(position, threshold, Symbol.SmartMine);
+        super(position, threshold, Symbol.SMART_MINE);
         this.action = EActionType.NOTHING;
         this.minimumEnemyCount = minimumEnemyCount;
     }

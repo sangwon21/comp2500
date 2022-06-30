@@ -1,11 +1,11 @@
 package academy.pocu.comp2500.assignment3;
 
 public class Symbol {
-    public static final char Marine = 'M';
-    public static final char Tank = 'T';
-    public static final char Wraith = 'W';
-    public static final char Turret = 'U';
-    public static final char Mine = 'N';
-    public static final char SmartMine = 'A';
-    public static final char Destroyer = 'D';
+    public static final char MARINE = 'M';
+    public static final char TANK = 'T';
+    public static final char WRAITH = 'W';
+    public static final char TURRET = 'U';
+    public static final char MINE = 'N';
+    public static final char SMART_MINE = 'A';
+    public static final char DESTROYER = 'D';
 }

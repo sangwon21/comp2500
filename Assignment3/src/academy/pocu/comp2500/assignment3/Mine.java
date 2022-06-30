@@ -9,7 +9,7 @@ public class Mine extends Unit implements ICollidable {
 
 
     public Mine(IntVector2D position, int threshold) {
-        super(position, HP, Symbol.Mine, EUnitType.GROUND);
+        super(position, HP, Symbol.MINE, EUnitType.GROUND);
         this.threshold = threshold;
     }
 

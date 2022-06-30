@@ -22,7 +22,7 @@ public class Turret extends Unit {
     private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
 
     public Turret(IntVector2D position) {
-        super(position, HP, Symbol.Turret, EUnitType.GROUND);
+        super(position, HP, Symbol.TURRET, EUnitType.GROUND);
         this.action = EActionType.ATTACK;
     }
 

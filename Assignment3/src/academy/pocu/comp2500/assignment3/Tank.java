@@ -28,7 +28,7 @@ public class Tank extends Unit implements IMovable, IThinkable {
     private boolean moveToRightDirection;
 
     public Tank(IntVector2D position) {
-        super(position, HP, Symbol.Tank, EUnitType.GROUND);
+        super(position, HP, Symbol.TANK, EUnitType.GROUND);
         this.mode = ETankMode.TANK;
         this.moveToRightDirection = true;
     }

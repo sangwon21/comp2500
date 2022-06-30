@@ -20,7 +20,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
     private IntVector2D targetOrNull;
 
     public Marine(IntVector2D position) {
-        super(position, HP, Symbol.Marine, EUnitType.GROUND);
+        super(position, HP, Symbol.MARINE, EUnitType.GROUND);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class Destroyer extends Unit {
 
 
     public Destroyer(final IntVector2D position) {
-        super(position, HP, Symbol.Destroyer, UNIT_TYPE);
+        super(position, HP, Symbol.DESTROYER, UNIT_TYPE);
     }
 
     @Override

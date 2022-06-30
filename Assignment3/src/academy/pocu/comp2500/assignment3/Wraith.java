@@ -23,7 +23,7 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     private boolean hasShield;
 
     public Wraith(IntVector2D position) {
-        super(position, HP, Symbol.Wraith, EUnitType.AIR);
+        super(position, HP, Symbol.WRAITH, EUnitType.AIR);
         this.hasShield = true;
         this.originalPosition = position;
     }

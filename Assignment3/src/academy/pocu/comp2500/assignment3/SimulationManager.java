@@ -107,7 +107,7 @@ public final class SimulationManager {
 
                 for (Unit unit : units) {
                     AttackIntent attackIntent = unit.attack();
-
+//                    System.out.println(String.format("%s attackIntent %c %s", unit.unitType, unit.getSymbol(), attackIntent));
                     if (attackIntent != null) {
                         this.attackIntents.add(attackIntent);
                     }

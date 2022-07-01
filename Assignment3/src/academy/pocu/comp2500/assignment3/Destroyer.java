@@ -5,7 +5,7 @@ public class Destroyer extends Unit {
     private static final int AREA_OF_EFFECT = 16;
     private static final int AP = 100000;
     private static final int HP = 100000;
-    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.AIR, EUnitType.INVISIBLE};
+    private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.AIR};
 
 
     public Destroyer(final IntVector2D position) {

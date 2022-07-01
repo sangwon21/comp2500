@@ -30,10 +30,16 @@ public class Mine extends Unit implements ICollidable {
 
     @Override
     public void collide(Unit unit) {
+//        System.out.println(String.format("collided units are %c ", unit.getSymbol()));
+//        System.out.println(String.format("collided units are %s ", unit.unitType));
         if (unit == this || unit.unitType == EUnitType.AIR) {
             return;
         }
-
+//        System.out.println(" +++++++++++++++++++++ ");
+//        System.out.println(String.format("this equals? %s", this == unit));
+//        System.out.println(String.format("collided units are %c ", unit.getSymbol()));
+//        System.out.println(String.format("collided units are %s ", unit.unitType));
+//        System.out.println(("+++++++++++++++++++++++++++"));
         if (unit.unitType == EUnitType.INVISIBLE) {
             this.threshold -= 1;
         }
@@ -43,6 +49,7 @@ public class Mine extends Unit implements ICollidable {
 
     @Override
     public AttackIntent attack() {
+//        System.out.println(String.format("Mine threshold %d", this.threshold));
         if (this.threshold > 0) {
             return null;
         }

@@ -58,27 +58,30 @@ public class SmartMine extends Mine implements IThinkable {
 
         int foundUnitCount = 0;
 
-        for (IntVector2D offset : VISION_OFFSETS) {
-            int offsetY = offset.getY();
-            int offsetX = offset.getX();
+        int minY = this.position.getY() - VISION;
+        int minX = this.position.getX() - VISION;
 
-            int targetY = offsetY + position.getY();
-            int targetX = offsetX + position.getX();
+        int maxY = this.position.getY() + VISION;
+        int maxX = this.position.getX() + VISION;
 
-            if (battleField.isValidPosition(targetY, targetX) == false) {
-                continue;
-            }
-
-            HashSet<Unit> unitSet = battleField.getUnitsFromPosition(targetY, targetX);
-
-            for (Unit unit : unitSet) {
-                if (unit == this || unit.unitType != EUnitType.GROUND) {
+        for (int y = minY; y <= maxY; y++) {
+            for (int x = minX; x <= maxX; x++) {
+                if (battleField.isValidPosition(y, x) == false) {
                     continue;
                 }
 
-                foundUnitCount++;
+                HashSet<Unit> unitSet = battleField.getUnitsFromPosition(y, x);
+
+                for (Unit unit : unitSet) {
+                    if (unit == this || unit.unitType != EUnitType.GROUND) {
+                        continue;
+                    }
+
+                    foundUnitCount++;
+                }
             }
         }
+
 
         return foundUnitCount >= this.minimumEnemyCount;
     }

@@ -40,10 +40,7 @@ public class Mine extends Unit implements ICollidable {
 //        System.out.println(String.format("collided units are %c ", unit.getSymbol()));
 //        System.out.println(String.format("collided units are %s ", unit.unitType));
 //        System.out.println(("+++++++++++++++++++++++++++"));
-        if (unit.unitType == EUnitType.INVISIBLE) {
-            this.threshold -= 1;
-        }
-
+        
         this.threshold -= 1;
     }
 

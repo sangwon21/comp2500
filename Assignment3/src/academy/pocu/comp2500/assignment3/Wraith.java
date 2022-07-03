@@ -25,7 +25,7 @@ public class Wraith extends Unit implements IMovable, IThinkable {
     public Wraith(IntVector2D position) {
         super(position, HP, Symbol.WRAITH, EUnitType.AIR);
         this.hasShield = true;
-        this.originalPosition = position;
+        this.originalPosition = new IntVector2D(position);
         this.usedShield = false;
     }
 
@@ -56,7 +56,9 @@ public class Wraith extends Unit implements IMovable, IThinkable {
 
         this.action = EActionType.MOVE;
         this.targetOrNull = findNextMovePosition();
+//        System.out.println(String.format("Wraith: findNExtMovePosition() %s %d %d originalPosition x: %d y: %d", this.targetOrNull, this.position.getX(), this.position.getY(), this.originalPosition.getX(), this.originalPosition.getY()));
         if (this.targetOrNull != null) {
+//            System.out.println(String.format("Wraith findNextMovePosition %c y: %d x: %d", findNextMovePosition().getSymbol(), findNextMovePosition().getPosition().getY(), findNextMovePosition().getPosition().getX()));
             this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
             return;
         }

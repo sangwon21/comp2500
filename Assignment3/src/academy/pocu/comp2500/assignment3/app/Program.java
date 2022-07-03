@@ -20,12 +20,23 @@ public class Program {
         {
             SimulationManager simulationManager = SimulationManager.getInstance();
 
-            Unit u0 = new Mine(new IntVector2D(12, 1), 2);
-            Unit u1 = new Marine(new IntVector2D(0, 5));
-            Unit u2 = new Turret(new IntVector2D(5, 6));
-            Unit u3 = new Tank(new IntVector2D(2, 4));
-            Unit u4 = new Marine(new IntVector2D(2, 4));
-            Unit u5 = new Wraith(new IntVector2D(2, 7));
+            Unit u0 = new Wraith(new IntVector2D(15, 0));
+            Unit u1 = new Marine(new IntVector2D(4, 3));
+            Unit u2 = new Marine(new IntVector2D(10, 5));
+            Unit u3 = new Turret(new IntVector2D(3, 4));
+            Unit u4 = new Wraith(new IntVector2D(14, 7));
+            Unit u5 = new Mine(new IntVector2D(14, 6), 3);
+            Unit u6 = new Mine(new IntVector2D(5, 0), 3);
+            Unit u7 = new SmartMine(new IntVector2D(8, 0), 3, 2);
+            Unit u8 = new Mine(new IntVector2D(4, 2), 3);
+            Unit u9 = new Tank(new IntVector2D(9, 6));
+            Unit u10 = new Turret(new IntVector2D(3, 7));
+            Unit u11 = new SmartMine(new IntVector2D(14, 3), 3, 1);
+            Unit u12 = new Tank(new IntVector2D(8, 0));
+            Unit u13 = new SmartMine(new IntVector2D(2, 4), 4, 1);
+            Unit u14 = new Wraith(new IntVector2D(10, 0));
+            Unit u15 = new Wraith(new IntVector2D(4, 5));
+
 
             ArrayList<Unit> units = new ArrayList<>();
 
@@ -35,17 +46,28 @@ public class Program {
             units.add(u3);
             units.add(u4);
             units.add(u5);
+            units.add(u6);
+            units.add(u7);
+            units.add(u8);
+            units.add(u9);
+            units.add(u10);
+            units.add(u11);
+            units.add(u12);
+            units.add(u13);
+            units.add(u14);
+            units.add(u15);
+
 
             for (Unit unit : units) {
                 simulationManager.spawn(unit);
             }
 
             SimulationVisualizer visualizer = new SimulationVisualizer(units);
-            for (int i = 0; i < 10; ++i) {
+            for (int i = 0; i < 12; ++i) {
                 clearConsole();
                 visualizer.visualize(i, simulationManager.getUnits());
                 simulationManager.update();
-                continueOnEnter();
+//                continueOnEnter();
             }
         }
     }

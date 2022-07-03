@@ -22,6 +22,16 @@ public class AttackIntent {
         this.selfAttack = selfAttack;
     }
 
+    public AttackIntent(AttackIntent other, int ap, int areaOfEffect) {
+        this.attacker = other.attacker;
+        this.y = other.y;
+        this.x = other.x;
+        this.ap = ap;
+        this.areaOfEffect = areaOfEffect;
+        this.possibleAttackUnitTypes = other.possibleAttackUnitTypes;
+        this.selfAttack = other.selfAttack;
+    }
+
     public void inflict(Set<Unit> attackedUnits) {
         final int fromY = this.y - this.areaOfEffect;
         final int fromX = this.x - this.areaOfEffect;

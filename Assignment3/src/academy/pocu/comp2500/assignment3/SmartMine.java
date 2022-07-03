@@ -33,7 +33,8 @@ public class SmartMine extends Mine implements IThinkable {
         AttackIntent attackIntentOrNull = super.attack();
 
         if (attackIntentOrNull != null) {
-            return attackIntentOrNull;
+            AttackIntent revisedApAttackIntent = new AttackIntent(attackIntentOrNull, AP, AREA_OF_EFFECT);
+            return revisedApAttackIntent;
         }
 
         if (this.action != EActionType.ATTACK) {

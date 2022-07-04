@@ -169,7 +169,7 @@ public class Marine extends Unit implements IThinkable, IMovable {
                     continue;
                 }
 
-                int distance = getDistanceFrom(unit);
+                int distance = getManhattanDistanceFrom(unit);
 
                 if (targetOrNull == null) {
                     targetOrNull = unit;

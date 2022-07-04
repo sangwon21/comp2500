@@ -234,12 +234,12 @@ public class Wraith extends Unit implements IMovable, IThinkable {
             HashSet<Unit> unitSet = battleField.getUnitsFromPosition(y, x);
 
             for (Unit unit : unitSet) {
-                System.out.println(String.format("Wraith position x: %d y: %d unit %c position x: %d, y: %d", this.position.getX(), this.position.getY(), unit.symbol, unit.getPosition().getX(), unit.getPosition().getY()));
+//                System.out.println(String.format("Wraith position x: %d y: %d unit %c position x: %d, y: %d", this.position.getX(), this.position.getY(), unit.symbol, unit.getPosition().getX(), unit.getPosition().getY()));
                 if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
                     continue;
                 }
 
-                int distance = getDistanceFrom(unit);
+                int distance = getManhattanDistanceFrom(unit);
 
                 if (unit.unitType == EUnitType.AIR) {
                     if (airTargetOrNull == null) {

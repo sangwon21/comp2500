@@ -114,7 +114,7 @@ public final class SimulationManager {
                 }
             }
         }
-
+        
         for (AttackIntent attackIntent : this.attackIntents) {
             attackIntent.inflict(attackedUnits);
         }

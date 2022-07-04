@@ -39,31 +39,27 @@ public abstract class Unit {
     protected static IntVector2D[] getVisionOffsets(int vision) {
         ArrayList<IntVector2D> offsets = new ArrayList<>();
 
-        for (int i = 1; i <= vision; i++) {
-
-            // 12시 방향부터 시작
-            for (int j = 0; j <= i; j++) {
-                offsets.add(new IntVector2D(j, -i));
+        for (int x = 0; x <= vision; x++) {
+            for (int y = -1; y >= -vision; y--) {
+                offsets.add(new IntVector2D(x, y));
             }
+        }
 
-            // 오른쪽
-            for (int j = -i + 1; j <= i; j++) {
-                offsets.add(new IntVector2D(i, j));
+        for (int y = 0; y <= vision; y++) {
+            for (int x = 1; x <= vision; x++) {
+                offsets.add(new IntVector2D(x, y));
             }
+        }
 
-            // 아래쪽
-            for (int j = i - 1; j >= -i; j--) {
-                offsets.add(new IntVector2D(j, i));
+        for (int x = 0; x >= -vision; x--) {
+            for (int y = 1; y <= vision; y++) {
+                offsets.add(new IntVector2D(x, y));
             }
+        }
 
-            // 왼쪽
-            for (int j = i - 1; j >= -i; j--) {
-                offsets.add(new IntVector2D(-i, j));
-            }
-
-            // 위쪽 나머지
-            for (int j = -i + 1; j < 0; j++) {
-                offsets.add(new IntVector2D(j, -i));
+        for (int y = 0; y >= -vision; y--) {
+            for (int x = -1; x >= -vision; x--) {
+                offsets.add(new IntVector2D(x, y));
             }
         }
 
@@ -73,4 +69,9 @@ public abstract class Unit {
     public int getDistanceFrom(Unit unit) {
         return Math.max(Math.abs(this.position.getY() - unit.position.getY()), Math.abs(this.position.getX() - unit.position.getX()));
     }
+
+    public int getManhattanDistanceFrom(Unit unit) {
+        return Math.abs(this.position.getY() - unit.position.getY()) + Math.abs(this.position.getX() - unit.position.getX());
+    }
+
 }

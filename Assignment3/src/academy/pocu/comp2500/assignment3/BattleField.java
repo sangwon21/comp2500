@@ -37,15 +37,7 @@ public class BattleField {
         this.map.get(y).get(x).remove(unit);
     }
 
-    public boolean isValidPosition(int y, int x) {
+    public boolean isValidPosition(final int y, final int x) {
         return 0 <= y && y < Y_LENGTH && 0 <= x && x < X_LENGTH;
-    }
-
-    public void clear() {
-        for (int y = 0; y < this.map.size(); y++) {
-            for (int x = 0; x < this.map.get(0).size(); x++) {
-                this.map.get(y).get(x).clear();
-            }
-        }
     }
 }

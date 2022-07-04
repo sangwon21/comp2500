@@ -22,7 +22,6 @@ public class Tank extends Unit implements IMovable, IThinkable {
             new IntVector2D(-2, -1),
             new IntVector2D(-1, -2),
     };
-    private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
     private IntVector2D targetOrNull;
     private ETankMode mode;
     private boolean moveToRightDirection;
@@ -47,11 +46,8 @@ public class Tank extends Unit implements IMovable, IThinkable {
 
     @Override
     public void think() {
-//        System.out.println("Tank Mode is " + this.mode);
-
         this.targetOrNull = findAttackTargetOrNull();
         // 공격가능
-//        System.out.println("targetOrNull in Tank is " + this.targetOrNull);
         if (this.targetOrNull != null) {
             if (this.mode == ETankMode.SIEGE) {
                 this.action = EActionType.ATTACK;
@@ -65,7 +61,6 @@ public class Tank extends Unit implements IMovable, IThinkable {
 
         // 시야에 확보
         this.targetOrNull = findTargetInVisionOrNull();
-//        System.out.println("Move TargetORNULL find target In Vision or Null" + this.targetOrNull);
         if (targetOrNull != null) {
             if (this.mode == ETankMode.TANK) {
                 this.mode = ETankMode.SIEGE;
@@ -76,7 +71,6 @@ public class Tank extends Unit implements IMovable, IThinkable {
         }
 
         // 이동
-//        System.out.println("FINAL MOVE");
         if (this.mode == ETankMode.TANK) {
             this.action = EActionType.MOVE;
             return;

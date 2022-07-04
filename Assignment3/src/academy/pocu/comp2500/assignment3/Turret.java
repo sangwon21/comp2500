@@ -19,7 +19,6 @@ public class Turret extends Unit implements IThinkable {
             new IntVector2D(-1, 0),
             new IntVector2D(-1, -1)
     };
-    private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
     private Unit targetOrNull;
     private IntVector2D targetPos;
 

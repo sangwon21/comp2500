@@ -12,7 +12,7 @@ public class AttackIntent {
     EUnitType[] possibleAttackUnitTypes;
     private boolean selfAttack;
 
-    public AttackIntent(Unit attacker, int y, int x, int ap, int areaOfEffect, EUnitType[] possibleAttackUnitTypes, boolean selfAttack) {
+    public AttackIntent(final Unit attacker, final int y, final int x, final int ap, final int areaOfEffect, final EUnitType[] possibleAttackUnitTypes, final boolean selfAttack) {
         this.attacker = attacker;
         this.y = y;
         this.x = x;
@@ -22,7 +22,7 @@ public class AttackIntent {
         this.selfAttack = selfAttack;
     }
 
-    public AttackIntent(AttackIntent other, int ap, int areaOfEffect) {
+    public AttackIntent(final AttackIntent other, final int ap, final int areaOfEffect) {
         this.attacker = other.attacker;
         this.y = other.y;
         this.x = other.x;
@@ -32,7 +32,7 @@ public class AttackIntent {
         this.selfAttack = other.selfAttack;
     }
 
-    public void inflict(Set<Unit> attackedUnits) {
+    public void inflict(final Set<Unit> attackedUnits) {
         final int fromY = this.y - this.areaOfEffect;
         final int fromX = this.x - this.areaOfEffect;
 
@@ -70,15 +70,12 @@ public class AttackIntent {
         }
     }
 
-    // (공격 지점에서의 피해치) * (1 - 공격 지점으로부터의 거리 / (공격의 AoE 값 + 1))
-    private int calculateDamage(int unitY, int unitX) {
+    private int calculateDamage(final int unitY, final int unitX) {
 
         int distance = Math.max(Math.abs(unitY - this.y), Math.abs(unitX - this.x));
 
         int damage = (int) ((double) this.ap * (1.0 - distance / ((double) this.areaOfEffect + 1.0)));
-
-//        System.out.println(String.format("Damage: %d from Y: %d X: %d symbol: %c", damage, y, x, this.attacker.symbol));
-//        System.out.println(String.format("Damage to Y: %d X: %d symbol %c", unitY, unitX, unit.symbol));
+        
         return damage;
     }
 }

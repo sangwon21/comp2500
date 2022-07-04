@@ -7,7 +7,6 @@ public class SmartMine extends Mine implements IThinkable {
     private static final int AREA_OF_EFFECT = 1;
     private static final int AP = 15;
     private static final EUnitType[] POSSIBLE_ATTACK_UNIT_TYPES = {EUnitType.GROUND, EUnitType.INVISIBLE};
-    private static final IntVector2D[] VISION_OFFSETS = getVisionOffsets(VISION);
     private final int minimumEnemyCount;
 
     public SmartMine(final IntVector2D position, final int threshold, final int minimumEnemyCount) {

@@ -58,9 +58,7 @@ public class Wraith extends Unit implements IMovable, IThinkable {
 
         this.action = EActionType.MOVE;
         this.targetOrNull = findNextMovePosition();
-//        System.out.println(String.format("Wraith: findNExtMovePosition() %s %d %d originalPosition x: %d y: %d", this.targetOrNull, this.position.getX(), this.position.getY(), this.originalPosition.getX(), this.originalPosition.getY()));
         if (this.targetOrNull != null) {
-//            System.out.println(String.format("Wraith findNextMovePosition %c y: %d x: %d", findNextMovePosition().getSymbol(), findNextMovePosition().getPosition().getY(), findNextMovePosition().getPosition().getX()));
             this.targetPos = new IntVector2D(this.targetOrNull.getPosition());
             return;
         }
@@ -234,7 +232,6 @@ public class Wraith extends Unit implements IMovable, IThinkable {
             HashSet<Unit> unitSet = battleField.getUnitsFromPosition(y, x);
 
             for (Unit unit : unitSet) {
-//                System.out.println(String.format("Wraith position x: %d y: %d unit %c position x: %d, y: %d", this.position.getX(), this.position.getY(), unit.symbol, unit.getPosition().getX(), unit.getPosition().getY()));
                 if (unit == this || unit.unitType == EUnitType.INVISIBLE) {
                     continue;
                 }

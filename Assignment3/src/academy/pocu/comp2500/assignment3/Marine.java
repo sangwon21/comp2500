@@ -85,7 +85,6 @@ public class Marine extends Unit implements IThinkable, IMovable {
         battleField.move(this.position.getY(), this.position.getX(), fromY, fromX, this);
         this.position.setX(fromX);
         this.position.setY(fromY);
-//        System.out.println(String.format("Marine Position: Y %d X %d ", fromY, fromX));
     }
 
     @Override

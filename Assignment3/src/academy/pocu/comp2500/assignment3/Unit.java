@@ -66,10 +66,6 @@ public abstract class Unit {
         return offsets.toArray(new IntVector2D[0]);
     }
 
-    public int getDistanceFrom(Unit unit) {
-        return Math.max(Math.abs(this.position.getY() - unit.position.getY()), Math.abs(this.position.getX() - unit.position.getX()));
-    }
-
     public int getManhattanDistanceFrom(Unit unit) {
         return Math.abs(this.position.getY() - unit.position.getY()) + Math.abs(this.position.getX() - unit.position.getX());
     }

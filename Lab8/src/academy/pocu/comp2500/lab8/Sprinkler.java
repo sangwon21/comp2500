@@ -47,6 +47,7 @@ public class Sprinkler extends SmartDevice implements ISprayable {
             }
 
             currentScheduleOrNull = schedules.get(0);
+            schedules.remove(0);
             break;
         }
 

@@ -27,28 +27,40 @@ public class Sprinkler extends SmartDevice implements ISprayable {
     public void onTick() {
         this.currentTick++;
 
-        while (this.schedules.size() > 0 && (currentScheduleOrNull == null || isValidSchedule(currentScheduleOrNull) == false)) {
-            if (currentScheduleOrNull != null && currentScheduleOrNull.getEndTick() == currentTick) {
-                this.setOn(false);
+        if (currentScheduleOrNull != null && isValidSchedule(currentScheduleOrNull) == true) {
+            setOn(true);
 
-                currentScheduleOrNull = null;
+            if (this.currentScheduleOrNull.getEndTick() == currentTick) {
+                this.currentScheduleOrNull = null;
+            }
+
+            return;
+        }
+
+        // currentScheduleOrNull null or isValidSchedule true
+        while (this.schedules.size() > 0) {
+            if (this.currentScheduleOrNull != null && this.currentScheduleOrNull.getEndTick() == currentTick) {
+                this.setOn(false);
+                this.currentScheduleOrNull = null;
                 return;
             }
 
-            currentScheduleOrNull = null;
-            if (isValidSchedule(this.schedules.get(0)) == false) {
-                schedules.remove(0);
+            if (this.schedules.get(0).getStartTick() < currentTick) {
+                this.schedules.remove(0);
                 continue;
             }
 
-            if (this.schedules.get(0).getStartTick() > currentTick) {
-                this.on = false;
+            if (this.schedules.get(0).getStartTick() == currentTick) {
+                this.currentScheduleOrNull = this.schedules.get(0);
+                this.schedules.remove(0);
+                this.setOn(true);
                 return;
             }
 
-            currentScheduleOrNull = schedules.get(0);
-            schedules.remove(0);
-            break;
+            if (this.schedules.get(0).getStartTick() > currentTick) {
+                setOn(false);
+                return;
+            }
         }
 
         if (currentScheduleOrNull == null) {
@@ -57,7 +69,7 @@ public class Sprinkler extends SmartDevice implements ISprayable {
         }
 
         if (isValidSchedule(currentScheduleOrNull)) {
-            if (currentScheduleOrNull.getStartTick() <= this.currentTick) {
+            if (currentScheduleOrNull.getStartTick() == this.currentTick) {
                 setOn(true);
                 return;
             }

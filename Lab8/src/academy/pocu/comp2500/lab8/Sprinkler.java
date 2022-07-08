@@ -28,8 +28,11 @@ public class Sprinkler extends SmartDevice implements ISprayable {
         this.currentTick++;
 
         if (currentScheduleOrNull != null && isValidSchedule(currentScheduleOrNull) == true) {
-            setOn(true);
-
+            if (currentScheduleOrNull.getInUse()) {
+                setOn(true);
+                return;
+            }
+            setOn(false);
             return;
         }
 
@@ -41,14 +44,24 @@ public class Sprinkler extends SmartDevice implements ISprayable {
                 return;
             }
 
-            if (this.schedules.get(0).getStartTick() < currentTick) {
+            if (this.schedules.get(0).getEndTick() < currentTick) {
                 this.schedules.remove(0);
                 continue;
+            }
+
+            if (this.schedules.get(0).getStartTick() < currentTick) {
+                this.currentScheduleOrNull = this.schedules.get(0);
+                this.currentScheduleOrNull.setInUse(false);
+                this.schedules.remove(0);
+                this.setOn(false);
+                ;
+                return;
             }
 
             if (this.schedules.get(0).getStartTick() == currentTick) {
                 this.currentScheduleOrNull = this.schedules.get(0);
                 this.schedules.remove(0);
+                this.currentScheduleOrNull.setInUse(true);
                 this.setOn(true);
                 return;
             }

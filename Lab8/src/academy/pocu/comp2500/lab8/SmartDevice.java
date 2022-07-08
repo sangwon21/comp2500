@@ -28,6 +28,10 @@ public abstract class SmartDevice {
         return this.currentTick - this.lastUpdatedTick;
     }
 
+    public int getLastUpdatedTick() {
+        return this.lastUpdatedTick;
+    }
+
     public boolean isOn() {
         return this.on;
     }

@@ -5,11 +5,19 @@ import java.util.Collections;
 
 public class SkyIsTheLimit implements IPricingModel {
     private int minimumPrice;
-    private int minimumPriceBookCount;
 
     public SkyIsTheLimit(int price) {
         this.minimumPrice = price;
-        this.minimumPriceBookCount = 0;
+    }
+
+    private double getSumLimitedByIndex(ArrayList<Book> books, int limit) {
+        double sum = 0;
+        for (int i = 0; i < limit; i++) {
+            Book book = books.get(i);
+            sum += book.getPrice();
+        }
+
+        return sum;
     }
 
     @Override
@@ -18,17 +26,20 @@ public class SkyIsTheLimit implements IPricingModel {
 
         books.sort((a, b) -> a.getPrice() - b.getPrice());
 
-        for (int i = books.size() - 1; i >= 0; i--) {
-            Book book = books.get(i);
-            int price = book.getPrice();
+        for (Book book : books) {
+            sum += book.getPrice();
+        }
 
-            if (price >= minimumPrice && minimumPriceBookCount < 2) {
-                sum += price * 0.5;
-                minimumPriceBookCount++;
-                continue;
+        if (sum >= this.minimumPrice) {
+            if (books.size() >= 2) {
+                sum = getSumLimitedByIndex(books, books.size() - 2);
+                sum += 0.5 * (books.get(books.size() - 1).getPrice() + books.get(books.size() - 2).getPrice());
+                return (int) sum;
             }
+            sum = getSumLimitedByIndex(books, books.size() - 1);
+            sum += 0.5 * (books.get(books.size() - 1).getPrice());
 
-            sum += price;
+            return (int) sum;
         }
 
         return (int) sum;

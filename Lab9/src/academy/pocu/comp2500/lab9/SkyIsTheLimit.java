@@ -24,23 +24,23 @@ public class SkyIsTheLimit implements IPricingModel {
     public final int getTotalPrice(final ArrayList<Book> books) {
         double sum = 0;
 
-        books.sort((a, b) -> a.getPrice() - b.getPrice());
-
         for (Book book : books) {
             sum += book.getPrice();
         }
 
-        if (sum >= this.minimumPrice) {
-            if (books.size() >= 2) {
-                sum = getSumLimitedByIndex(books, books.size() - 2);
-                sum += 0.5 * (books.get(books.size() - 1).getPrice() + books.get(books.size() - 2).getPrice());
-                return (int) sum;
-            }
-            sum = getSumLimitedByIndex(books, books.size() - 1);
-            sum += 0.5 * (books.get(books.size() - 1).getPrice());
-
+        if (sum < minimumPrice || books.size() < 5) {
             return (int) sum;
         }
+
+        books.sort((a, b) -> a.getPrice() - b.getPrice());
+
+        if (books.size() >= 2) {
+            sum = getSumLimitedByIndex(books, books.size() - 2);
+            sum += 0.5 * (books.get(books.size() - 1).getPrice() + books.get(books.size() - 2).getPrice());
+            return (int) sum;
+        }
+        sum = getSumLimitedByIndex(books, books.size() - 1);
+        sum += 0.5 * (books.get(books.size() - 1).getPrice());
 
         return (int) sum;
     }

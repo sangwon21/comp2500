@@ -1,9 +1,7 @@
 package academy.pocu.comp2500.lab9;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class DecadeMadness implements IPricingModel {
     private HashMap<Integer, ArrayList<Integer>> bookMap;

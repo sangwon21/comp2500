@@ -47,6 +47,6 @@ public class Program {
 
         assert (model0.getTotalPrice(books) == 105);
         assert (model1.getTotalPrice(books) == 100);
-        assert (model2.getTotalPrice(books) == 106);
+        assert (model2.getTotalPrice(new ArrayList<Book>()) == 0);
     }
 }

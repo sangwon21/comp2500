@@ -28,7 +28,11 @@ public class SkyIsTheLimit implements IPricingModel {
             sum += book.getPrice();
         }
 
-        if (sum < minimumPrice || books.size() < 5) {
+        if (sum < minimumPrice) {
+            return (int) sum;
+        }
+
+        if (books.size() < 5) {
             return (int) sum;
         }
 
@@ -38,11 +42,11 @@ public class SkyIsTheLimit implements IPricingModel {
         sum = 0;
 
         for (int i = 0; i < limit; i++) {
-            sum += books.get(i).getPrice();
+            sum += (double) books.get(i).getPrice();
         }
 
         for (int i = limit; i < books.size(); i++) {
-            sum += (books.get(i).getPrice()) * 0.5;
+            sum += (double) (books.get(i).getPrice()) * 0.5;
         }
 
         return (int) sum;

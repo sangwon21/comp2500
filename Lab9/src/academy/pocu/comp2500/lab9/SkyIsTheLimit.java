@@ -34,13 +34,16 @@ public class SkyIsTheLimit implements IPricingModel {
 
         books.sort((a, b) -> a.getPrice() - b.getPrice());
 
-        if (books.size() >= 2) {
-            sum = getSumLimitedByIndex(books, books.size() - 2);
-            sum += 0.5 * (books.get(books.size() - 1).getPrice() + books.get(books.size() - 2).getPrice());
-            return (int) sum;
+        int limit = books.size() - 2;
+        sum = 0;
+
+        for (int i = 0; i < limit; i++) {
+            sum += books.get(i).getPrice();
         }
-        sum = getSumLimitedByIndex(books, books.size() - 1);
-        sum += 0.5 * (books.get(books.size() - 1).getPrice());
+
+        for (int i = limit; i < books.size(); i++) {
+            sum += (books.get(i).getPrice()) * 0.5;
+        }
 
         return (int) sum;
     }

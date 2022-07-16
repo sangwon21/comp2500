@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DecadeMadness implements IPricingModel {
-    private HashMap<Integer, ArrayList<Integer>> bookMap;
+    private HashMap<Integer, ArrayList<Book>> bookMap;
 
     public DecadeMadness() {
         bookMap = new HashMap<>();
@@ -21,13 +21,13 @@ public class DecadeMadness implements IPricingModel {
             int yearInDecade = getYearInDecade(book.getPublishedYear());
 
             if (bookMap.containsKey(yearInDecade)) {
-                ArrayList<Integer> bookPrices = bookMap.get(yearInDecade);
+                ArrayList<Book> bookPrices = bookMap.get(yearInDecade);
 
-                bookPrices.add(book.getPrice());
+                bookPrices.add(book);
                 continue;
             }
-            ArrayList<Integer> bookPrices = new ArrayList();
-            bookPrices.add(book.getPrice());
+            ArrayList<Book> bookPrices = new ArrayList<>();
+            bookPrices.add(book);
 
             bookMap.put(yearInDecade, bookPrices);
         }
@@ -40,16 +40,16 @@ public class DecadeMadness implements IPricingModel {
         putPricesIntoMap(books);
 
         for (int year : bookMap.keySet()) {
-            ArrayList<Integer> bookPrices = bookMap.get(year);
+            ArrayList<Book> bookPrices = bookMap.get(year);
             double localSum = 0;
             if (bookPrices.size() == 1) {
-                sum += bookPrices.get(0);
+                sum += bookPrices.get(0).getPrice();
                 continue;
             }
 
             if (bookPrices.size() >= 2) {
-                for (int bookPrice : bookPrices) {
-                    localSum += bookPrice;
+                for (Book bookPrice : bookPrices) {
+                    localSum += bookPrice.getPrice();
                 }
             }
 
@@ -57,7 +57,7 @@ public class DecadeMadness implements IPricingModel {
         }
 
         for (int year : bookMap.keySet()) {
-            ArrayList<Integer> bookPrices = bookMap.get(year);
+            ArrayList<Book> bookPrices = bookMap.get(year);
             bookPrices.clear();
         }
         bookMap.clear();

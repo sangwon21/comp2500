@@ -36,7 +36,7 @@ public class MovieStore implements IRequestHandler {
 
     @Override
     public ResultBase handle(Request request) {
-        if (this.movies.contains(request.getTitle())) {
+        if (this.movieMap.containsKey(request.getTitle())) {
             return new OkResult(this.movieMap.get(request.getTitle()));
         }
         return new NotFoundResult();

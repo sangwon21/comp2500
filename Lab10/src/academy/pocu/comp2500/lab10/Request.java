@@ -22,4 +22,24 @@ public class Request {
     public String getTitle() {
         return this.title;
     }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Request) || obj.hashCode() != this.hashCode()) {
+            return false;
+        }
+
+        Request other = (Request) obj;
+
+        return this.title.equals(other.title) && this.user.equals(other.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.title.hashCode() ^ this.user.hashCode() << 13;
+    }
 }

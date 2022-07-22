@@ -9,7 +9,7 @@ public final class MaintenanceMiddleware implements IRequestHandler {
     private static final Duration MAINTENANCE_TIME = Duration.ofHours(1);
     private IRequestHandler requestHandler;
     private OffsetDateTime startDateTime;
-    private  OffsetDateTime endDateTime;
+    private OffsetDateTime endDateTime;
 
     public MaintenanceMiddleware(final IRequestHandler requestHandler, final OffsetDateTime startDateTime) {
         this.requestHandler = requestHandler;

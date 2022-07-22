@@ -23,7 +23,7 @@ public class CacheMiddleware implements IRequestHandler {
             int usedCount = this.cacheUsedCountMap.get(request) + 1;
 
 
-            if (usedCount < this.expiryCount) {
+            if (usedCount <= this.expiryCount) {
                 this.cacheUsedCountMap.put(request, usedCount);
                 return new CachedResult(this.expiryCount - usedCount);
             }

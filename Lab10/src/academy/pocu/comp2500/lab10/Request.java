@@ -14,4 +14,12 @@ public class Request {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
 }

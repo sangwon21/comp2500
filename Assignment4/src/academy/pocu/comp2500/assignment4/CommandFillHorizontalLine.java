@@ -21,7 +21,7 @@ public class CommandFillHorizontalLine extends Command {
     }
 
     @Override
-    protected final boolean canRevert(Canvas canvas) {
+    protected boolean canRevert(Canvas canvas) {
         if (this.afterSaved == null) {
             return false;
         }
@@ -36,7 +36,7 @@ public class CommandFillHorizontalLine extends Command {
     }
 
     @Override
-    protected final boolean executeCommand(Canvas canvas) {
+    protected boolean executeCommand(Canvas canvas) {
         if (isValidY(this.y) == false) {
             return false;
         }
@@ -55,7 +55,7 @@ public class CommandFillHorizontalLine extends Command {
     }
 
     @Override
-    protected final void undoCommand(Canvas canvas) {
+    protected void undoCommand(Canvas canvas) {
         for (int x = 0; x < canvas.getWidth(); x++) {
             canvas.drawPixel(x, this.y, this.beforeSaved[x]);
         }

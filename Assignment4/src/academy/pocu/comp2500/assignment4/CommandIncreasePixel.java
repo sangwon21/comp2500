@@ -14,7 +14,7 @@ public class CommandIncreasePixel extends Command {
     }
 
     @Override
-    protected final boolean canRevert(Canvas canvas) {
+    protected boolean canRevert(Canvas canvas) {
         if (this.afterSaved == (char) DEFAULT_CHAR) {
             return false;
         }
@@ -24,13 +24,13 @@ public class CommandIncreasePixel extends Command {
 
 
     @Override
-    protected final void setAfterSaved(Canvas canvas) {
+    protected void setAfterSaved(Canvas canvas) {
         this.afterSaved = canvas.getPixel(this.x, this.y);
     }
 
     @Override
-    protected final boolean executeCommand(Canvas canvas) {
-        if (isValidPosition(this.x, this.y)) {
+    protected boolean executeCommand(Canvas canvas) {
+        if (isValidPosition(this.x, this.y) == false) {
             return false;
         }
 
@@ -42,7 +42,7 @@ public class CommandIncreasePixel extends Command {
     }
 
     @Override
-    protected final void undoCommand(Canvas canvas) {
+    protected void undoCommand(Canvas canvas) {
         canvas.drawPixel(this.x, this.y, this.beforeSaved);
     }
 }

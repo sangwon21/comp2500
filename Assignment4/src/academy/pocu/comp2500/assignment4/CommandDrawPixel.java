@@ -17,7 +17,7 @@ public class CommandDrawPixel extends Command {
     }
 
     @Override
-    protected final boolean canRevert(Canvas canvas) {
+    protected boolean canRevert(Canvas canvas) {
         if (this.afterSaved == (char) 0) {
             return false;
         }
@@ -26,7 +26,7 @@ public class CommandDrawPixel extends Command {
     }
 
     @Override
-    protected final void setAfterSaved(Canvas canvas) {
+    protected void setAfterSaved(Canvas canvas) {
         this.afterSaved = canvas.getPixel(this.x, this.y);
     }
 

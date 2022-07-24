@@ -17,20 +17,20 @@ public abstract class Command implements ICommand {
 
     protected abstract void undoCommand(final Canvas canvas);
 
-    protected final boolean isValidX(int x) {
+    protected boolean isValidX(int x) {
         return 0 <= x && x < canvas.getWidth();
     }
 
-    protected final boolean isValidY(int y) {
+    protected boolean isValidY(int y) {
         return 0 <= y && y < canvas.getHeight();
     }
 
-    protected final boolean isValidPosition(int x, int y) {
+    protected boolean isValidPosition(int x, int y) {
         return 0 <= x && x < canvas.getWidth() && 0 <= y && y < canvas.getHeight();
     }
 
     @Override
-    public final boolean execute(final Canvas canvas) {
+    public boolean execute(final Canvas canvas) {
         if (this.canvas != null) {
             return false;
         }
@@ -46,7 +46,7 @@ public abstract class Command implements ICommand {
     }
 
     @Override
-    public final boolean undo() {
+    public boolean undo() {
         if (this.canvas == null || this.undoAvailable == false || canRevert(this.canvas) == false) {
             return false;
         }
@@ -59,7 +59,7 @@ public abstract class Command implements ICommand {
     }
 
     @Override
-    public final boolean redo() {
+    public boolean redo() {
         if (this.canvas == null || this.undoAvailable || canRevert(this.canvas) == false) {
             return false;
         }

@@ -15,7 +15,7 @@ public class Canvas {
         }
     }
 
-    public final String getDrawing() {
+    public String getDrawing() {
         StringBuilder sb = new StringBuilder();
 
         // 첫번째 줄
@@ -59,11 +59,11 @@ public class Canvas {
         this.canvas[y][x] = character;
     }
 
-    public final char getPixel(int x, int y) {
+    public char getPixel(int x, int y) {
         return this.canvas[y][x];
     }
 
-    public final boolean increasePixel(int x, int y) {
+    public boolean increasePixel(int x, int y) {
         if (this.getPixel(x, y) >= MAX_CHAR) {
             return false;
         }
@@ -72,7 +72,7 @@ public class Canvas {
         return true;
     }
 
-    public final boolean decreasePixel(int x, int y) {
+    public boolean decreasePixel(int x, int y) {
         if (this.getPixel(x, y) <= MIN_CHAR) {
             return false;
         }
@@ -81,27 +81,27 @@ public class Canvas {
         return true;
     }
 
-    public final void toUpper(int x, int y) {
+    public void toUpper(int x, int y) {
         this.drawPixel(x, y, Character.toUpperCase(this.getPixel(x, y)));
     }
 
-    public final void toLower(int x, int y) {
+    public void toLower(int x, int y) {
         this.drawPixel(x, y, Character.toLowerCase(this.getPixel(x, y)));
     }
 
-    public final void fillHorizontalLine(int y, char character) {
+    public void fillHorizontalLine(int y, char character) {
         for (int x = 0; x < this.getWidth(); ++x) {
             this.drawPixel(x, y, character);
         }
     }
 
-    public final void fillVerticalLine(int x, char character) {
+    public void fillVerticalLine(int x, char character) {
         for (int y = 0; y < this.getHeight(); ++y) {
             this.drawPixel(x, y, character);
         }
     }
 
-    public final void clear() {
+    public void clear() {
         for (int y = 0; y < this.getHeight(); ++y) {
             for (int x = 0; x < this.getWidth(); ++x) {
                 this.drawPixel(x, y, ' ');

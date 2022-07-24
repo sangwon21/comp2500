@@ -14,7 +14,7 @@ public class CommandToLower extends Command {
     }
 
     @Override
-    protected final boolean canRevert(final Canvas canvas) {
+    protected boolean canRevert(final Canvas canvas) {
         if (this.afterSaved == DEFAULT_CHAR) {
             return false;
         }
@@ -23,12 +23,12 @@ public class CommandToLower extends Command {
     }
 
     @Override
-    protected final void setAfterSaved(final Canvas canvas) {
+    protected void setAfterSaved(final Canvas canvas) {
         this.afterSaved = canvas.getPixel(this.x, this.y);
     }
 
     @Override
-    protected final boolean executeCommand(final Canvas canvas) {
+    protected boolean executeCommand(final Canvas canvas) {
         if (this.isValidPosition(x, y) == false) {
             return false;
         }
@@ -42,9 +42,7 @@ public class CommandToLower extends Command {
     }
 
     @Override
-    protected final void undoCommand(final Canvas canvas) {
+    protected void undoCommand(final Canvas canvas) {
         canvas.drawPixel(this.x, this.y, this.beforeSaved);
     }
-
-
 }

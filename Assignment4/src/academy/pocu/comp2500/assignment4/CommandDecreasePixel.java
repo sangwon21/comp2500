@@ -29,7 +29,7 @@ public class CommandDecreasePixel extends Command {
 
     @Override
     protected boolean executeCommand(Canvas canvas) {
-        if (isValidPosition(x, y)) {
+        if (isValidPosition(x, y) == false) {
             return false;
         }
 

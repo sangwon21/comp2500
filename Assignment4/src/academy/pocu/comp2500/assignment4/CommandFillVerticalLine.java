@@ -29,7 +29,7 @@ public class CommandFillVerticalLine extends Command {
     }
 
     @Override
-    protected final void setAfterSaved(Canvas canvas) {
+    protected void setAfterSaved(Canvas canvas) {
         for (int y = 0; y < canvas.getHeight(); y++) {
             this.afterSaved[y] = canvas.getPixel(this.x, y);
         }
@@ -37,7 +37,7 @@ public class CommandFillVerticalLine extends Command {
 
     @Override
     public boolean executeCommand(Canvas canvas) {
-        if (isValidX(this.x)) {
+        if (isValidX(this.x) == false) {
             return false;
         }
 

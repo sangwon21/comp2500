@@ -1,9 +1,10 @@
 package academy.pocu.comp2500.assignment4;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class OverdrawAnalyzer extends Canvas {
-    private ArrayList<ArrayList<Character>> historyArray;
+    private ArrayList<LinkedList<Character>> historyArray;
 
     public OverdrawAnalyzer(final int width, final int height) {
         super(width, height);
@@ -11,7 +12,7 @@ public class OverdrawAnalyzer extends Canvas {
         this.historyArray = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.historyArray.add(new ArrayList<>());
+                this.historyArray.add(new LinkedList<>());
             }
         }
     }
@@ -23,14 +24,14 @@ public class OverdrawAnalyzer extends Canvas {
         }
 
         if (this.historyArray != null) {
-            ArrayList<Character> history = getPixelHistory(x, y);
+            LinkedList<Character> history = getPixelHistory(x, y);
             history.add(text);
         }
 
         super.drawPixel(x, y, text);
     }
 
-    public ArrayList<Character> getPixelHistory(int x, int y) {
+    public LinkedList<Character> getPixelHistory(int x, int y) {
         return this.historyArray.get(x + y * getWidth());
     }
 

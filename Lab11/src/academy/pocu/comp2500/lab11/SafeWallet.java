@@ -7,9 +7,10 @@ public final class SafeWallet extends Wallet {
     public SafeWallet(final User user) throws IllegalAccessException {
         super(user);
     }
+
     public boolean deposit(final int amount) {
         if (getAmount() > 0 && getAmount() + amount <= 0) {
-            throw new OverflowException("");
+            throw new OverflowException("Overflow");
         }
 
         return super.deposit(amount);

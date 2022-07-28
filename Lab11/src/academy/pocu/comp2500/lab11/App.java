@@ -59,6 +59,13 @@ public final class App {
             wallet = new SafeWallet(user);
         } catch (IllegalAccessException e) {
             err.printf("%s%s", AUTH_ERROR, System.lineSeparator());
+            try {
+                in.close();
+                err.close();
+                out.close();
+            } catch (Exception e1) {
+                return;
+            }
             return;
         }
 
@@ -74,7 +81,7 @@ public final class App {
 
             int selectedWarehouseFromUser;
             try {
-                final String read = in.readLine();
+                String read = in.readLine();
                 if (read.equals(EXIT)) {
                     in.close();
                     err.close();
@@ -88,7 +95,7 @@ public final class App {
             }
 
             if (1 <= selectedWarehouseFromUser && selectedWarehouseFromUser <= products.size()) {
-                final Product product = products.get(selectedWarehouseFromUser - 1);
+                Product product = products.get(selectedWarehouseFromUser - 1);
 
                 if (!wallet.withdraw(product.getPrice())) {
                     continue;

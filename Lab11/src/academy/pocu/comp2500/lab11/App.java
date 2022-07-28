@@ -38,6 +38,7 @@ public final class App {
             try {
                 String read = in.readLine();
                 if (read.equals(EXIT)) {
+                    in.close();
                     err.close();
                     out.close();
                     return;
@@ -75,6 +76,7 @@ public final class App {
             try {
                 final String read = in.readLine();
                 if (read.equals(EXIT)) {
+                    in.close();
                     err.close();
                     out.close();
                     return;
